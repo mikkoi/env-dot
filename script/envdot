@@ -207,6 +207,10 @@ Otherwise, it respects the command line parameter.
 If no parameter, then default value is used. Default is the file
 F<.env> in the current directory.
 
+=head1 DEPENDENCIES
+
+No external dependencies outside Perl's standard distribution.
+
 =head1 SEE ALSO
 
 L<Env::Assert> will verify that you certainly have those environmental

@@ -29,7 +29,7 @@ use constant  {
 
 =pod
 
-=for stopwords params env dotenv
+=for stopwords envdot env
 
 =head1 STATUS
 
@@ -68,6 +68,11 @@ the command line tool B<envdot>.
 
 No functions are automatically exported to the calling namespace.
 
+=head2 get_dotenv_vars()
+
+Return all variables from the F<.env> file
+as a hash (name/value pairs).
+
 =cut
 
 sub get_dotenv_vars {
@@ -88,7 +93,7 @@ sub get_dotenv_vars {
 
 =head2 interpret_dotenv_filepath_var( $filepaths )
 
-Return a list of filepaths.
+Return a list of file paths.
 
 =cut
 
@@ -108,7 +113,7 @@ sub _interpret_dotenv {
         ## no critic (ControlStructures::ProhibitCascadingIfElse)
         ## no critic (RegularExpressions::ProhibitComplexRegexes)
         if(
-            # This is dotenv meta command
+            # This is envdot meta command
             m{
             ^ [[:space:]]{0,} [#]{1}
             [[:space:]]{1,} envdot [[:space:]]{1,}
