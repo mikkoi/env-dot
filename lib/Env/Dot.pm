@@ -10,7 +10,6 @@ use warnings;
 {
     no warnings 'redefine'; ## no critic [TestingAndDebugging::ProhibitNoWarnings]
     sub import {
-        my ( $package, @args ) = @_;
         load_vars();
         return;
     }
