@@ -51,7 +51,7 @@ normal Linux installation.
 This can be convenient if you want to, for instance,
 include **envdot** in a docker container build.
 
-    curl -LSs -o envdot https://raw.githubusercontent.com/mikkoi/env-dot/master/script/envdot.packed
+    curl -LSs -o envdot https://raw.githubusercontent.com/mikkoi/env-dot/master/envdot.self-contained
     chmod +x ./envdot
 
 ### How to Create a FatPacker Executable
