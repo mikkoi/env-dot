@@ -1,6 +1,7 @@
 Revision history for {{$dist->name}}
 
 {{$NEXT}}
+          * Add CLI argument --version to envdot.
 
 0.003     2023-02-26 19:58:10+01:00 Europe/Stockholm
           * Fix Synopsis and other documentation.

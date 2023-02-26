@@ -25,20 +25,31 @@ use constant {
     DEFAULT_OPTION_SHELL => q{sh},
 };
 
+sub print_version {
+    print {*STDOUT} ('envdot', q{ }, $main::VERSION, "\n")
+        or croak 'Cannot print to STDOUT';
+    return;
+}
 my $help = 0;
 my $man = 0;
+my $version = 0;
 my $export = 1;
 my $shell = DEFAULT_OPTION_SHELL;
 my $dotenv_filepath = DEFAULT_OPTION_DOTENV_FILENAME;
 GetOptions(
     'help|?'     => \$help,
     'man'        => \$man,
+    'version!'   => \$version,
     'export!'    => \$export,
     'shell|s=s'  => \$shell,
     'dotenv|e=s' => \$dotenv_filepath,
 ) or pod2usage(2);
 pod2usage(1) if $help;
 pod2usage(-exitval => 0, -verbose => 2) if $man;
+if( $version ) {
+    print_version();
+    exit 0;
+}
 
 sub main {
 
@@ -131,6 +142,7 @@ envdot [options]
 Options:
     --help
     --man
+    --version
     --export --no-export
     --shell -s
     --dotenv -e
@@ -147,7 +159,7 @@ normal Linux installation.
 This can be convenient if you want to, for instance,
 include F<envdot> in a docker container build.
 
-    curl -LSs -o envdot https://raw.githubusercontent.com/mikkoi/env-dot/master/script/envdot.packed
+    curl -LSs -o envdot https://raw.githubusercontent.com/mikkoi/env-dot/main/envdot.self-contained
     chmod +x ./envdot
 
 
@@ -162,6 +174,10 @@ Print a brief help message and exits.
 =item B<--man>
 
 Prints the manual page and exits.
+
+=item B<--version>
+
+Prints the version and exits.
 
 =item B<--export>, B<--no-export>
 
