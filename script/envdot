@@ -128,10 +128,6 @@ envdot [options]
 
     eval `envdot`
 
-    eval `envdot --no-export --shell csh --dotenv subdir/.env`
-
-    ENVDOT_FILEPATHS=../.env:subdir/.env:.env eval `envdot`
-
 Options:
     --help
     --man
@@ -208,6 +204,15 @@ If you have set the variable DOTENV_FILEPATH, then B<envdot> will use that.
 Otherwise, it respects the command line parameter.
 If no parameter, then default value is used. Default is the file
 F<.env> in the current directory.
+
+=head1 EXAMPLES
+
+    eval `envdot --no-export --shell csh`
+
+    eval `envdot --dotenv subdir/.env`
+
+    ENVDOT_FILEPATHS='../.env:subdir/.env:.env' eval `envdot`
+
 
 =head1 DEPENDENCIES
 
