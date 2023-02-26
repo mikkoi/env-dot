@@ -1,6 +1,8 @@
 Revision history for {{$dist->name}}
 
 {{$NEXT}}
+
+0.003     2023-02-26 19:58:10+01:00 Europe/Stockholm
           * Fix Synopsis and other documentation.
           * Add EXAMPLES to envdot executable pod.
           * Add automatic generation for envdot.self-contained.
