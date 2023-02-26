@@ -1,6 +1,9 @@
 Revision history for {{$dist->name}}
 
 {{$NEXT}}
+          * Fix Synopsis and other documentation.
+          * Add EXAMPLES to envdot executable pod.
+          * Add automatic generation for envdot.self-contained.
 
 0.002     2023-02-19 15:44:20+01:00 Europe/Stockholm
           * Move fatpacked executable to root.
