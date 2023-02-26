@@ -41,8 +41,6 @@ dotenv env envdot
 
 =end stopwords
 
-###=for stopwords env dotenv dotenv env envdot
-
 =head1 STATUS
 
 Package L<Env::Dot> is currently being developed so changes in the API are possible,
@@ -52,23 +50,8 @@ though not likely.
 =head1 SYNOPSIS
 
     use Env::Dot;
-    use Env::Dot qw( assert );
 
-    my %want = (
-        options => {
-            exact => 1,
-        },
-        variables => {
-            USER => { regexp => '^[[:word:]]{1}$', required => 1 },
-        },
-    );
-    my %parameters;
-    $parameters{'break_at_first_error'} = 1;
-    my $r = assert( \%ENV, $desc, \%parameters );
-    if( ! $r->{'success'} ) {
-        say report_errors( $r->{'errors'} );
-    }
-
+    print $ENV{'VAR_DEFINED_IN_DOTENV_FILE'};
 
 =head1 DESCRIPTION
 
@@ -99,8 +82,8 @@ you specify them.
 
 Unix Shell I<source> command compatible dotenv files use quotation marks
 (B<">) to define a variable which has spaces. But, for instance,
-Docker compatible F<.env> files do not use spaces. The variable
-content begins with letter B<=> and ends with linefeed.
+Docker compatible F<.env> files do not use quotation marks. The variable
+content begins with B<=> sign and ends with linefeed.
 
 You can specify in the dotenv file itself - by using meta commands -
 which type of file it is.

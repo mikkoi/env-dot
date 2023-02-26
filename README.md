@@ -56,4 +56,4 @@ include **envdot** in a docker container build.
 
 ### How to Create a FatPacker Executable
 
-    PERL5LIB=lib fatpack pack script/envdot >script/envdot.packed
+    PERL5LIB=lib fatpack pack script/envdot >envdot.self-contained

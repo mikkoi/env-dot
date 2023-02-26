@@ -39,24 +39,7 @@ though not likely.
 
 =head1 SYNOPSIS
 
-    use Env::Dot;
-    use Env::Dot qw( assert );
-
-    my %want = (
-        options => {
-            exact => 1,
-        },
-        variables => {
-            USER => { regexp => '^[[:word:]]{1}$', required => 1 },
-        },
-    );
-    my %parameters;
-    $parameters{'break_at_first_error'} = 1;
-    my $r = assert( \%ENV, $desc, \%parameters );
-    if( ! $r->{'success'} ) {
-        say report_errors( $r->{'errors'} );
-    }
-
+    use Env::Dot::Functions qw( get_dotenv_vars interpret_dotenv_filepath_var );
 
 =head1 DESCRIPTION
 
