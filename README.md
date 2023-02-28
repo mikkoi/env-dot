@@ -35,6 +35,7 @@ envdot [options]
 Options:
     --help
     --man
+    --version
     --export --no-export
     --shell -s
     --dotenv -e
