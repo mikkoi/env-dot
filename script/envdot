@@ -23,17 +23,20 @@ local $OUTPUT_AUTOFLUSH = 1;
 use constant {
     DEFAULT_OPTION_DOTENV_FILENAME => '.env',
     DEFAULT_OPTION_SHELL => q{sh},
+    DEFAULT_OPTION_READ_FROM_STDIO => 0,
 };
 
 my $man = 0;
 my $export = 1;
 my $shell = DEFAULT_OPTION_SHELL;
 my $dotenv_filepath = DEFAULT_OPTION_DOTENV_FILENAME;
+my $read_from_stdin = DEFAULT_OPTION_READ_FROM_STDIO;
 GetOptions(
     'man'        => \$man,
     'export!'    => \$export,
     'shell|s=s'  => \$shell,
     'dotenv|e=s' => \$dotenv_filepath,
+    ''           => \$read_from_stdin,  ## no critic (ValuesAndExpressions::ProhibitEmptyQuotes)
 ) or pod2usage(2);
 pod2usage(-exitval => 0, -verbose => 2) if $man;
 
@@ -42,6 +45,7 @@ sub main {
     my @dotenv_filepaths;
     if( exists $ENV{ $dotenv_filepath_var } ) {
         @dotenv_filepaths = interpret_dotenv_filepath_var( $ENV{ $dotenv_filepath_var } );
+    } elsif( $read_from_stdin ) {
     } else {
         if( ! -f $dotenv_filepath ) {
             carp "No file found: '$dotenv_filepath'";
