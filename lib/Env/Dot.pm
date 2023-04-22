@@ -4,7 +4,7 @@ use strict;
 use warnings;
 
 # We define our own import routine because
-# this is the point (when use Env::Dot is called)
+# this is the point (when `use Env::Dot` is called)
 # when we do our magic.
 
 {
@@ -57,6 +57,11 @@ though not likely.
 
 More flexibility in how you manage and use your F<.env> file.
 
+B<Attn. Existing environment variables always take precedence to dotenv variables!>
+A dotenv variable (variable from a file) does not overwrite
+an existing environment variable. This is by design because
+a dotenv file is to augment the environment, not to replace it.
+
 Features:
 
 =over 8
@@ -82,8 +87,8 @@ you specify them.
 
 Unix Shell I<source> command compatible dotenv files use quotation marks
 (B<">) to define a variable which has spaces. But, for instance,
-Docker compatible F<.env> files do not use quotation marks. The variable
-content begins with B<=> sign and ends with linefeed.
+Docker compatible F<.env> files do not use quotation marks. The variable's
+value begins with B<=> sign and ends with linefeed.
 
 You can specify in the dotenv file itself - by using meta commands -
 which type of file it is.
@@ -132,6 +137,8 @@ sub load_vars {
     foreach my $var_name ( sort keys %ENV ) {
         $new_env{ $var_name } = $vars{$var_name};
     }
+
+    # We need to replace the current %ENV, not change individual values.
     ## no critic [Variables::RequireLocalizedPunctuationVars]
     %ENV = %new_env;
     return \%ENV;

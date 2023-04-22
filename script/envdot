@@ -228,4 +228,7 @@ in the beginning of a B<docker> container run.
 L<Dotenv> is another package which implements functionality to use
 F<.env> files in Perl.
 
+L<shdotenv|https://github.com/ko1nksm/shdotenv> is a project to provide dotenv
+for shells with support for POSIX-compliant and multiple .env file syntax.
+
 =cut
