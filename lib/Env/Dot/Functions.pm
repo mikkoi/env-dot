@@ -137,6 +137,15 @@ sub _interpret_dotenv {
                 }msx) {
                     ($value) = $LAST_PAREN_MATCH{value};
                 }
+                # "export" can also be at the start. Only for TYPE_SHELL
+                if( $name =~ m{^ [[:space:]]{0,} export [[:space:]]{1,} }msx ) {
+                    $name =~ m{
+                        ^
+                        [[:space:]]{0,} export [[:space:]]{1,} (?<name> .*)
+                        $
+                    }msx;
+                    $name = $LAST_PAREN_MATCH{name};
+                }
             } elsif( $options{ 'file:type' } eq OPTION_FILE_TYPE_PLAIN ) {
                 1;
             }
