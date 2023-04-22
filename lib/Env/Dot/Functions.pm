@@ -135,9 +135,11 @@ sub _interpret_dotenv {
             my ($name, $value) = ( $LAST_PAREN_MATCH{name}, $LAST_PAREN_MATCH{value} );
             if( $options{ 'file:type' } eq OPTION_FILE_TYPE_SHELL ) {
                 if($value =~ m{
-                    ^['"]{1} (?<value> .*) ["']{1}  # Get value from between quotes
+                    ^
+                    ['"]{1} (?<value> .*) ["']{1}  # Get value from between quotes
                     (?: [;] [[:space:]]{0,} export [[:space:]]{1,} $name)?  # optional
-                    [[:space:]]{0,} $  # optional whitespace at the end
+                    [[:space:]]{0,}  # optional whitespace at the end
+                    $
                 }msx) {
                     ($value) = $LAST_PAREN_MATCH{value};
                 }
