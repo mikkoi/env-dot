@@ -54,9 +54,9 @@ sub main {
         @dotenv_filepaths = ( $dotenv_filepath ); # The CLI parameter
     }
 
-    my %vars = get_dotenv_vars( @dotenv_filepaths );
+    my @vars = get_dotenv_vars( @dotenv_filepaths );
 
-    print {*STDOUT} convert_variables_into_commands( %vars )
+    print {*STDOUT} convert_variables_into_commands( @vars )
         or croak 'Cannot print variables to STDOUT';
 
     return 0;
@@ -71,11 +71,11 @@ Return a string.
 =cut
 
 sub convert_variables_into_commands {
-    my ( %vars ) = @_;
+    my ( @vars ) = @_;
     my $out = q{};
-    foreach my $var_name ( sort keys %vars ) {
-        my $var_value = $vars{$var_name};
-        $out .= convert_variable( $var_name, $var_value );
+    foreach my $var ( @vars ) {
+        my ($name, $value) = ($var->{'name'}, $var->{'value'});
+        $out .= convert_variable( $name, $value );
     }
     return $out;
 }

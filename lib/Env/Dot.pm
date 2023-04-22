@@ -127,15 +127,16 @@ sub load_vars {
         }
     }
 
-    my %vars = get_dotenv_vars( @dotenv_filepaths );
+    my @vars = get_dotenv_vars( @dotenv_filepaths );
     my %new_env;
-    foreach my $var_name ( sort keys %vars ) {
 
+    # Populate new env with the dotenv variables.
+    foreach my $var ( @vars ) {
         ### no critic [Variables::RequireLocalizedPunctuationVars]
-        $new_env{ $var_name } = $vars{$var_name};
+        $new_env{ $var->{'name'} } = $var->{'value'};
     }
     foreach my $var_name ( sort keys %ENV ) {
-        $new_env{ $var_name } = $vars{$var_name};
+        $new_env{ $var_name } = $ENV{$var_name};
     }
 
     # We need to replace the current %ENV, not change individual values.

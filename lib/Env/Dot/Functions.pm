@@ -54,24 +54,27 @@ No functions are automatically exported to the calling namespace.
 =head2 get_dotenv_vars()
 
 Return all variables from the F<.env> file
-as a hash (name/value pairs).
+as a list of hashes (name/value pairs).
+This list is created in the same order the variables
+are read from the files and may therefore contain
+the same variable several times.
 
 =cut
 
 sub get_dotenv_vars {
     my @dotenv_filepaths = @_;
 
-    my %vars;
+    my @vars;
     foreach my $filepath (@dotenv_filepaths) {
         if( -f $filepath ) {
             my @rows = _read_dotenv_file( $filepath );
-            my %tmp = _interpret_dotenv( @rows );
-            @vars{ keys %tmp } = @tmp{ keys %tmp };
+            my @tmp = _interpret_dotenv( @rows );
+            push @vars, @tmp;
         } else {
             carp "No file found: '$filepath'";
         }
     }
-    return %vars;
+    return @vars;
 }
 
 =head2 interpret_dotenv_filepath_var( $filepaths )
@@ -91,7 +94,8 @@ sub _interpret_dotenv {
     my %options = (
         'file:type' => DEFAULT_OPTION_FILE_TYPE,
     ); # Options related to reading the file. Applied as they are read.
-    my %vars;
+    # my %vars;
+    my @vars;
     foreach (@rows) {
         ## no critic (ControlStructures::ProhibitCascadingIfElse)
         ## no critic (RegularExpressions::ProhibitComplexRegexes)
@@ -149,12 +153,12 @@ sub _interpret_dotenv {
             } elsif( $options{ 'file:type' } eq OPTION_FILE_TYPE_PLAIN ) {
                 1;
             }
-            $vars{ $name } = $value;
+            push @vars, { name => $name, value => $value, };
         } else {
             carp "Uninterpretable row: $_";
         }
     }
-    return %vars;
+    return @vars;
 }
 
 sub _interpret_opts {
