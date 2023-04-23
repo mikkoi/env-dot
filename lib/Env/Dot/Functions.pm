@@ -27,6 +27,12 @@ use constant  {
     DEFAULT_OPTION_FILE_TYPE => q{shell},
 };
 
+my %DOTENV_OPTIONS = (
+    'file:type'             => 1,
+    'var:export'            => 1,
+    'var:allow_interpolate' => 1,
+);
+
 =pod
 
 =for stopwords envdot env
@@ -92,8 +98,10 @@ sub interpret_dotenv_filepath_var { ## no critic (Subroutines::RequireArgUnpacki
 sub _interpret_dotenv {
     my (@rows) = @_;
     my %options = (
-        'file:type' => DEFAULT_OPTION_FILE_TYPE,
-    ); # Options related to reading the file. Applied as they are read.
+        'file:type'             => DEFAULT_OPTION_FILE_TYPE,
+        'var:export'            => 1,
+        'var:allow_interpolate' => 0,
+    );    # Options related to reading the file. Applied as they are read.
     # my %vars;
     my @vars;
     foreach (@rows) {
@@ -101,6 +109,7 @@ sub _interpret_dotenv {
         ## no critic (RegularExpressions::ProhibitComplexRegexes)
         if(
             # This is envdot meta command
+            # The var:<value> options can only apply to one subsequent var row.
             m{
             ^ [[:space:]]{0,} [#]{1}
             [[:space:]]{1,} envdot [[:space:]]{1,}
@@ -109,6 +118,9 @@ sub _interpret_dotenv {
             }msx
         ) {
             my $opts = _interpret_opts( $LAST_PAREN_MATCH{opts} );
+            _validate_opts( $opts );
+            $options{'var:export'} = 1;
+            $options{'var:allow_interpolate'} = 0;
             foreach ( keys %{ $opts } ) {
                 $options{$_} = $opts->{$_};
             }
@@ -155,12 +167,27 @@ sub _interpret_dotenv {
             } elsif( $options{ 'file:type' } eq OPTION_FILE_TYPE_PLAIN ) {
                 1;
             }
-            push @vars, { name => $name, value => $value, };
+            my %opts = (
+                export => $options{'var:export'},
+                allow_interpolate => $options{'var:allow_interpolate'},
+            );
+            push @vars, { name => $name, value => $value, opts => \%opts, };
+            $options{'var:allow_interpolate'} = 0;
         } else {
             carp "Uninterpretable row: $_";
         }
     }
     return @vars;
+}
+
+sub _validate_opts {
+    my ($opts) = @_;
+    foreach my $key ( keys %{ $opts } ) {
+        if( ! exists $DOTENV_OPTIONS{ $key } ) {
+            croak "Unknown envdot option: $key";
+        }
+    }
+    return;
 }
 
 sub _interpret_opts {
@@ -171,7 +198,11 @@ sub _interpret_opts {
     $opts_str;
     my %opts;
     foreach (@opts) {
+        ## no critic (ControlStructures::ProhibitPostfixControls)
         my ($key, $val) = split qr/=/msx;
+        $val = $val // 1;
+        $val = 1 if( $val eq 'true' || $val eq 'True' );
+        $val = 0 if( $val eq 'false' || $val eq 'False' );
         $opts{$key} = $val;
     }
     return \%opts;

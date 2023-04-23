@@ -85,8 +85,8 @@ you specify them.
 
 =item Support different types of .env files
 
-Unix Shell I<source> command compatible dotenv files use quotation marks
-(B<">) to define a variable which has spaces. But, for instance,
+Unix Shell I<source> command compatible dotenv files use double or single quotation marks
+(B<"> or B<'>) to define a variable which has spaces. But, for instance,
 Docker compatible F<.env> files do not use quotation marks. The variable's
 value begins with B<=> sign and ends with linefeed.
 
@@ -98,6 +98,52 @@ which type of file it is.
 The executable is distributed together with Dot::Env package in directory I<script>.
 
     eval "$(envdot)"
+
+=back
+
+=head2 DotEnv File Meta Commands
+
+The B<var:> commands affect only the subsequent variable definition.
+If there is another B<envdot> command, the second overwrites the first
+and default values are applied again.
+
+=over 8
+
+=item file:type
+
+Changes how B<Env::Dot> reads lines below from this commands. Default is:
+
+    # envdot (file:type=shell)
+    VAR="value"
+
+Other possible value of B<file:type> is:
+
+    # envdot (file:type=plain)
+    VAR=My var value
+
+=item var:export
+
+By default, every variable is exported to all sub shells.
+By setting this to B<0> or B<false>, you can prevent this.
+This meta command is only useful when running B<envdot> command
+to create variable definitions to be I<eval>'ed.
+
+    # envdot (var:export=false)
+    FOURTH_VAR='My fourth var'
+
+=item var:allow_interpolate
+
+By default, when writing variable definitions for the shell,
+every variable is treated as static and surrounded with
+single quotation marks B<'> in Unix shell which means
+shell will read the variable content as is.
+By setting this to B<1> or B<true>, you allow shell
+to interpolate.
+This meta command is only useful when running B<envdot> command
+to create variable definitions for B<eval> command to read.
+
+    # envdot (var:allow_interpolate)
+    DYNAMIC_VAR="$(pwd)/${ANOTHER_VAR}"
 
 =back
 
