@@ -116,10 +116,9 @@ exit main(@ARGV);
 
 __END__
 
-=head1 envdot
+=head1 NAME
 
-Read .env file and turn its content into environment variables for different shells.
-
+envdot - Read .env file and turn its content into environment variables for different shells.
 
 
 =head1 SYNOPSIS
@@ -191,6 +190,7 @@ Default: current directory F<.env>
 
 =back
 
+
 =head1 DESCRIPTION
 
 B<envdot> reads your F<.env> file and converts it
@@ -210,6 +210,7 @@ Otherwise, it respects the command line parameter.
 If no parameter, then default value is used. Default is the file
 F<.env> in the current directory.
 
+
 =head1 EXAMPLES
 
     eval `envdot --no-export --shell csh`
@@ -223,11 +224,12 @@ F<.env> in the current directory.
 
 No external dependencies outside Perl's standard distribution.
 
+
 =head1 SEE ALSO
 
 L<Env::Assert> will verify that you certainly have those environmental
-variables you need. It also has an executable which can perform the check
-in the beginning of a B<docker> container run.
+variables you need. It also has an executable which can, for example,
+be used to perform the check in the beginning of a B<docker> container run.
 
 L<Dotenv> is another package which implements functionality to use
 F<.env> files in Perl.
