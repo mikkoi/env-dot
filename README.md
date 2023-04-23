@@ -1,9 +1,51 @@
-# envdot
+# Env::Dot
+
+## SYNOPSIS
+
+    use Env::Dot;
+
+    print $ENV{'VAR_DEFINED_IN_DOTENV_FILE'};
+
+## DESCRIPTION
+
+More flexibility in how you manage and use your F<.env> file.
+
+**Attn. Existing environment variables always take precedence to dotenv variables!**
+A dotenv variable (variable from a file) does not overwrite
+an existing environment variable. This is by design because
+a dotenv file is to augment the environment, not to replace it.
+
+Features:
+
+* If no B<.env> file is present, then do nothing
+    By default, Env::Dot will do nothing if there is no `.env` file.
+    You can also configure Env::Dot to emit an alarm
+    or break execution, if you want.
+
+* Specify the other dotenv files with path
+    If your `.env` file is located in another path,
+    not the current working directory,
+    you can use the environment variable
+    **DOTENV_FILEPATHS> to tell where your dotenv file is located.
+    You can specify several file paths; just separate
+    them by B<:>. Dot::Env will load all the files in the order
+    you specify them.
+
+* Support different types of .env files
+    Unix Shell `source` command compatible dotenv files use double or single quotation marks
+    (`"` or `'`) to define a variable which has spaces. But, for instance,
+    Docker compatible `.env` files do not use quotation marks. The variable's
+    value begins with `=` sign and ends with linefeed.
+
+You can specify in the dotenv file itself - by using meta commands -
+which type of file it is.
 
 Read .env file and turn its content into
 environment variables for different shells.
 
-# DESCRIPTION
+# envdot
+
+## DESCRIPTION
 
 **envdot** reads your `.env` file and converts it
 into environment variable commands suitable for
@@ -22,7 +64,7 @@ Otherwise, it respects the command line parameter.
 If no parameter, then default value is used. Default is the file
 `.env` in the current directory.
 
-# SYNOPSIS
+## SYNOPSIS
 
 envdot [options]
 
@@ -40,7 +82,7 @@ Options:
     --shell -s
     --dotenv -e
 
-## CLI interface without dependencies
+### CLI interface without dependencies
 
 The **envdot** command is also available
 as self contained executable.
