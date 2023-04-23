@@ -29,7 +29,6 @@ use constant  {
 
 my %DOTENV_OPTIONS = (
     'file:type'             => 1,
-    'var:export'            => 1,
     'var:allow_interpolate' => 1,
 );
 
@@ -99,7 +98,6 @@ sub _interpret_dotenv {
     my (@rows) = @_;
     my %options = (
         'file:type'             => DEFAULT_OPTION_FILE_TYPE,
-        'var:export'            => 1,
         'var:allow_interpolate' => 0,
     );    # Options related to reading the file. Applied as they are read.
     # my %vars;
@@ -119,7 +117,6 @@ sub _interpret_dotenv {
         ) {
             my $opts = _interpret_opts( $LAST_PAREN_MATCH{opts} );
             _validate_opts( $opts );
-            $options{'var:export'} = 1;
             $options{'var:allow_interpolate'} = 0;
             foreach ( keys %{ $opts } ) {
                 $options{$_} = $opts->{$_};
@@ -168,7 +165,6 @@ sub _interpret_dotenv {
                 1;
             }
             my %opts = (
-                export => $options{'var:export'},
                 allow_interpolate => $options{'var:allow_interpolate'},
             );
             push @vars, { name => $name, value => $value, opts => \%opts, };

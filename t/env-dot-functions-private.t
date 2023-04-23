@@ -88,7 +88,6 @@ SIXTH_VAR=123.456
 END_OF_TEXT
         my @vars = Env::Dot::Functions::_interpret_dotenv( split qr{\n}msx, $dotenv );
         my %def_opts = (
-            export => 1,
             allow_interpolate => 0,
         );
         is( \@vars, [
@@ -117,7 +116,6 @@ export SEVENTH_VAR=7654321
 END_OF_TEXT
         my @vars = Env::Dot::Functions::_interpret_dotenv( split qr{\n}msx, $dotenv );
         my %def_opts = (
-            export => 1,
             allow_interpolate => 0,
         );
         ## no critic (ValuesAndExpressions::RequireInterpolationOfMetachars)
@@ -139,7 +137,6 @@ SIXTH_VAR=123.456
 END_OF_TEXT
         my @vars = Env::Dot::Functions::_interpret_dotenv( split qr{\n}msx, $dotenv );
         my %def_opts = (
-            export => 1,
             allow_interpolate => 0,
         );
         is( \@vars, [

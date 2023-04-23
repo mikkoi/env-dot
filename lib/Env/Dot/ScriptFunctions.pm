@@ -28,7 +28,6 @@ use constant  {
 
 my %DOTENV_OPTIONS = (
     'file:type'             => 1,
-    'var:export'            => 1,
     'var:allow_interpolate' => 1,
 );
 

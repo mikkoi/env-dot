@@ -121,16 +121,6 @@ Other possible value of B<file:type> is:
     # envdot (file:type=plain)
     VAR=My var value
 
-=item var:export
-
-By default, every variable is exported to all sub shells.
-By setting this to B<0> or B<false>, you can prevent this.
-This meta command is only useful when running B<envdot> command
-to create variable definitions to be I<eval>'ed.
-
-    # envdot (var:export=false)
-    FOURTH_VAR='My fourth var'
-
 =item var:allow_interpolate
 
 By default, when writing variable definitions for the shell,

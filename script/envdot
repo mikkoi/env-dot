@@ -57,6 +57,7 @@ sub main {
     }
 
     my @vars = get_dotenv_vars( @dotenv_filepaths );
+    $_->{'opts'}->{'export'} = $export foreach (@vars);
 
     print {*STDOUT} convert_variables_into_commands( $shell, @vars )
         or croak 'Cannot print variables to STDOUT';
