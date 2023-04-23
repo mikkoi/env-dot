@@ -1,6 +1,8 @@
 Revision history for {{$dist->name}}
 
 {{$NEXT}}
+          * Add envdot.self-container to MANIFEST.SKIP. We don't need it in CPAN.
+          * Fix dist.ini Run::AfterRelease action.
 
 0.005     2023-04-23 20:04:35+02:00 Europe/Stockholm
           * Remove var:export option.
