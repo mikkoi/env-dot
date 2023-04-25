@@ -62,7 +62,18 @@ A dotenv variable (variable from a file) does not overwrite
 an existing environment variable. This is by design because
 a dotenv file is to augment the environment, not to replace it.
 
-Features:
+This means that you can override a variable in `.env` file by creating
+its counterpart in the environment. For instance:
+
+    unset VAR
+    echo "VAR='Good value'" >> .env
+    perl -e 'use Env::Dot; print "VAR:$ENV{VAR}\n";'
+    # VAR:Good value
+    VAR='Better value'; export VAR
+    perl -e 'use Env::Dot; print "VAR:$ENV{VAR}\n";'
+    # VAR:Better value
+
+=head2 Features
 
 =over 8
 
