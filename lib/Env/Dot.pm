@@ -89,7 +89,7 @@ or break execution, if you want.
 If your B<.env> file is located in another path,
 not the current working directory,
 you can use the environment variable
-B<DOTENV_FILEPATHS> to tell where your dotenv file is located.
+B<ENVDOT_FILEPATHS> to tell where your dotenv file is located.
 You can specify several file paths; just separate
 them by B<:>. Dot::Env will load all the files in the order
 you specify them.
