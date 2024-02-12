@@ -1,6 +1,7 @@
 Revision history for {{$dist->name}}
 
 {{$NEXT}}
+            * Documentation Correction. (David Kaufman <david@gigawatt.org>)
 
 0.007     2023-04-26 21:56:58+02:00 Europe/Stockholm
 
