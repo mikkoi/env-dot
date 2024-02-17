@@ -8,9 +8,14 @@ use Exporter 'import';
 our @EXPORT_OK = qw(
     get_dotenv_vars
     interpret_dotenv_filepath_var
+    get_envdot_filepaths_var_name
     );
 our %EXPORT_TAGS = (
-    'all'          => [qw( get_dotenv_vars interpret_dotenv_filepath_var )],
+    'all'          => [qw(
+        get_dotenv_vars
+        interpret_dotenv_filepath_var
+        get_envdot_filepaths_var_name
+        )],
 );
 
 use English qw( -no_match_vars ); # Avoids regex performance penalty in perl 5.18 and earlier
@@ -214,6 +219,17 @@ sub _read_dotenv_file {
     while( <$fh> ) { chomp; push @dotenv_rows, $_; }
     close $fh or croak "Cannot close file '$filepath'";
     return @dotenv_rows;
+}
+
+=head2 get_envdot_filepaths_var_name
+
+Return the name of the environment variable
+which user can use to specify the paths of .env files.
+
+=cut
+
+sub get_envdot_filepaths_var_name {
+    return q{ENVDOT_FILEPATHS};
 }
 
 1;
