@@ -29,7 +29,7 @@ use constant  {
     OPTION_FILE_TYPE_PLAIN => q{plain},
     OPTION_FILE_TYPE_SHELL => q{shell},
     DEFAULT_OPTION_FILE_TYPE => q{shell},
-    DEFAULT_DOTENV_FILEPATH => q{.env},
+    DEFAULT_ENVDOT_FILEPATHS => q{.env},
     INDENT => q{    },
 };
 
@@ -191,8 +191,8 @@ sub load_vars {
     if( exists $ENV{ 'ENVDOT_FILEPATHS' } ) {
         @dotenv_filepaths = interpret_dotenv_filepath_var( $ENV{ 'ENVDOT_FILEPATHS' } );
     } else {
-        if( -f DEFAULT_DOTENV_FILEPATH ) {
-            @dotenv_filepaths = ( DEFAULT_DOTENV_FILEPATH ); # The CLI parameter
+        if( -f DEFAULT_ENVDOT_FILEPATHS ) {
+            @dotenv_filepaths = ( DEFAULT_ENVDOT_FILEPATHS ); # The CLI parameter
         }
     }
 
