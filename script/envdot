@@ -56,10 +56,10 @@ GetOptions(
 pod2usage(-exitval => 0, -verbose => 2) if $man;
 
 sub main {
-    my $dotenv_filepath_var = get_envdot_filepaths_var_name();
+    my $var_name = get_envdot_filepaths_var_name();
     my @dotenv_filepaths;
-    if( exists $ENV{ $dotenv_filepath_var } ) {
-        @dotenv_filepaths = interpret_dotenv_filepath_var( $ENV{ $dotenv_filepath_var } );
+    if( exists $ENV{ $var_name } ) {
+        @dotenv_filepaths = interpret_dotenv_filepath_var( $ENV{ $var_name } );
     } elsif( $read_from_stdin ) {
     } else {
         if( ! -f $dotenv_filepath ) {
