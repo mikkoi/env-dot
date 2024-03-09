@@ -28,7 +28,7 @@ local $OUTPUT_AUTOFLUSH = 1;
 use constant {
     DEFAULT_OPTION_DOTENV_FILENAME => '.env',
     DEFAULT_OPTION_SHELL => q{sh},
-    DEFAULT_OPTION_READ_FROM_STDIO => 0,
+    DEFAULT_OPTION_READ_FROM_STDIN => 0,
 };
 
 my %SHELL_ALTERNATIVES = (
@@ -45,7 +45,7 @@ my $man = 0;
 my $export = 1;
 my $shell = $SHELL_ALTERNATIVES{ $ENV{SHELL} } // DEFAULT_OPTION_SHELL;
 my $dotenv_filepath = DEFAULT_OPTION_DOTENV_FILENAME;
-my $read_from_stdin = DEFAULT_OPTION_READ_FROM_STDIO;
+my $read_from_stdin = DEFAULT_OPTION_READ_FROM_STDIN;
 GetOptions(
     'man'        => \$man,
     'export!'    => \$export,
