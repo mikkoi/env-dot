@@ -17,13 +17,13 @@ BEGIN {
         ($this) = $this =~ /(.+)/msx; # Make it non-tainted
         chdir $this;
     ($path_first, $path_second, $path_third) = (
-        File::Spec->catdir($this, '.env-first'),
-        File::Spec->catdir($this, '.env-second'),
-        File::Spec->catdir($this, '.env-third'),
+        File::Spec->catdir($this, 'dummy.env-first'),
+        File::Spec->catdir($this, 'dummy.env-second'),
+        File::Spec->catdir($this, 'dummy.env-third'),
         );
     ($path_interpolation, $path_static) = (
-        File::Spec->catdir($this, '.env-interpolation'),
-        File::Spec->catdir($this, '.env-static'),
+        File::Spec->catdir($this, 'dummy.env-interpolation'),
+        File::Spec->catdir($this, 'dummy.env-static'),
         );
 }
 
