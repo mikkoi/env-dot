@@ -22,3 +22,4 @@ nytprof.out
 # Project (build) related extra files
 Env-Dot-*
 local/
+.test-script-*
