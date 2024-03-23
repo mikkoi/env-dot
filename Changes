@@ -1,6 +1,7 @@
 Revision history for {{$dist->name}}
 
 {{$NEXT}}
+            * Rework Prereqs in dist.ini. Add Test::Script.
 
 0.009     2024-03-09 23:29:28+01:00 Europe/Stockholm
             * Reverse the order in which dotenv files are read from var ENVDOT_FILEPATHS.
