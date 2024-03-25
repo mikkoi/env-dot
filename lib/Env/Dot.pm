@@ -160,7 +160,21 @@ If you want to chain the B<.env> files,
 they all must set B<read:from_parent> - except the top one.
 
 This functionality can be useful in situations where you have
-parallel projects which share common environment variables.
+parallel projects which share common environment variables
+in one F<.env> file in a parent directory.
+
+If there is no parent F<.env> file, Env::Dot will break execution
+and give an error.
+
+By default this setting is off.
+
+=item read:allow_missing_parent
+
+When using option B<read:from_parent>, if the parent F<.env> file does not exist,
+by default Env::Dot will emit an error and break execution.
+In some situations, it might be normal that a parent F<.env> file
+could be missing. Turn on option B<read:allow_missing_parent> if you
+do not want an error in that case.
 
 By default this setting is off.
 
