@@ -89,7 +89,7 @@ subtest 'One dotenv, two parent files' => sub {
 
     # CD to subdir, the bottom in the hierarcy.
     chdir $subdir_path || croak;
-    diag 'Current dir:' . getcwd();
+    # diag 'Current dir:' . getcwd();
 
     my %new_env;
     ## no critic (ControlStructures::ProhibitPostfixControls)
@@ -100,7 +100,10 @@ subtest 'One dotenv, two parent files' => sub {
     # We need to replace the current %ENV, not change individual values.
     local %ENV = %new_env;
 
-    my $r = eval 'use Env::Dot;'; ## no critic [BuiltinFunctions::ProhibitStringyEval]
+    local $EVAL_ERROR = undef;
+    my $r = eval 'use Env::Dot; 1'; ## no critic [BuiltinFunctions::ProhibitStringyEval]
+    is($EVAL_ERROR, q{}, 'use Env::Dot failed' );
+    is( $r, 1, 'evaled okay');
 
     is( $ENV{'ROOT_VAR'}, 'root', 'Interface works' );
     is( $ENV{'DIR_VAR'}, 'dir', 'Interface works' );
@@ -113,17 +116,32 @@ subtest 'One dotenv, two parent files' => sub {
     done_testing;
 };
 
-my $CASE_TWO_ROOT_ENV = <<"END_OF_FILE";
-# envdot (read:from_parent)
-ROOT_VAR="root"
-COMMON_VAR="root"
-DIR_COMMON_VAR="root"
+# my $CASE_TWO_ROOT_ENV = <<"END_OF_FILE";
+# # envdot (read:from_parent)
+# ROOT_VAR="root"
+# COMMON_VAR="root"
+# DIR_COMMON_VAR="root"
+# END_OF_FILE
+#
+# my $CASE_TWO_DIR_ENV = <<"END_OF_FILE";
+# # envdot (read:from_parent)
+# DIR_VAR="dir"
+# COMMON_VAR="dir"
+# DIR_COMMON_VAR="dir"
+# SUBDIR_COMMON_VAR="dir"
+# END_OF_FILE
+#
+my $CASE_TWO_SUBDIR_ENV = <<"END_OF_FILE";
+# envdot (file:type=shell,read:from_parent)
+SUBDIR_VAR="subdir"
+COMMON_VAR="subdir"
+SUBDIR_COMMON_VAR="subdir"
 END_OF_FILE
 
-subtest 'Missing parent file' => sub {
+subtest 'Missing parent file, not okay' => sub {
     # N.B. This test will fail if there is a .env file in a parent dir of the tempdir.
     my ($dir, $dir_path) = create_subtest_files(
-        $CASE_TWO_ROOT_ENV,
+        undef, undef, $CASE_TWO_SUBDIR_ENV,
         );
 
     # Do not use __FILE__ because its value is not absolute and not updated
@@ -131,11 +149,11 @@ subtest 'Missing parent file' => sub {
     my $this = getcwd;
     ($this) = $this =~ /(.+)/msx; # Make it non-tainted
 
-    my $root_path = File::Spec->catdir( $dir_path, 'root' );
+    my $subdir_path = File::Spec->catdir( $dir_path, 'root', 'dir', 'subdir' );
 
     # CD to subdir, the bottom in the hierarcy.
-    chdir $root_path || croak;
-    diag 'Current dir:' . getcwd();
+    chdir $subdir_path || croak;
+    # diag 'Current dir:' . getcwd();
 
     my %new_env;
     ## no critic (ControlStructures::ProhibitPostfixControls)
@@ -146,11 +164,121 @@ subtest 'Missing parent file' => sub {
     # We need to replace the current %ENV, not change individual values.
     local %ENV = %new_env;
 
-    my $r = eval 'use Env::Dot;'; ## no critic [BuiltinFunctions::ProhibitStringyEval]
+    local $EVAL_ERROR = undef;
+    my $r = eval 'use Env::Dot; 1'; ## no critic [BuiltinFunctions::ProhibitStringyEval]
+    ## no critic (RegularExpressions::ProhibitComplexRegexes)
+    like( $EVAL_ERROR, qr/^Error:[\s]No[\s]parent\s[.]env\sfile[.]\sChild\s[.]env:\s$subdir_path/msx,
+        'use Env::Dot failed' );
+    is( $r, U(), 'eval failed');
 
-    is( $ENV{'ROOT_VAR'}, 'root', 'Interface works' );
-    is( $ENV{'COMMON_VAR'}, 'root', 'Interface works' );
-    is( $ENV{'DIR_COMMON_VAR'}, 'root', 'Interface works' );
+    chdir $this;
+    done_testing;
+};
+
+# my $CASE_TWO_ROOT_ENV = <<"END_OF_FILE";
+# # envdot (read:from_parent)
+# ROOT_VAR="root"
+# COMMON_VAR="root"
+# DIR_COMMON_VAR="root"
+# END_OF_FILE
+#
+my $CASE_THREE_DIR_ENV = <<"END_OF_FILE";
+# envdot (read:from_parent=true,read:allow_missing_parent=false)
+DIR_VAR="dir"
+COMMON_VAR="dir"
+DIR_COMMON_VAR="dir"
+SUBDIR_COMMON_VAR="dir"
+END_OF_FILE
+
+my $CASE_THREE_SUBDIR_ENV = <<"END_OF_FILE";
+# envdot (file:type=shell,read:from_parent)
+SUBDIR_VAR="subdir"
+COMMON_VAR="subdir"
+SUBDIR_COMMON_VAR="subdir"
+END_OF_FILE
+
+subtest 'Missing parent file 2, not okay' => sub {
+    # N.B. This test will fail if there is a .env file in a parent dir of the tempdir.
+    my ($tmp_dir, $tmp_dir_path) = create_subtest_files(
+        undef, $CASE_THREE_DIR_ENV, $CASE_TWO_SUBDIR_ENV,
+        );
+
+    # Do not use __FILE__ because its value is not absolute and not updated
+    # when chdir is done.
+    my $this = getcwd;
+    ($this) = $this =~ /(.+)/msx; # Make it non-tainted
+
+    my $dir_path = File::Spec->catdir( $tmp_dir_path, 'root', 'dir' );
+    my $subdir_path = File::Spec->catdir( $tmp_dir_path, 'root', 'dir', 'subdir' );
+
+    # CD to subdir, the bottom in the hierarcy.
+    chdir $subdir_path || croak;
+    # diag 'Current dir:' . getcwd();
+
+    my %new_env;
+    ## no critic (ControlStructures::ProhibitPostfixControls)
+    $new_env{$_} = $ENV{$_} foreach (keys %ENV);
+
+    delete $new_env{'ENVDOT_FILEPATHS'} if exists $new_env{'ENVDOT_FILEPATHS'};
+
+    # We need to replace the current %ENV, not change individual values.
+    local %ENV = %new_env;
+
+    local $EVAL_ERROR = undef;
+    my $r = eval 'use Env::Dot; 1'; ## no critic [BuiltinFunctions::ProhibitStringyEval]
+    ## no critic (RegularExpressions::ProhibitComplexRegexes)
+    like( $EVAL_ERROR, qr/^Error:[\s]No[\s]parent\s[.]env\sfile[.]\sChild\s[.]env:\s$dir_path.*/msx,
+        'use Env::Dot failed' );
+    is( $r, U(), 'eval failed');
+
+    chdir $this;
+    done_testing;
+};
+
+my $CASE_FOUR_SUBDIR_ENV = <<"END_OF_FILE";
+# envdot (file:type=shell,read:from_parent=true,read:allow_missing_parent=true)
+SUBDIR_VAR="subdir"
+COMMON_VAR="subdir"
+SUBDIR_COMMON_VAR="subdir"
+END_OF_FILE
+
+subtest 'Missing parent file, okay' => sub {
+    # N.B. This test will fail if there is a .env file in a parent dir of the tempdir.
+    my ($dir, $dir_path) = create_subtest_files(
+        undef, undef, $CASE_FOUR_SUBDIR_ENV,
+        );
+
+    # Do not use __FILE__ because its value is not absolute and not updated
+    # when chdir is done.
+    my $this = getcwd;
+    ($this) = $this =~ /(.+)/msx; # Make it non-tainted
+
+    my $subdir_path = File::Spec->catdir( $dir_path, 'root', 'dir', 'subdir' );
+
+    # CD to subdir, the bottom in the hierarcy.
+    chdir $subdir_path || croak;
+    # diag 'Current dir:' . getcwd();
+
+    my %new_env;
+    ## no critic (ControlStructures::ProhibitPostfixControls)
+    $new_env{$_} = $ENV{$_} foreach (keys %ENV);
+
+    delete $new_env{'ENVDOT_FILEPATHS'} if exists $new_env{'ENVDOT_FILEPATHS'};
+
+    # We need to replace the current %ENV, not change individual values.
+    local %ENV = %new_env;
+
+    local $EVAL_ERROR = undef;
+    my $r = eval 'use Env::Dot; 1'; ## no critic [BuiltinFunctions::ProhibitStringyEval]
+    is( $r, 1, 'evaled okay');
+    is($EVAL_ERROR, q{}, 'use Env::Dot successful' );
+
+    is( $ENV{'ROOT_VAR'}, U(), 'Interface works' );
+    is( $ENV{'DIR_VAR'}, U(), 'Interface works' );
+    is( $ENV{'SUBDIR_VAR'}, 'subdir', 'Interface works' );
+    is( $ENV{'COMMON_VAR'}, 'subdir', 'Interface works' );
+    is( $ENV{'DIR_COMMON_VAR'}, U(), 'Interface works' );
+    is( $ENV{'SUBDIR_COMMON_VAR'}, 'subdir', 'Interface works' );
 
     chdir $this;
     done_testing;
