@@ -1,6 +1,7 @@
 Revision history for {{$dist->name}}
 
 {{$NEXT}}
+            * Fix lib and test code to use Cwd::abs_path with File::Spec->catdir|catfile.
 
 0.011     2024-03-27 22:13:20+02:00 Europe/Helsinki
             * Allow reading files recursively.
