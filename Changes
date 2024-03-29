@@ -5,6 +5,7 @@ Revision history for {{$dist->name}}
 
 0.011     2024-03-27 22:13:20+02:00 Europe/Helsinki
             * Allow reading files recursively.
+            * Perltidyfy lib.
 
 0.010     2024-03-23 16:25:32+01:00 Europe/Stockholm
             * Rework Prereqs in dist.ini. Add Test::Script.
