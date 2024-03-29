@@ -134,12 +134,12 @@ sub _get_parent_dotenv_filepath {
 
     my ($volume, $directories, $file) = File::Spec->splitpath( $current_filepath );
     my ($parent_path) = abs_path( File::Spec->catdir( $directories, File::Spec->updir ) );
-    my ($parent_filepath) = File::Spec->catdir( $parent_path, '.env' );
+    my ($parent_filepath) = abs_path( File::Spec->catdir( $parent_path, '.env' ) );
     while( ! -f $parent_filepath ) {
         return if( $parent_path eq File::Spec->rootdir );
         ($volume, $directories, $file) = File::Spec->splitpath( $parent_filepath );
         $parent_path = abs_path( File::Spec->catdir( $directories, File::Spec->updir ) );
-        $parent_filepath = File::Spec->catdir( $parent_path, '.env' );
+        $parent_filepath = abs_path( File::Spec->catdir( $parent_path, '.env' ) );
     }
     return $parent_filepath;
 }
