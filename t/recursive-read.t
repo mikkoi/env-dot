@@ -11,7 +11,7 @@ use FileHandle ();
 use File::Path qw( make_path );
 use File::Spec;
 use File::Temp ();
-use Cwd qw( getcwd );
+use Cwd qw( getcwd abs_path );
 
 
 # $File::Temp::KEEP_ALL = 1;
@@ -149,7 +149,7 @@ subtest 'Missing parent file, not okay' => sub {
     my $this = getcwd;
     ($this) = $this =~ /(.+)/msx; # Make it non-tainted
 
-    my $subdir_path = File::Spec->catdir( $dir_path, 'root', 'dir', 'subdir' );
+    my $subdir_path = abs_path( File::Spec->catdir( $dir_path, 'root', 'dir', 'subdir' ) );
 
     # CD to subdir, the bottom in the hierarcy.
     chdir $subdir_path || croak;
@@ -208,8 +208,8 @@ subtest 'Missing parent file 2, not okay' => sub {
     my $this = getcwd;
     ($this) = $this =~ /(.+)/msx; # Make it non-tainted
 
-    my $dir_path = File::Spec->catdir( $tmp_dir_path, 'root', 'dir' );
-    my $subdir_path = File::Spec->catdir( $tmp_dir_path, 'root', 'dir', 'subdir' );
+    my $dir_path = abs_path( File::Spec->catdir( $tmp_dir_path, 'root', 'dir' ) );
+    my $subdir_path = abs_path( File::Spec->catdir( $tmp_dir_path, 'root', 'dir', 'subdir' ) ) ;
 
     # CD to subdir, the bottom in the hierarcy.
     chdir $subdir_path || croak;
@@ -253,7 +253,7 @@ subtest 'Missing parent file, okay' => sub {
     my $this = getcwd;
     ($this) = $this =~ /(.+)/msx; # Make it non-tainted
 
-    my $subdir_path = File::Spec->catdir( $dir_path, 'root', 'dir', 'subdir' );
+    my $subdir_path = abs_path( File::Spec->catdir( $dir_path, 'root', 'dir', 'subdir' ) );
 
     # CD to subdir, the bottom in the hierarcy.
     chdir $subdir_path || croak;
