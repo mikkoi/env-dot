@@ -1,6 +1,8 @@
 Revision history for {{$dist->name}}
 
 {{$NEXT}}
+
+0.012     2024-03-29 18:05:10+02:00 Europe/Helsinki
             * Fix lib and test code to use Cwd::abs_path with File::Spec->catdir|catfile.
 
 0.011     2024-03-27 22:13:20+02:00 Europe/Helsinki
