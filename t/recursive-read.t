@@ -24,7 +24,6 @@ sub create_subtest_files {
         DIR => File::Spec->tmpdir,
     );
     my $dir_path = $dir->{'DIRNAME'};
-    diag "Created temp dir: $dir_path";
     make_path( File::Spec->catdir( $dir_path, 'root', 'dir', 'subdir' ) );
 
     if( $root_env ) {
@@ -89,7 +88,6 @@ subtest 'One dotenv, two parent files' => sub {
 
     # CD to subdir, the bottom in the hierarcy.
     chdir $subdir_path || croak;
-    # diag 'Current dir:' . getcwd();
 
     my %new_env;
     ## no critic (ControlStructures::ProhibitPostfixControls)
@@ -153,7 +151,6 @@ subtest 'Missing parent file, not okay' => sub {
 
     # CD to subdir, the bottom in the hierarcy.
     chdir $subdir_path || croak;
-    # diag 'Current dir:' . getcwd();
 
     my %new_env;
     ## no critic (ControlStructures::ProhibitPostfixControls)
@@ -213,7 +210,6 @@ subtest 'Missing parent file 2, not okay' => sub {
 
     # CD to subdir, the bottom in the hierarcy.
     chdir $subdir_path || croak;
-    # diag 'Current dir:' . getcwd();
 
     my %new_env;
     ## no critic (ControlStructures::ProhibitPostfixControls)
@@ -257,7 +253,6 @@ subtest 'Missing parent file, okay' => sub {
 
     # CD to subdir, the bottom in the hierarcy.
     chdir $subdir_path || croak;
-    # diag 'Current dir:' . getcwd();
 
     my %new_env;
     ## no critic (ControlStructures::ProhibitPostfixControls)
