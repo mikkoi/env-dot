@@ -1,8 +1,9 @@
 Revision history for {{$dist->name}}
 
 {{$NEXT}}
-            * Add more libraries to SEE ALSO section in Dot::Env.
+            * Specify exact dependency for Test::Script version.
             * Correct whitespace in Changes file.
+            * Add more libraries to SEE ALSO section in Dot::Env.
 
 0.013     2024-03-31 10:17:59+03:00 Europe/Helsinki
             * Fix test code to use Cwd::abs_path().

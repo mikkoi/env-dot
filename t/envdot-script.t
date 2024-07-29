@@ -8,7 +8,7 @@ use Test2::V0;
 use Cwd;
 use File::Spec;
 
-use Test::Script;
+use Test::Script 1.28;
 
 subtest 'Script compiles' => sub {
     script_compiles('script/envdot');
