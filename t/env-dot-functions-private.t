@@ -281,6 +281,7 @@ subtest 'Private subroutine _get_parent_dotenv_filepath()' => sub {
 
     # Jump over middle directory.
     unlink $dir_filepath;
+    diag "Env::Dot::Functions::_get_parent_dotenv_filepath($subdir_filepath)";
     $parent_filepath = Env::Dot::Functions::_get_parent_dotenv_filepath($subdir_filepath);
     is( $parent_filepath, $root_filepath, 'correct parent dir and .env file' );
 
