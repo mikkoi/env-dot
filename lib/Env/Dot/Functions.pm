@@ -278,7 +278,8 @@ sub _interpret_dotenv {
             $options{'var:allow_interpolate'} = 0;
         }
         else {
-            carp "Uninterpretable row: $_";
+            my $err = "Invalid line: '$_'";
+            croak create_error_msg($err, $row_num);
         }
         $row_num++;
     }

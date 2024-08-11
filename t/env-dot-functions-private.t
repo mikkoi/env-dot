@@ -171,6 +171,22 @@ END_OF_TEXT
     # ###############################################################
     {
         my $dotenv = <<'END_OF_TEXT';
+FIFTH_VAR=123
+SIXTH_VAR = !"#¤&%123.456
+# Faulty row next
+qwerty
+END_OF_TEXT
+
+        like(
+            dies { Env::Dot::Functions::_interpret_dotenv( split qr{\n}msx, $dotenv ) },
+            qr{^ Invalid \s line: \s 'qwerty'! \s line \s 4 .* $}msx,
+            'Died because of invalid line error',
+        );
+    }
+
+    # ###############################################################
+    {
+        my $dotenv = <<'END_OF_TEXT';
 # Here's some envs
 # envdot (file:type=shell,read:from_parent)
 
@@ -270,6 +286,7 @@ END_OF_TEXT
             'var:allow_interpolate' => 0,
             }, 'dotenv file correctly interpreted: opts' );
     }
+
     done_testing;
 };
 
