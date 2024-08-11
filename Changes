@@ -1,6 +1,7 @@
 Revision history for {{$dist->name}}
 
 {{$NEXT}}
+            * Fix Perl::Critic testing.
             * Specify exact dependency for Test::Script version.
             * Correct whitespace in Changes file.
             * Add more libraries to SEE ALSO section in Dot::Env.
