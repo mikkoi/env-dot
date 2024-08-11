@@ -27,6 +27,8 @@ use Env::Dot::Functions qw(
     get_dotenv_vars
     interpret_dotenv_filepath_var
     get_envdot_filepaths_var_name
+    extract_error_msg
+    create_error_msg
 );
 
 use constant {
@@ -233,12 +235,16 @@ sub load_vars {
         }
     }
 
-    my @vars = get_dotenv_vars(@dotenv_filepaths);
+    my @vars;
+    eval { @vars = get_dotenv_vars(@dotenv_filepaths); 1; } or do {
+        my $e = $EVAL_ERROR;
+        my ($err, $l, $fp) = extract_error_msg($e);
+        croak 'Error: ' . $err . ($l ? qq{ line $l} : q{}) . ($fp ? qq{ file '$fp'} : q{})
+    };
     my %new_env;
 
     # Populate new env with the dotenv variables.
     foreach my $var (@vars) {
-        ### no critic [Variables::RequireLocalizedPunctuationVars]
         $new_env{ $var->{'name'} } = $var->{'value'};
     }
     foreach my $var_name ( sort keys %ENV ) {

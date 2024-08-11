@@ -1,6 +1,7 @@
 Revision history for {{$dist->name}}
 
 {{$NEXT}}
+            * Change how errors are produced and propagated upwards.
             * Correct indentation.
             * Fix Perl::Critic testing.
             * Specify exact dependency for Test::Script version.
