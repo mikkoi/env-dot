@@ -267,7 +267,8 @@ L<Env::Assert> will verify that you certainly have those environmental
 variables you need. It also has an executable which can perform the check
 in the beginning of a B<docker> container run.
 
-L<Dotenv> and L<ENV::Util> are packages which also implement functionality to use
+L<Dotenv> and L<ENV::Util|https://metacpan.org/pod/ENV::Util>
+are packages which also implement functionality to use
 F<.env> files in Perl.
 
 L<Config::ENV> and L<Config::Layered::Source::ENV> provide other means

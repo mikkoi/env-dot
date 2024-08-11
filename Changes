@@ -1,6 +1,7 @@
 Revision history for {{$dist->name}}
 
 {{$NEXT}}
+            * Fix link in docs.
             * Change how errors are produced and propagated upwards.
             * Correct indentation.
             * Fix Perl::Critic testing.
