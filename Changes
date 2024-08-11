@@ -1,6 +1,7 @@
 Revision history for {{$dist->name}}
 
 {{$NEXT}}
+            * Correct indentation.
             * Fix Perl::Critic testing.
             * Specify exact dependency for Test::Script version.
             * Correct whitespace in Changes file.
