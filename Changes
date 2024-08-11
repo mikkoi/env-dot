@@ -1,6 +1,8 @@
 Revision history for {{$dist->name}}
 
 {{$NEXT}}
+
+0.014     2024-08-11 20:55:37+02:00 Europe/Stockholm
             * Fix link in docs.
             * Change how errors are produced and propagated upwards.
             * Correct indentation.
