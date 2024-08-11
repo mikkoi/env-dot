@@ -130,4 +130,16 @@ subtest 'Script fails due to missing dotenv file' => sub {
     done_testing;
 };
 
+subtest 'Script does not die due to faulty option' => sub {
+    my $file = 't/envdot-script-third.env';
+    my $filepath = File::Spec->rel2abs( $file );
+    script_runs(['script/envdot', '--warn-on-error', '--dotenv', $file, ], { exit => 0, }, 'Does not die because of faulty option');
+
+    ## no critic (RegularExpressions::ProhibitComplexRegexes)
+    script_stderr_like(qr{^ Warn: \s Unknown \s envdot \s option: \s 'read:faulty_option' \s line \s 3 \s file \s '$filepath' $}msx, 'Fails with correct output');
+    # script_stderr_like(qr{^ Error: \s Unknown \s envdot \s option: \s 'read:faulty_option' \s \s line \s 3 \s file \s $filepath $}msx, 'Fails with correct output');
+
+    done_testing;
+};
+
 done_testing;

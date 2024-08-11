@@ -1,20 +1,9 @@
-## no critic (ValuesAndExpressions::ProhibitConstantPragma)
 package Env::Dot;
 use strict;
 use warnings;
 
-# We define our own import routine because
-# this is the point (when `use Env::Dot` is called)
-# when we do our magic.
-
-{
-    no warnings 'redefine';    ## no critic [TestingAndDebugging::ProhibitNoWarnings]
-
-    sub import {
-        load_vars();
-        return;
-    }
-}
+## no critic (ValuesAndExpressions::ProhibitConstantPragma)
+### no critic (ControlStructures::ProhibitPostfixControls)
 
 use English qw( -no_match_vars );    # Avoids regex performance penalty in perl 5.18 and earlier
 use Carp;
@@ -40,6 +29,39 @@ use constant {
     INDENT                   => q{    },
 };
 
+# We define our own import routine because
+# this is the point (when `use Env::Dot` is called)
+# when we do our magic.
+
+{
+    no warnings 'redefine';    ## no critic [TestingAndDebugging::ProhibitNoWarnings]
+
+    my %MODULE_OPTIONS = (
+        'warn-on-error' => { type => 'boolean' },
+    );
+    sub import {
+        my ($this, @options) = @_;
+        my %pass_on_options;
+        foreach (@options) {
+            # Deal with the '-' prefix.
+            # if( exists $MODULE_OPTIONS{ substr $_, 1 } ) {
+            if( exists $MODULE_OPTIONS{ s/^-//rmsx } ) {
+                # Lowercase var names
+                my $var = s/^-//rmsx =~ tr/-/_/r;
+                $pass_on_options{ $var } = 1;
+            } elsif( exists $MODULE_OPTIONS{ s/^-no-//rmsx } ) {
+                # Lowercase var names
+                my $var = s/^-no-//rmsx =~ tr/-/_/r;
+                $pass_on_options{ $var } = 0;
+            } else {
+                croak "Error: Unknown import parameter '$_'";
+            }
+        }
+        load_vars( %pass_on_options );
+        return;
+    }
+}
+
 =pod
 
 =begin stopwords
@@ -62,7 +84,7 @@ though not likely.
 
 =head1 DESCRIPTION
 
-More flexibility in how you manage and use your F<.env> file.
+More flexibility in how you manage and use your F<.env> file or files.
 
 B<Attn. Existing environment variables always take precedence to dotenv variables!>
 A dotenv variable (variable from a file) does not overwrite
@@ -225,6 +247,7 @@ B<ENVDOT_FILEPATHS>.
 =cut
 
 sub load_vars {
+    my (%options) = @_;
     my @dotenv_filepaths;
     if ( exists $ENV{ get_envdot_filepaths_var_name() } ) {
         @dotenv_filepaths = interpret_dotenv_filepath_var( $ENV{ get_envdot_filepaths_var_name() } );
@@ -235,12 +258,18 @@ sub load_vars {
         }
     }
 
-    my @vars;
-    eval { @vars = get_dotenv_vars(@dotenv_filepaths); 1; } or do {
+    my @vars = eval { get_dotenv_vars(@dotenv_filepaths) };
+    # my @these_vars = eval { get_dotenv_vars( $dotenv_filepath ) };
+    if($EVAL_ERROR) {
         my $e = $EVAL_ERROR;
         my ($err, $l, $fp) = extract_error_msg($e);
-        croak 'Error: ' . $err . ($l ? qq{ line $l} : q{}) . ($fp ? qq{ file '$fp'} : q{})
-    };
+        if($options{'warn_on_error'}) {
+            print {*STDERR} 'Warn: ' . $err . ($l ? qq{ line $l} : q{}) . ($fp ? qq{ file '$fp'} : q{})
+                or croak 'Cannot print error message';
+        } else {
+            croak 'Error: ' . $err . ($l ? qq{ line $l} : q{}) . ($fp ? qq{ file '$fp'} : q{});
+        }
+    }
     my %new_env;
 
     # Populate new env with the dotenv variables.
@@ -267,10 +296,7 @@ L<Env::Assert> will verify that you certainly have those environmental
 variables you need. It also has an executable which can perform the check
 in the beginning of a B<docker> container run.
 
-L<Dotenv> and L<ENV::Util> are packages which also implement functionality to use
+L<Dotenv> is another package which implements functionality to use
 F<.env> files in Perl.
-
-L<Config::ENV> and L<Config::Layered::Source::ENV> provide other means
-to configure application with the help of environment variables.
 
 =cut

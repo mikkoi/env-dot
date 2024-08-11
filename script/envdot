@@ -18,6 +18,11 @@ use Errno;
 use Pod::Usage;
 
 use Env::Dot::Functions qw(:all);
+# use Env::Dot::Functions qw(
+#     get_dotenv_vars
+#     interpret_dotenv_filepath_var
+#     get_envdot_filepaths_var_name
+#     );
 use Env::Dot::ScriptFunctions qw( convert_variables_into_commands );
 
 local $OUTPUT_AUTOFLUSH = 1;
@@ -43,12 +48,14 @@ my %SHELL_ALTERNATIVES = (
 
 my $man = 0;
 my $export = 1;
+my $warn_on_error = 0;
 my $shell = $SHELL_ALTERNATIVES{ $ENV{SHELL} } // DEFAULT_OPTION_SHELL;
 my $dotenv_filepath = DEFAULT_OPTION_DOTENV_FILENAME;
 my $read_from_stdin = DEFAULT_OPTION_READ_FROM_STDIN;
 GetOptions(
     'man'        => \$man,
     'export!'    => \$export,
+    'warn-on-error!' => \$warn_on_error,
     'shell|s=s'  => \$shell,
     'dotenv|e=s' => \$dotenv_filepath,
     ''           => \$read_from_stdin,  ## no critic (ValuesAndExpressions::ProhibitEmptyQuotes)
@@ -64,7 +71,7 @@ sub main {
         croak 'Error: Option not implemented';
     } else {
         if( ! -f $dotenv_filepath ) {
-            print {*STDERR} "Error: File not found: '$dotenv_filepath'\n"
+            print {*STDERR} "Error: File not found: '$dotenv_filepath'"
                 or croak 'Cannot print error message';
             return EXIT_ERROR_NO_FILE;
         }
@@ -74,14 +81,19 @@ sub main {
     my @vars;
     foreach my $dotenv_filepath (reverse @dotenv_filepaths) {
         local $EVAL_ERROR = undef;
-        my @these_vars;
-        eval { @these_vars = get_dotenv_vars( $dotenv_filepath ); 1; } or do {
+        my @these_vars = eval { get_dotenv_vars( $dotenv_filepath ) };
+        if($EVAL_ERROR) {
             my $e = $EVAL_ERROR;
             my ($err, $l, $fp) = extract_error_msg($e);
-            print {*STDERR} 'Error: ' . $err . ($l ? qq{ line $l} : q{}) . ($fp ? qq{ file '$fp'} : q{}) . "\n"
-                or croak 'Cannot print error message';
-            return EXIT_ERROR_OTHER_ERROR;
-        };
+            if($warn_on_error) {
+                print {*STDERR} 'Warn: ' . $err . ($l ? qq{ line $l} : q{}) . ($fp ? qq{ file '$fp'} : q{})
+                    or croak 'Cannot print error message';
+            } else {
+                print {*STDERR} 'Error: ' . $err . ($l ? qq{ line $l} : q{}) . ($fp ? qq{ file '$fp'} : q{})
+                    or croak 'Cannot print error message';
+                return EXIT_ERROR_OTHER_ERROR;
+            }
+        }
         push @vars, @these_vars;
     }
     $_->{'opts'}->{'export'} = $export foreach (@vars);
@@ -111,6 +123,7 @@ Options:
     --help
     --man
     --version
+    --warn-on-error, --no-warn-on-error
     --export --no-export
     --shell -s
     --dotenv -e
@@ -142,6 +155,10 @@ Print a brief help message and exits.
 =item B<--man>
 
 Prints the manual page and exits.
+
+=item B<--warn-on-error>, B<--no-warn-on-error>
+
+Only print warning to STDERR when encountering an error, do not break program.
 
 =item B<--version>
 
