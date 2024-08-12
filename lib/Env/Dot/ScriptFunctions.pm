@@ -41,7 +41,7 @@ my %VAR_OUTPUT = (
 
 =head1 STATUS
 
-Package L<Env::Dot> is currently being developed so changes in the API are possible,
+This module is currently being developed so changes in the API are possible,
 though not likely.
 
 
