@@ -174,6 +174,22 @@ END_OF_TEXT
 FIFTH_VAR=123
 SIXTH_VAR = !"#¤&%123.456
 # Faulty row next
+# envdot (:r)
+END_OF_TEXT
+
+        like(
+            dies { Env::Dot::Functions::_interpret_dotenv( split qr{\n}msx, $dotenv ) },
+            qr{^ Unknown \s envdot \s option: \s ':r'! \s line \s 4 .* $}msx,
+            'Died because of invalid line error',
+        );
+    }
+
+    # ###############################################################
+    {
+        my $dotenv = <<'END_OF_TEXT';
+FIFTH_VAR=123
+SIXTH_VAR = !"#¤&%123.456
+# Faulty row next
 qwerty
 END_OF_TEXT
 
