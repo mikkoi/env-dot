@@ -146,13 +146,7 @@ sub _read_dotenv_file_recursively {
     my ($filepath) = @_;
     $filepath = abs_path($filepath);
     my @rows       = _read_dotenv_file($filepath);
-    local $EVAL_ERROR = undef;
-    my %r          = eval { _interpret_dotenv(@rows); };
-    if($EVAL_ERROR) {
-        my $e = $EVAL_ERROR;
-        my ($err, $line) = extract_error_msg($e);
-        croak create_error_msg($err, $line, $filepath);
-    }
+    my %r          = _interpret_dotenv($filepath, @rows);
     my @these_vars = @{ $r{'vars'} };
     if ( $r{'opts'}->{ OPTION_READ_FROM_PARENT() } ) {
         my $parent_filepath = _get_parent_dotenv_filepath($filepath);
@@ -186,7 +180,7 @@ sub _get_parent_dotenv_filepath {
 }
 
 sub _interpret_dotenv {
-    my (@rows) = @_;
+    my ($fp, @rows) = @_;
     my %options = (
         OPTION_READ_FROM_PARENT()          => DEFAULT_OPTION_READ_FROM_PARENT,
         OPTION_READ_ALLOW_MISSING_PARENT() => DEFAULT_OPTION_READ_ALLOW_MISSING_PARENT,
@@ -210,10 +204,10 @@ sub _interpret_dotenv {
           )
         {
             my $opts = _interpret_opts( $LAST_PAREN_MATCH{opts} );
-            local $EVAL_ERROR = undef;
             foreach my $key ( keys %{$opts} ) {
                 if ( !exists $DOTENV_OPTIONS{$key} ) {
-                    croak create_error_msg( "Unknown envdot option: '$key'", $row_num );
+                    my $err = "Unknown envdot option: '$key'";
+                    croak create_error_msg( $err, $row_num, $fp );
                 }
             }
             $options{'var:allow_interpolate'} = 0;
@@ -280,7 +274,7 @@ sub _interpret_dotenv {
         }
         else {
             my $err = "Invalid line: '$_'";
-            croak create_error_msg($err, $row_num);
+            croak create_error_msg($err, $row_num, $fp);
         }
         $row_num++;
     }

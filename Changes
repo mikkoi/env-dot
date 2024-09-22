@@ -5,6 +5,7 @@ Revision history for {{$dist->name}}
             * Use IO::File when reading file.
             * Remove Env::Dot::Functions::_validate_opts.
             * Remove version 1.51 from FindBin. Perl 5.10.0 uses version 1.50.
+            * Remove Env::Dot::Functions::_interpret_dotenv from eval. Add parameter filepath.
 
 0.014     2024-08-11 20:55:37+02:00 Europe/Stockholm
             * Fix link in docs.

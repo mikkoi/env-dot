@@ -140,6 +140,7 @@ subtest 'Private Subroutine _interpret_opts()' => sub {
 
 subtest 'Private Subroutine _interpret_dotenv()' => sub {
 
+    my $dummy_fp = '/dummy/path/to/.env';
     # ###############################################################
     {
         my $dotenv = <<'END_OF_TEXT';
@@ -148,8 +149,8 @@ FIRST_VAR='My first var'
 END_OF_TEXT
 
         like(
-            dies { Env::Dot::Functions::_interpret_dotenv( split qr{\n}msx, $dotenv ) },
-            qr{^ Unknown \s envdot \s option: \s 'unknown:option'! \s line \s 1 .* $}msx,
+            dies { Env::Dot::Functions::_interpret_dotenv( $dummy_fp, split qr{\n}msx, $dotenv ) },
+            qr{^ Unknown \s envdot \s option: \s 'unknown:option'! \s line \s 1 \s file \s '$dummy_fp' .* $}msx,
             'Died because of unknown option error',
         );
     }
@@ -162,8 +163,8 @@ FIRST_VAR='My first var'
 END_OF_TEXT
 
         like(
-            dies { Env::Dot::Functions::_interpret_dotenv( split qr{\n}msx, $dotenv ) },
-            qr{^ Unknown \s envdot \s option: \s 'bad:option'! \s line \s 2 .* $}msx,
+            dies { Env::Dot::Functions::_interpret_dotenv( $dummy_fp, split qr{\n}msx, $dotenv ) },
+            qr{^ Unknown \s envdot \s option: \s 'bad:option'! \s line \s 2 \s file \s '$dummy_fp' .* $}msx,
             'Died because of bad option error',
         );
     }
@@ -178,8 +179,8 @@ SIXTH_VAR = !"#¤&%123.456
 END_OF_TEXT
 
         like(
-            dies { Env::Dot::Functions::_interpret_dotenv( split qr{\n}msx, $dotenv ) },
-            qr{^ Unknown \s envdot \s option: \s ':r'! \s line \s 4 .* $}msx,
+            dies { Env::Dot::Functions::_interpret_dotenv( $dummy_fp, split qr{\n}msx, $dotenv ) },
+            qr{^ Unknown \s envdot \s option: \s ':r'! \s line \s 4 \s file \s '$dummy_fp' .* $}msx,
             'Died because of invalid line error',
         );
     }
@@ -194,8 +195,8 @@ qwerty
 END_OF_TEXT
 
         like(
-            dies { Env::Dot::Functions::_interpret_dotenv( split qr{\n}msx, $dotenv ) },
-            qr{^ Invalid \s line: \s 'qwerty'! \s line \s 4 .* $}msx,
+            dies { Env::Dot::Functions::_interpret_dotenv( $dummy_fp, split qr{\n}msx, $dotenv ) },
+            qr{^ Invalid \s line: \s 'qwerty'! \s line \s 4 \s file \s '$dummy_fp' .* $}msx,
             'Died because of invalid line error',
         );
     }
@@ -215,7 +216,7 @@ FIFTH_VAR=123
 SIXTH_VAR=123.456
 END_OF_TEXT
 
-        my %r = Env::Dot::Functions::_interpret_dotenv( split qr{\n}msx, $dotenv );
+        my %r = Env::Dot::Functions::_interpret_dotenv( $dummy_fp, split qr{\n}msx, $dotenv );
         my @vars = @{ $r{'vars'} };
         my %opts = %{ $r{'opts'} };
         my %def_opts = (
@@ -254,7 +255,7 @@ export SEVENTH_VAR=7654321
 
 END_OF_TEXT
 
-        my %r = Env::Dot::Functions::_interpret_dotenv( split qr{\n}msx, $dotenv );
+        my %r = Env::Dot::Functions::_interpret_dotenv( $dummy_fp, split qr{\n}msx, $dotenv );
         my @vars = @{ $r{'vars'} };
         my %opts = %{ $r{'opts'} };
         my %def_opts = (
@@ -285,7 +286,7 @@ FIFTH_VAR=123
 SIXTH_VAR=123.456
 END_OF_TEXT
 
-        my %r = Env::Dot::Functions::_interpret_dotenv( split qr{\n}msx, $dotenv );
+        my %r = Env::Dot::Functions::_interpret_dotenv( $dummy_fp, split qr{\n}msx, $dotenv );
         my @vars = @{ $r{'vars'} };
         my %opts = %{ $r{'opts'} };
         my %def_opts = (
