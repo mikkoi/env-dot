@@ -4,6 +4,7 @@ Revision history for {{$dist->name}}
             * Change STATUS documentation.
             * Use IO::File when reading file.
             * Remove Env::Dot::Functions::_validate_opts.
+            * Remove version 1.51 from FindBin. Perl 5.10.0 uses version 1.50.
 
 0.014     2024-08-11 20:55:37+02:00 Europe/Stockholm
             * Fix link in docs.
