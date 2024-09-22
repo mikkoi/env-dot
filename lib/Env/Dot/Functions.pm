@@ -211,11 +211,11 @@ sub _interpret_dotenv {
         {
             my $opts = _interpret_opts( $LAST_PAREN_MATCH{opts} );
             local $EVAL_ERROR = undef;
-            eval { _validate_opts($opts); 1; } or do {
-                my $e = $EVAL_ERROR;
-                my ($err) = extract_error_msg($e);
-                croak create_error_msg($err, $row_num);
-            };
+            foreach my $key ( keys %{$opts} ) {
+                if ( !exists $DOTENV_OPTIONS{$key} ) {
+                    croak create_error_msg( "Unknown envdot option: '$key'", $row_num );
+                }
+            }
             $options{'var:allow_interpolate'} = 0;
             foreach ( keys %{$opts} ) {
                 $options{$_} = $opts->{$_};
@@ -285,16 +285,6 @@ sub _interpret_dotenv {
         $row_num++;
     }
     return opts => \%options, vars => \@vars;
-}
-
-sub _validate_opts {
-    my ($opts) = @_;
-    foreach my $key ( keys %{$opts} ) {
-        if ( !exists $DOTENV_OPTIONS{$key} ) {
-            croak create_error_msg( "Unknown envdot option: '$key'" );
-        }
-    }
-    return;
 }
 
 sub _interpret_opts {

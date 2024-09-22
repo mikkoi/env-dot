@@ -376,30 +376,4 @@ subtest 'Private subroutine _get_parent_dotenv_filepath()' => sub {
     done_testing;
 };
 
-subtest 'Private subroutine _validate_opts' => sub {
-    {
-        my %opts = (
-            'read:from_parent'        => 0,
-            'file:type'             => 'shell',
-        );
-        ok(
-            lives { Env::Dot::Functions::_validate_opts( \%opts ); },
-            'Opts okay',
-        );
-    }
-
-    {
-        my %opts = (
-            'unknown:option'        => 1,
-            'file:type'             => 'shell',
-        );
-        like(
-            dies { Env::Dot::Functions::_validate_opts( \%opts ); },
-            qr{^ Unknown \s envdot \s option: \s 'unknown:option'! .* $}msx,
-            'Croaked because of unknown option error',
-        );
-    }
-    done_testing;
-};
-
 done_testing;
