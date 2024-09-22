@@ -2,6 +2,7 @@ Revision history for {{$dist->name}}
 
 {{$NEXT}}
             * Change STATUS documentation.
+            * Use IO::File when reading file.
 
 0.014     2024-08-11 20:55:37+02:00 Europe/Stockholm
             * Fix link in docs.

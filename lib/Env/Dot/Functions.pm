@@ -7,6 +7,7 @@ use Data::Dumper;
 use Cwd qw( abs_path );
 use English qw( -no_match_vars );
 use File::Spec;
+use IO::File;
 
 use Exporter 'import';
 our @EXPORT_OK = qw(
@@ -313,13 +314,12 @@ sub _interpret_opts {
 
 sub _read_dotenv_file {
     my ($filepath) = @_;
-    open my $fh, q{<}, $filepath or croak "Error: Cannot open file '$filepath'";
-    my @dotenv_rows;
-    while (<$fh>) { chomp; push @dotenv_rows, $_; }
-    # local $INPUT_RECORD_SEPARATOR = undef;
-    # my @dotenv_rows = <$fh>;
-    # chomp @dotenv_rows;
-    close $fh or croak "Error: Cannot close file '$filepath'";
+    my $fh = IO::File->new();
+    $fh->binmode(':encoding(UTF-8)');
+    $fh->open(qq{< $filepath}) or croak "Error: Cannot open file '$filepath'";
+    my @dotenv_rows = <$fh>;
+    chomp @dotenv_rows;
+    $fh->close or croak "Error: Cannot close file '$filepath'";
     return @dotenv_rows;
 }
 
