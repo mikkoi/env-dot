@@ -326,8 +326,9 @@ subtest 'Private subroutine _read_dotenv_file_recursively()' => sub {
     like(
         ## no critic (RegularExpressions::ProhibitComplexRegexes)
         dies { Env::Dot::Functions::_read_dotenv_file_recursively($subdir_filepath) },
-        # qr/Unknown \s envdot \s option: \s 'broken:option' \s row \s 4 \s file \s $dir_filepath .*$/msx,
-        qr{^ Unknown \s envdot \s option: \s 'broken:option'! \s line \s 4 \s file \s '$dir_filepath' .* $}msx,
+        # We do not put the filepath in the regex because in Windows
+        # the backslashes, '\' become escape characters.
+        qr{^ Unknown \s envdot \s option: \s 'broken:option'! \s line \s 4 \s file \s '.*' .* $}msx,
         'Died because of unknown option error',
     );
 
