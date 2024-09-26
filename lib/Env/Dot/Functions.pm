@@ -167,16 +167,16 @@ sub _read_dotenv_file_recursively {
 sub _get_parent_dotenv_filepath {
     my ($current_filepath) = @_;
 
-    my ( $volume, $directories, $file ) = File::Spec->splitpath($current_filepath);
-    my ($parent_path)     = abs_path( File::Spec->catdir( $directories, File::Spec->updir ) );
-    my ($parent_filepath) = abs_path( File::Spec->catdir( $parent_path, '.env' ) );
-    while ( !-f $parent_filepath ) {
+    my ($parent_path, $parent_filepath);
+    my ( $volume, $directories ) = File::Spec->splitpath($current_filepath);
+    ($parent_path)     = abs_path( File::Spec->catdir( $directories, File::Spec->updir ) );
+    while( defined $parent_path ) {
         return if ( $parent_path eq File::Spec->rootdir );
-        ( $volume, $directories, $file ) = File::Spec->splitpath($parent_filepath);
-        $parent_path     = abs_path( File::Spec->catdir( $directories, File::Spec->updir ) );
         $parent_filepath = abs_path( File::Spec->catdir( $parent_path, '.env' ) );
+        return $parent_filepath if( -f $parent_filepath );
+        $parent_path     = abs_path( File::Spec->catdir( $parent_path, File::Spec->updir ) );
     }
-    return $parent_filepath;
+    return;
 }
 
 sub _interpret_dotenv {
