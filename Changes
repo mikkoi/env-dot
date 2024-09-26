@@ -1,6 +1,8 @@
 Revision history for {{$dist->name}}
 
 {{$NEXT}}
+
+0.016_01  2024-09-26 05:50:19+02:00 Europe/Stockholm (TRIAL RELEASE)
             * Remove filepath from dies test because of Windows.
             * Rewrite Env::Dot::Functions::_get_parent_dotenv_filepath()
 
