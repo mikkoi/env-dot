@@ -44,8 +44,8 @@ jobs:
       # - name: Makefile.PL
       #   run: perl Makefile.PL
       - name: Install Dist::Zilla Author Dependencies
-        run: dzil authordeps --missing --versions | cpanm --verbose --force --notest
+        run: dzil authordeps --missing --versions | cpanm --verbose --force --notest || true
       - name: Install Dependencies
-        run: dzil listdeps --missing --develop --requires --recommends --suggests --version | cpanm --verbose --force --notest
+        run: dzil listdeps --missing --develop --requires --recommends --suggests --version | cpanm --verbose --force --notest || true
       - name: Run Tests
         run: prove -lrv t
