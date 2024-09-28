@@ -4,6 +4,7 @@ use strict;
 use warnings;
 use Data::Dumper;
 
+#use Path::Class;
 use Cwd qw( abs_path );
 use English qw( -no_match_vars );
 use File::Spec;
@@ -164,17 +165,49 @@ sub _read_dotenv_file_recursively {
 # Follow directory hierarchy upwards until you find a .env file.
 # If you don't, return undef.
 # Otherwise return the path.
+# sub _get_parent_dotenv_filepath {
+#     my ($current_filepath) = @_;
+#
+#     my ($parent_path, $parent_filepath);
+#     my ( $volume, $directories ) = File::Spec->splitpath($current_filepath);
+#     ($parent_path)     = abs_path( File::Spec->catdir( $directories, File::Spec->updir ) );
+#     while( defined $parent_path ) {
+#         return if ( $parent_path eq File::Spec->rootdir );
+#         $parent_filepath = abs_path( File::Spec->catdir( $parent_path, '.env' ) );
+#         return $parent_filepath if( -f $parent_filepath );
+#         $parent_path     = abs_path( File::Spec->catdir( $parent_path, File::Spec->updir ) );
+#     }
+#     return;
+# }
+
+# Toimii
+# sub _get_parent_dotenv_filepath {
+#     my ($current_filepath) = @_;
+#
+#     my $parent_path = Path::Class::File->new($current_filepath)->dir;
+#     my $parent_filepath;
+#
+#     while( $parent_path ne File::Spec->rootdir() ) {
+#         $parent_path     = $parent_path->parent;
+#         $parent_filepath = $parent_path->file( '.env' );
+#         return '' . $parent_filepath if( -f $parent_filepath );
+#     }
+#     return;
+# }
 sub _get_parent_dotenv_filepath {
     my ($current_filepath) = @_;
 
-    my ($parent_path, $parent_filepath);
-    my ( $volume, $directories ) = File::Spec->splitpath($current_filepath);
-    ($parent_path)     = abs_path( File::Spec->catdir( $directories, File::Spec->updir ) );
-    while( defined $parent_path ) {
-        return if ( $parent_path eq File::Spec->rootdir );
-        $parent_filepath = abs_path( File::Spec->catdir( $parent_path, '.env' ) );
+    my ($volume, $directories, $file)=File::Spec->splitpath($current_filepath);
+    my $parent_path = File::Spec->catpath($volume, $directories);
+    my $parent_filepath;
+
+    #warn "parent_path: $parent_path";
+    while( $parent_path ne File::Spec->rootdir() ) {
+        $parent_path     = abs_path(File::Spec->catpath($volume, $parent_path, File::Spec->updir));
+        #warn "parent_path: $parent_path";
+        $parent_filepath = File::Spec->catfile($parent_path, '.env' );
+        #warn "parent_filepath: $parent_filepath";
         return $parent_filepath if( -f $parent_filepath );
-        $parent_path     = abs_path( File::Spec->catdir( $parent_path, File::Spec->updir ) );
     }
     return;
 }
