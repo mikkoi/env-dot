@@ -49,7 +49,7 @@ jobs:
       - name: cpan -V
         run: cpan -V
       - name: Install Dist::Zilla
-        run: cpan Dist::Zilla
+        run: cpan -T Dist::Zilla
       # - name: Install Dependencies
       #   #run: cpm install -g --no-test --show-build-log-on-failure --cpanfile cpanfile
       #   run: cpm install -g --no-test --show-build-log-on-failure --cpanfile cpanfile
