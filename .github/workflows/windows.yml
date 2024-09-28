@@ -1,11 +1,11 @@
-name: linux
+name: windows
 
 on:
-  # push:
-  #   branches:
-  #     - '*'
-  #   tags-ignore:
-  #     - '*'
+  push:
+    branches:
+      - '*'
+    tags-ignore:
+      - '*'
   workflow_dispatch:
 #  pull_request:
 
@@ -18,26 +18,38 @@ jobs:
       AUTOMATED_TESTING: 1
       RELEASE_TESTING: 1
 
-    runs-on: ubuntu-latest
-
-    strategy:
-      fail-fast: false
-      matrix:
-        perl-version:
-          - 'latest'
-          - '5.34'
-          - '5.28'
-          # - '5.16' No dzil
-          # - '5.10' No dzil
-
-    container:
-      image: perldocker/perl-tester:${{ matrix.perl-version }}
-
+    runs-on: windows-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v1
+        uses: actions/checkout@v2
+      # - name: Setup DotNet@v1
+      #   uses: actions/setup-dotnet@v1
+      # - name: Build
+      #   run: dotnet build
+      # - name: Run tests
+      #   run: dotnet test
+
+    # strategy:
+    #   fail-fast: false
+    #   matrix:
+    #     perl-version:
+    #       - 'latest'
+    #       - '5.34'
+    #       - '5.28'
+    #       # - '5.16' No dzil
+    #       # - '5.10' No dzil
+    #
+    # container:
+    #   image: perldocker/perl-tester:${{ matrix.perl-version }}
+
+      # - name: Checkout
+      #   uses: actions/checkout@v1
       - name: perl -V
         run: perl -V
+      - name: cpan -V
+        run: cpan -V
+      - name: Install Dist::Zilla
+        run: cpan Dist::Zilla
       # - name: Install Dependencies
       #   #run: cpm install -g --no-test --show-build-log-on-failure --cpanfile cpanfile
       #   run: cpm install -g --no-test --show-build-log-on-failure --cpanfile cpanfile
