@@ -46,6 +46,6 @@ jobs:
       - name: Install Dist::Zilla Author Dependencies
         run: dzil authordeps --missing --versions | cpanm
       - name: Install Dependencies
-		run: dzil listdeps --missing --develop --requires --recommends --suggests --version | cpanm
+        run: dzil listdeps --missing --develop --requires --recommends --suggests --version | cpanm
       - name: Run Tests
         run: prove -lrv t
