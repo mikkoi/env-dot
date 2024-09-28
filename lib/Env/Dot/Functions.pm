@@ -203,7 +203,7 @@ sub _get_parent_dotenv_filepath {
 
     warn "parent_path: $parent_path";
     while( defined $parent_path && $parent_path ne File::Spec->rootdir() ) {
-        $parent_path     = abs_path(File::Spec->catpath($volume, $parent_path, File::Spec->updir));
+        $parent_path     = abs_path(File::Spec->catdir($parent_path, File::Spec->updir));
         warn "parent_path: $parent_path";
         $parent_filepath = File::Spec->catfile($parent_path, '.env' );
         warn "parent_filepath: $parent_filepath";
