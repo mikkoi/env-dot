@@ -43,9 +43,9 @@ jobs:
       #   run: cpm install -g --no-test --show-build-log-on-failure --cpanfile cpanfile
       # - name: Makefile.PL
       #   run: perl Makefile.PL
-      - name: Install Dist::Zilla Author Dependencies
-        run: dzil authordeps --missing --versions | cpanm
+      # - name: Install Dist::Zilla Author Dependencies
+      #   run: dzil authordeps --missing --versions | cpanm
       - name: Install Dependencies
-        run: dzil listdeps --missing --develop --requires --recommends --suggests --version | cpanm
+        run: dzil listdeps --missing --develop --requires --recommends --suggests --version | cpanm --force
       - name: Run Tests
         run: prove -lrv t
