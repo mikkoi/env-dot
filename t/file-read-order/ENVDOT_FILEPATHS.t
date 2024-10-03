@@ -7,15 +7,15 @@ use Test2::V0;
 
 use File::Spec ();
 use File::Basename qw( dirname );
-use Cwd;
+use Cwd qw( getcwd );
 
 # First thing change dir!
 my ($path_first, $path_second, $path_third);
 my ($path_interpolation, $path_static);
 BEGIN {
-        my $this = dirname( File::Spec->rel2abs( __FILE__ ) );
-        ($this) = $this =~ /(.+)/msx; # Make it non-tainted
-        chdir $this;
+    my $this = dirname( File::Spec->rel2abs( __FILE__ ) );
+    ($this) = $this =~ /(.+)/msx; # Make it non-tainted
+    chdir $this;
     ($path_first, $path_second, $path_third) = (
         File::Spec->catdir($this, 'dummy.env-first'),
         File::Spec->catdir($this, 'dummy.env-second'),
@@ -35,6 +35,7 @@ subtest 'Three dotenv files: natural order' => sub {
     my %new_env = (
         'ENVDOT_FILEPATHS' => "$path_first:$path_second:$path_third",
     );
+    diag "'ENVDOT_FILEPATHS' => \"$path_first:$path_second:$path_third\"";
 
     # We need to replace the current %ENV, not change individual values.
     ## no critic [Variables::RequireLocalizedPunctuationVars]
@@ -63,6 +64,7 @@ subtest 'Three dotenv files: reversed order' => sub {
     my %new_env = (
         'ENVDOT_FILEPATHS' => "$path_third:$path_second:$path_first",
     );
+    diag "'ENVDOT_FILEPATHS' => \"$path_third:$path_second:$path_first\"";
 
     # We need to replace the current %ENV, not change individual values.
     ## no critic [Variables::RequireLocalizedPunctuationVars]
@@ -91,6 +93,7 @@ subtest 'Three dotenv files: mixed order' => sub {
     my %new_env = (
         'ENVDOT_FILEPATHS' => "$path_second:$path_third:$path_first",
     );
+    diag "'ENVDOT_FILEPATHS' => \"$path_second:$path_third:$path_first\"";
 
     # We need to replace the current %ENV, not change individual values.
     ## no critic [Variables::RequireLocalizedPunctuationVars]
@@ -120,6 +123,7 @@ subtest 'Two dotenv files: natural order, and from env' => sub {
         'ENVDOT_FILEPATHS' => "$path_first:$path_second",
         'FROM_ENV' => 'ENV: from env',
     );
+    diag "'ENVDOT_FILEPATHS' => \"$path_first:$path_second\"";
 
     # We need to replace the current %ENV, not change individual values.
     ## no critic [Variables::RequireLocalizedPunctuationVars]
@@ -149,6 +153,7 @@ subtest 'Two dotenv files requiring interpolating (not done): reversed order, an
         'ENVDOT_FILEPATHS' => "$path_interpolation:$path_static",
         'COMMON_VAR' => 'COMMON: from env',
     );
+    diag "'ENVDOT_FILEPATHS' => \"$path_interpolation:$path_static\"";
 
     # We need to replace the current %ENV, not change individual values.
     ## no critic [Variables::RequireLocalizedPunctuationVars]
