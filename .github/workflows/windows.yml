@@ -12,6 +12,7 @@ on:
 jobs:
   perl:
     # name: Perl Perl ${{ matrix.perl }} on ${{ matrix.os }}
+    # https://justatheory.com/2021/11/cache-perl-github-workflows/
     env:
       # some plugins still needs this to run their tests...
       PERL_USE_UNSAFE_INC: 0
@@ -67,10 +68,13 @@ jobs:
       # # - id: 
       #   name: Checkout
       # #   uses: actions/checkout@v1
-      - id: explore-tools
-        name: Explore Tools
+      - id: explore-tools-perl
+        name: Explore Tools: Perl
         run: |
           perl -V
+      - id: explore-tools-cpan
+        name: Explore Tools: Cpan
+        run: |
           cpan -V
       - id: install-dzil
         name: Install Dist::Zilla
@@ -78,12 +82,15 @@ jobs:
         run: |
           cpan -T Dist::Zilla
       - id: explore-dzil
-        name: List Dist::Zilla and its dependencies
+        name: Explore - List Dist::Zilla and its dependencies
         run: |
           dir
           dir C:\Users
-          dir .cpan
-          dir .cpan\build
+          dir ..
+          dir ..\..
+          dir D:\
+          # dir .cpan
+          # dir .cpan\build
       # # - id: 
       #   name: Install Dependencies
       # #   #run: cpm install -g --no-test --show-build-log-on-failure --cpanfile cpanfile
