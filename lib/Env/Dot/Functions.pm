@@ -127,7 +127,12 @@ Return a list of file paths.
 =cut
 
 sub interpret_dotenv_filepath_var {    ## no critic (Subroutines::RequireArgUnpacking)
-    return split qr{:}msx, $_[0];
+    my $var_content = @_;
+    if( $OSNAME eq 'MSWin32' ) {
+        return split qr{;}msx, $_[0];
+    } else {
+        return split qr{:}msx, $_[0];
+    }
 }
 
 =head2 get_envdot_filepaths_var_name

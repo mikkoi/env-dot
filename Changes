@@ -1,6 +1,9 @@
 Revision history for {{$dist->name}}
 
 {{$NEXT}}
+            * Modify interpret_dotenv_filepath_var() to handle Win32 and Unix.
+            * Add more diag to tests.
+            * Add Test::Deny|Require::Platform packages.
 
 0.016_01  2024-09-26 05:50:19+02:00 Europe/Stockholm (TRIAL RELEASE)
             * Remove filepath from dies test because of Windows.
