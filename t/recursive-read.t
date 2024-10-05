@@ -13,6 +13,16 @@ use File::Spec;
 use File::Temp ();
 use Cwd qw( getcwd );
 
+use FindBin qw( $RealBin );
+use File::Spec;
+my $lib_path;
+BEGIN {
+    $lib_path = File::Spec->catdir(($RealBin =~ /(.+)/msx)[0], q{.}, 'lib');
+}
+use lib "$lib_path";
+
+use Test2::Require::Platform::Unix;
+
 
 # $File::Temp::KEEP_ALL = 1;
 # $File::Temp::DEBUG = 1;
