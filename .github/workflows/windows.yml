@@ -56,7 +56,8 @@ jobs:
         with:
           # npm cache files are stored in `~/.npm` on Linux/macOS
           # path: ~/.cpan
-          path: local
+          # path: local
+          path: C:/Strawberry/perl/site/lib
           # key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/package-lock.json') }}
           # key: perl-${{ steps.perl.outputs.perl-hash }}
           key: static
@@ -80,12 +81,18 @@ jobs:
         name: Explore Filesystem
         run: |
           dir
+          dir C:\
           dir C:\Users
+          dir C:/Strawberry/perl/site/lib
           dir ..
           dir ..\..
           dir D:\
           # dir .cpan
           # dir .cpan\build
+      - id: explore-whoami
+        name: Explore Who Am I
+        run: |
+          whoami
       - id: install-dzil
         name: Install Dist::Zilla
         # -T Do not test modules. Simply install them.
@@ -101,13 +108,11 @@ jobs:
       - id: install-dzil-authordeps
         name: Install Dist::Zilla Author Dependencies
         run: |
-          dzil authordeps --missing --versions | \
-            cpanm --verbose --force --notest || true
+          dzil authordeps --missing --versions | cpanm --verbose --force --notest || true
       - id: install-deps
         name: Install Dependencies
         run: |
-          dzil listdeps --missing --develop --requires --recommends --suggests --version \
-            | cpanm --verbose --force --notest || true
+          dzil listdeps --missing --develop --requires --recommends --suggests --version | cpanm --verbose --force --notest || true
       - id: run-tests
         name: Run Tests
         run: |
