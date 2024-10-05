@@ -76,13 +76,8 @@ jobs:
         name: Explore Tools Cpan
         run: |
           cpan -V
-      - id: install-dzil
-        name: Install Dist::Zilla
-        # -T Do not test modules. Simply install them.
-        run: |
-          cpan -T Dist::Zilla
-      - id: explore-dzil
-        name: Explore - List Dist::Zilla and its dependencies
+      - id: explore-filesystem
+        name: Explore Filesystem
         run: |
           dir
           dir C:\Users
@@ -91,6 +86,11 @@ jobs:
           dir D:\
           # dir .cpan
           # dir .cpan\build
+      - id: install-dzil
+        name: Install Dist::Zilla
+        # -T Do not test modules. Simply install them.
+        run: |
+          cpan -T Dist::Zilla
       # # - id: 
       #   name: Install Dependencies
       # #   #run: cpm install -g --no-test --show-build-log-on-failure --cpanfile cpanfile
