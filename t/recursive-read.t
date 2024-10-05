@@ -9,12 +9,11 @@ use Carp qw( croak );
 use English qw( -no_match_vars ) ;  # Avoids regex performance
 use FileHandle ();
 use File::Path qw( make_path );
-use File::Spec;
+use File::Spec ();
 use File::Temp ();
 use Cwd qw( getcwd );
 
 use FindBin qw( $RealBin );
-use File::Spec;
 my $lib_path;
 BEGIN {
     $lib_path = File::Spec->catdir(($RealBin =~ /(.+)/msx)[0], q{.}, 'lib');

@@ -10,7 +10,7 @@ set_encoding('utf8');
 # Add t/lib to @INC
 use FindBin qw( $RealBin );
 use File::Basename qw( dirname );
-use File::Spec;
+use File::Spec ();
 my $lib_path;
 BEGIN {
     $lib_path = File::Spec->catdir(($RealBin =~ /(.+)/msx)[0], q{.}, 'lib');

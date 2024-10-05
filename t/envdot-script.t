@@ -7,7 +7,7 @@ use Test2::V0;
 
 use Cwd;
 use FindBin qw( $RealBin );
-use File::Spec;
+use File::Spec ();
 my $lib_path;
 BEGIN {
     $lib_path = File::Spec->catdir(($RealBin =~ /(.+)/msx)[0], q{.}, 'lib');

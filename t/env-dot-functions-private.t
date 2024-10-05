@@ -8,7 +8,7 @@ use Test2::V0;
 use Carp;
 use FileHandle ();
 use File::Path qw( make_path );
-use File::Spec;
+use File::Spec ();
 use File::Temp ();
 use Cwd qw( getcwd );
 
