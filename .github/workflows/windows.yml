@@ -20,14 +20,12 @@ jobs:
 
     runs-on: windows-latest
     steps:
-      - name: Checkout
-        uses: actions/checkout@v2
-      # - name: Setup DotNet@v1
-      #   uses: actions/setup-dotnet@v1
-      # - name: Build
-      #   run: dotnet build
-      # - name: Run tests
-      #   run: dotnet test
+      - id: checkout
+        name: Checkout
+        uses: actions/checkout@v4
+      # # - id: 
+      #   name: Setup DotNet@v1
+      # #   uses: actions/setup-dotnet@v1
 
     # strategy:
     #   fail-fast: false
@@ -42,23 +40,44 @@ jobs:
     # container:
     #   image: perldocker/perl-tester:${{ matrix.perl-version }}
 
-      # - name: Checkout
-      #   uses: actions/checkout@v1
-      - name: perl -V
-        run: perl -V
-      - name: cpan -V
-        run: cpan -V
-      - name: Install Dist::Zilla
+      # # - id: 
+      #   name: Checkout
+      # #   uses: actions/checkout@v1
+      - id: explore-tools
+        name: Explore Tools
+        run: |
+          perl -V
+          cpan -V
+      - id: install-dzil
+        name: Install Dist::Zilla
         # -T Do not test modules. Simply install them.
-        run: cpan -T Dist::Zilla
-      # - name: Install Dependencies
-      #   #run: cpm install -g --no-test --show-build-log-on-failure --cpanfile cpanfile
-      #   run: cpm install -g --no-test --show-build-log-on-failure --cpanfile cpanfile
-      # - name: Makefile.PL
-      #   run: perl Makefile.PL
-      - name: Install Dist::Zilla Author Dependencies
-        run: dzil authordeps --missing --versions | cpanm --verbose --force --notest || true
-      - name: Install Dependencies
-        run: dzil listdeps --missing --develop --requires --recommends --suggests --version | cpanm --verbose --force --notest || true
-      - name: Run Tests
-        run: prove -lrv t
+        run: |
+          cpan -T Dist::Zilla
+      - id: explore-dzil
+        name: List Dist::Zilla and its dependencies
+        run: |
+          dir
+          dir C:\Users
+          dir .cpan
+          dir .cpan\build
+      # # - id: 
+      #   name: Install Dependencies
+      # #   #run: cpm install -g --no-test --show-build-log-on-failure --cpanfile cpanfile
+      # #   run: cpm install -g --no-test --show-build-log-on-failure --cpanfile cpanfile
+      # # - id: 
+      #   name: Makefile.PL
+      # #   run: perl Makefile.PL
+      - id: install-dzil-authordeps
+        name: Install Dist::Zilla Author Dependencies
+        run: |
+          dzil authordeps --missing --versions | \
+            cpanm --verbose --force --notest || true
+      - id: install-deps
+        name: Install Dependencies
+        run: |
+          dzil listdeps --missing --develop --requires --recommends --suggests --version \
+            | cpanm --verbose --force --notest || true
+      - id: run-tests
+        name: Run Tests
+        run: |
+          prove -lrv t
