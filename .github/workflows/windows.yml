@@ -69,11 +69,11 @@ jobs:
       #   name: Checkout
       # #   uses: actions/checkout@v1
       - id: explore-tools-perl
-        name: Explore Tools: Perl
+        name: Explore Tools Perl
         run: |
           perl -V
       - id: explore-tools-cpan
-        name: Explore Tools: Cpan
+        name: Explore Tools Cpan
         run: |
           cpan -V
       - id: install-dzil
