@@ -96,7 +96,7 @@ jobs:
       - id: explore-environment
         name: Explore Environment
         run: |
-          Get-ChildItem env:
+          Get-ChildItem env: | Format-Table -Wrap
       - id: install-dzil
         name: Install Dist::Zilla
         # -T Do not test modules. Simply install them.
