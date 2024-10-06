@@ -93,6 +93,10 @@ jobs:
         name: Explore Who Am I
         run: |
           whoami
+      - id: explore-path
+        name: Explore PATH
+        run: |
+          echo %PATH%
       - id: install-dzil
         name: Install Dist::Zilla
         # -T Do not test modules. Simply install them.
