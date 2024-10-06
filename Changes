@@ -1,6 +1,8 @@
 Revision history for {{$dist->name}}
 
 {{$NEXT}}
+
+0.016_02  2024-10-06 10:27:25+02:00 Europe/Stockholm (TRIAL RELEASE)
             * Remove filepath from dies test because of Windows.
 			* Add warning that script/envdot is not Windows compatible.
 			* Add GitHub Action for Windows build.
