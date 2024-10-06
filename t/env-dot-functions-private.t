@@ -24,7 +24,7 @@ sub create_case_one {
         DIR => File::Spec->tmpdir,
     );
     my $dir_path = $dir->{'DIRNAME'};
-    diag "Created temp dir: $dir_path";
+    note "Created temp dir: $dir_path";
     make_path( File::Spec->catdir( $dir_path, 'root', 'dir', 'subdir' ) );
 
     my $fh_root_env = FileHandle->new( File::Spec->catfile( $dir_path,
@@ -369,7 +369,7 @@ subtest 'Private subroutine _get_parent_dotenv_filepath()' => sub {
 
     # Jump over middle directory.
     unlink $dir_filepath;
-    # diag "Env::Dot::Functions::_get_parent_dotenv_filepath($subdir_filepath)";
+    note "Env::Dot::Functions::_get_parent_dotenv_filepath($subdir_filepath)";
     $parent_filepath = Env::Dot::Functions::_get_parent_dotenv_filepath($subdir_filepath);
     is( $parent_filepath, $root_filepath, 'correct parent dir and .env file' );
 

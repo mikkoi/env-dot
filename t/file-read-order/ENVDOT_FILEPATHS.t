@@ -52,7 +52,7 @@ subtest 'Three dotenv files: natural order' => sub {
     my %new_env = (
         'ENVDOT_FILEPATHS' => concat_filepaths($path_first, $path_second, $path_third),
     );
-    diag "'ENVDOT_FILEPATHS' => $new_env{ENVDOT_FILEPATHS}";
+    note "'ENVDOT_FILEPATHS' => $new_env{ENVDOT_FILEPATHS}";
 
     # We need to replace the current %ENV, not change individual values.
     ## no critic [Variables::RequireLocalizedPunctuationVars]
@@ -81,7 +81,7 @@ subtest 'Three dotenv files: reversed order' => sub {
     my %new_env = (
         'ENVDOT_FILEPATHS' => concat_filepaths($path_third, $path_second, $path_first),
     );
-    diag "'ENVDOT_FILEPATHS' => $new_env{ENVDOT_FILEPATHS}";
+    note "'ENVDOT_FILEPATHS' => $new_env{ENVDOT_FILEPATHS}";
 
     # We need to replace the current %ENV, not change individual values.
     ## no critic [Variables::RequireLocalizedPunctuationVars]
@@ -110,7 +110,7 @@ subtest 'Three dotenv files: mixed order' => sub {
     my %new_env = (
         'ENVDOT_FILEPATHS' => concat_filepaths($path_second, $path_third, $path_first),
     );
-    diag "'ENVDOT_FILEPATHS' => $new_env{ENVDOT_FILEPATHS}";
+    note "'ENVDOT_FILEPATHS' => $new_env{ENVDOT_FILEPATHS}";
 
     # We need to replace the current %ENV, not change individual values.
     ## no critic [Variables::RequireLocalizedPunctuationVars]
@@ -140,7 +140,7 @@ subtest 'Two dotenv files: natural order, and from env' => sub {
         'ENVDOT_FILEPATHS' => concat_filepaths($path_first, $path_second),
         'FROM_ENV' => 'ENV: from env',
     );
-    diag "'ENVDOT_FILEPATHS' => $new_env{ENVDOT_FILEPATHS}";
+    note "'ENVDOT_FILEPATHS' => $new_env{ENVDOT_FILEPATHS}";
 
     # We need to replace the current %ENV, not change individual values.
     ## no critic [Variables::RequireLocalizedPunctuationVars]
@@ -170,7 +170,7 @@ subtest 'Two dotenv files requiring interpolating (not done): reversed order, an
         'ENVDOT_FILEPATHS' => concat_filepaths($path_interpolation, $path_static),
         'COMMON_VAR' => 'COMMON: from env',
     );
-    diag "'ENVDOT_FILEPATHS' => $new_env{ENVDOT_FILEPATHS}";
+    note "'ENVDOT_FILEPATHS' => $new_env{ENVDOT_FILEPATHS}";
 
     # We need to replace the current %ENV, not change individual values.
     ## no critic [Variables::RequireLocalizedPunctuationVars]
