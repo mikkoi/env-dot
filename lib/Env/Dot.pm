@@ -136,6 +136,11 @@ which type of file it is.
 The executable is distributed together with Env::Dot package.
 It is in the directory I<script>.
 
+The executable I<script/envdot> is not Windows compatible!
+
+A Windows (MS Command and Powershell compatible) version, I<script\envdot.bat>, is possible 
+in a future release. Please contact the author if you are interested in it.
+
     eval "$(envdot)"
 
 N.B. If your B<.env> file(s) contain variables which need interpolating,
