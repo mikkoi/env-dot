@@ -48,23 +48,23 @@ jobs:
     # container:
     #   image: perldocker/perl-tester:${{ matrix.perl-version }}
 
-      - id: cache-cpan
-        name: Cache CPAN modules
-        uses: actions/cache@v4
-        # env:
-        #   cache-name: cache-cpan-modules
-        with:
-          # npm cache files are stored in `~/.npm` on Linux/macOS
-          # path: ~/.cpan
-          # path: local
-          path: C:/Strawberry/perl/site/lib
-          # key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/package-lock.json') }}
-          # key: perl-${{ steps.perl.outputs.perl-hash }}
-          key: static
-          # restore-keys: |
-          #   ${{ runner.os }}-build-${{ env.cache-name }}-
-          #   ${{ runner.os }}-build-
-          #   ${{ runner.os }}-
+      # - id: cache-cpan
+      #   name: Cache CPAN modules
+      #   uses: actions/cache@v4
+      #   # env:
+      #   #   cache-name: cache-cpan-modules
+      #   with:
+      #     # npm cache files are stored in `~/.npm` on Linux/macOS
+      #     # path: ~/.cpan
+      #     # path: local
+      #     path: C:/Strawberry/perl/site/lib
+      #     # key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/package-lock.json') }}
+      #     # key: perl-${{ steps.perl.outputs.perl-hash }}
+      #     key: static
+      #     # restore-keys: |
+      #     #   ${{ runner.os }}-build-${{ env.cache-name }}-
+      #     #   ${{ runner.os }}-build-
+      #     #   ${{ runner.os }}-
 
       # # - id: 
       #   name: Checkout
