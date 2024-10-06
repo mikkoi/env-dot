@@ -17,7 +17,7 @@ BEGIN {
 }
 use lib "$lib_path";
 
-use Test2::Require::OS::Linux;
+use Test2::Require::Platform::Unix;
 
 use Test::Script 1.28;
 
