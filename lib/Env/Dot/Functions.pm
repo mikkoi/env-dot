@@ -126,7 +126,12 @@ Return a list of file paths.
 =cut
 
 sub interpret_dotenv_filepath_var {    ## no critic (Subroutines::RequireArgUnpacking)
-    return split qr{:}msx, $_[0];
+    my $var_content = @_;
+    if( $OSNAME eq 'MSWin32' ) {
+        return split qr{;}msx, $_[0];
+    } else {
+        return split qr{:}msx, $_[0];
+    }
 }
 
 =head2 get_envdot_filepaths_var_name
@@ -167,16 +172,16 @@ sub _read_dotenv_file_recursively {
 sub _get_parent_dotenv_filepath {
     my ($current_filepath) = @_;
 
-    my ( $volume, $directories, $file ) = File::Spec->splitpath($current_filepath);
-    my ($parent_path)     = abs_path( File::Spec->catdir( $directories, File::Spec->updir ) );
-    my ($parent_filepath) = abs_path( File::Spec->catdir( $parent_path, '.env' ) );
-    while ( !-f $parent_filepath ) {
-        return if ( $parent_path eq File::Spec->rootdir );
-        ( $volume, $directories, $file ) = File::Spec->splitpath($parent_filepath);
-        $parent_path     = abs_path( File::Spec->catdir( $directories, File::Spec->updir ) );
-        $parent_filepath = abs_path( File::Spec->catdir( $parent_path, '.env' ) );
+    my ($volume, $directories, $file)=File::Spec->splitpath($current_filepath);
+    my $parent_path = File::Spec->catpath($volume, $directories);
+    my $parent_filepath;
+
+    while( defined $parent_path && $parent_path ne File::Spec->rootdir() ) {
+        $parent_path     = abs_path(File::Spec->catdir($parent_path, File::Spec->updir));
+        $parent_filepath = File::Spec->catfile($parent_path, '.env' );
+        return $parent_filepath if( defined $parent_path && -f $parent_filepath );
     }
-    return $parent_filepath;
+    return;
 }
 
 sub _interpret_dotenv {

@@ -5,17 +5,25 @@ use strict;
 use warnings;
 use Test2::V0;
 
+use Cwd qw( getcwd );
+use English qw( -no_match_vars );
 use File::Spec ();
 use File::Basename qw( dirname );
-use Cwd;
+
+use FindBin qw( $RealBin );
+my $lib_path;
+BEGIN {
+    $lib_path = File::Spec->catdir(($RealBin =~ /(.+)/msx)[0], q{.}, 'lib');
+}
+use lib "$lib_path";
 
 # First thing change dir!
 my ($path_first, $path_second, $path_third);
 my ($path_interpolation, $path_static);
 BEGIN {
-        my $this = dirname( File::Spec->rel2abs( __FILE__ ) );
-        ($this) = $this =~ /(.+)/msx; # Make it non-tainted
-        chdir $this;
+    my $this = dirname( File::Spec->rel2abs( __FILE__ ) );
+    ($this) = $this =~ /(.+)/msx; # Make it non-tainted
+    chdir $this;
     ($path_first, $path_second, $path_third) = (
         File::Spec->catdir($this, 'dummy.env-first'),
         File::Spec->catdir($this, 'dummy.env-second'),
@@ -27,14 +35,24 @@ BEGIN {
         );
 }
 
+sub concat_filepaths {
+    my @paths = @_;
+    if( $OSNAME eq 'MSWin32' ) {
+        return join q{;}, @paths;
+    } else {
+        return join q{:}, @paths;
+    }
+}
+
 subtest 'Three dotenv files: natural order' => sub {
     # Do not use __FILE__ because its value is not absolute and not updated
     # when chdir is done.
     my $this = getcwd;
     ($this) = $this =~ /(.+)/msx; # Make it non-tainted
     my %new_env = (
-        'ENVDOT_FILEPATHS' => "$path_first:$path_second:$path_third",
+        'ENVDOT_FILEPATHS' => concat_filepaths($path_first, $path_second, $path_third),
     );
+    note "'ENVDOT_FILEPATHS' => $new_env{ENVDOT_FILEPATHS}";
 
     # We need to replace the current %ENV, not change individual values.
     ## no critic [Variables::RequireLocalizedPunctuationVars]
@@ -61,8 +79,9 @@ subtest 'Three dotenv files: reversed order' => sub {
     my $this = getcwd;
     ($this) = $this =~ /(.+)/msx; # Make it non-tainted
     my %new_env = (
-        'ENVDOT_FILEPATHS' => "$path_third:$path_second:$path_first",
+        'ENVDOT_FILEPATHS' => concat_filepaths($path_third, $path_second, $path_first),
     );
+    note "'ENVDOT_FILEPATHS' => $new_env{ENVDOT_FILEPATHS}";
 
     # We need to replace the current %ENV, not change individual values.
     ## no critic [Variables::RequireLocalizedPunctuationVars]
@@ -89,8 +108,9 @@ subtest 'Three dotenv files: mixed order' => sub {
     my $this = getcwd;
     ($this) = $this =~ /(.+)/msx; # Make it non-tainted
     my %new_env = (
-        'ENVDOT_FILEPATHS' => "$path_second:$path_third:$path_first",
+        'ENVDOT_FILEPATHS' => concat_filepaths($path_second, $path_third, $path_first),
     );
+    note "'ENVDOT_FILEPATHS' => $new_env{ENVDOT_FILEPATHS}";
 
     # We need to replace the current %ENV, not change individual values.
     ## no critic [Variables::RequireLocalizedPunctuationVars]
@@ -117,9 +137,10 @@ subtest 'Two dotenv files: natural order, and from env' => sub {
     my $this = getcwd;
     ($this) = $this =~ /(.+)/msx; # Make it non-tainted
     my %new_env = (
-        'ENVDOT_FILEPATHS' => "$path_first:$path_second",
+        'ENVDOT_FILEPATHS' => concat_filepaths($path_first, $path_second),
         'FROM_ENV' => 'ENV: from env',
     );
+    note "'ENVDOT_FILEPATHS' => $new_env{ENVDOT_FILEPATHS}";
 
     # We need to replace the current %ENV, not change individual values.
     ## no critic [Variables::RequireLocalizedPunctuationVars]
@@ -146,9 +167,10 @@ subtest 'Two dotenv files requiring interpolating (not done): reversed order, an
     my $this = getcwd;
     ($this) = $this =~ /(.+)/msx; # Make it non-tainted
     my %new_env = (
-        'ENVDOT_FILEPATHS' => "$path_interpolation:$path_static",
+        'ENVDOT_FILEPATHS' => concat_filepaths($path_interpolation, $path_static),
         'COMMON_VAR' => 'COMMON: from env',
     );
+    note "'ENVDOT_FILEPATHS' => $new_env{ENVDOT_FILEPATHS}";
 
     # We need to replace the current %ENV, not change individual values.
     ## no critic [Variables::RequireLocalizedPunctuationVars]

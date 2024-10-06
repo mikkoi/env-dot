@@ -104,6 +104,8 @@ the first overrules the following ones, that is, when reading from the last path
 to the first path, if same variable is present in more than one file, the later
 one replaces the one already read.
 
+Attn. If you are using Windows, separate the paths by <;>!
+
 For example, if you have the following directory structure:
 
     project-root
@@ -113,7 +115,9 @@ For example, if you have the following directory structure:
 
 and you specify B<ENVDOT_FILEPATHS=project-root/sub-project/.env:project-root/.env>,
 then the variables in file B<project-root/.env> will get replaced
-by the more specific variables in B<project-root/sub-project/.env>
+by the more specific variables in B<project-root/sub-project/.env>.
+
+In Windows, this would be B<ENVDOT_FILEPATHS=project-root\sub-project\.env;project-root\.env>
 
 N.B. The ordering has changed in version 0.0.9.
 
@@ -131,6 +135,11 @@ which type of file it is.
 
 The executable is distributed together with Env::Dot package.
 It is in the directory I<script>.
+
+The executable I<script/envdot> is not Windows compatible!
+
+A Windows (MS Command and Powershell compatible) version, I<script\envdot.bat>, is possible 
+in a future release. Please contact the author if you are interested in it.
 
     eval "$(envdot)"
 

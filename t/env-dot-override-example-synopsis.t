@@ -10,14 +10,14 @@ set_encoding('utf8');
 # Add t/lib to @INC
 use FindBin qw( $RealBin );
 use File::Basename qw( dirname );
-use File::Spec;
+use File::Spec ();
 my $lib_path;
 BEGIN {
     $lib_path = File::Spec->catdir(($RealBin =~ /(.+)/msx)[0], q{.}, 'lib');
 }
 use lib "$lib_path";
 
-use Test2::Require::OS::Linux;
+use Test2::Require::Platform::Unix;
 
 use Test::Script 1.28;
 
@@ -27,7 +27,7 @@ subtest 'Script runs --version' => sub {
     ($this_dir) = $this_dir =~ /(.+)/msx; # Make it non-tainted
     my $prg_path = File::Spec->catfile( $this_dir,
         'env-dot-override-example-synopsis.sh' );
-    diag "run: $prg_path";
+    note "run: $prg_path";
     program_runs([ $prg_path, ], { stdout => \$stdout, }, 'Verify output');
     like( (split qr/\n/msx, $stdout)[0], qr/^ VAR:Good \s value $/msx, 'Correct stdout');
     like( (split qr/\n/msx, $stdout)[1], qr/^ VAR:Better \s value $/msx, 'Correct stdout');

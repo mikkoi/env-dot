@@ -2,6 +2,15 @@ Revision history for {{$dist->name}}
 
 {{$NEXT}}
             * Remove filepath from dies test because of Windows.
+			* Add warning that script/envdot is not Windows compatible.
+			* Add GitHub Action for Windows build.
+            * Modify interpret_dotenv_filepath_var() to handle Win32 and Unix.
+            * Add more diag to tests.
+            * Add Test::Deny|Require::Platform packages. Remove Test::Require::OS::* packages.
+
+0.016_01  2024-09-26 05:50:19+02:00 Europe/Stockholm (TRIAL RELEASE)
+            * Remove filepath from dies test because of Windows.
+            * Rewrite Env::Dot::Functions::_get_parent_dotenv_filepath()
 
 0.015     2024-09-23 00:36:19+02:00 Europe/Stockholm
             * Change STATUS documentation.

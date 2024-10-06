@@ -1,19 +1,35 @@
-package Test2::Require::OS::Windows;
+package Test2::Require::Platform::DOSOrDerivative;
 use strict;
 use warnings;
-
+ 
 use base 'Test2::Require';
-
+ 
 our $VERSION = '0.000160';
 
 use English qw( -no_match_vars ) ;  # Avoids regex performance
 
-sub skip {
-    my $class = shift;
-    return if $OSNAME eq 'MSWin32';
-    return 'Run tests only in Windows';
+my %PLATFORMS = (
+    'dos'     => 'MS-DOS/PC-DOS',
+    'os2'     => 'OS/2',
+    'MSWin32' => 'Windows',
+    'cygwin'  => 'Cygwin',
+);
+
+sub IS_PLATFORM {
+    return 1 if exists $PLATFORMS{ $OSNAME };
+    return 0;
 }
 
+sub skip {
+    my $class = shift;
+ 
+    if (IS_PLATFORM()) {
+        return;
+    } else {
+        return (__PACKAGE__ =~ m/^Test2::(.*)$/msx)[0];
+    }
+}
+ 
 1;
 
 __END__
@@ -24,7 +40,7 @@ __END__
 
 =head1 NAME
 
-Test2::Require::OS::Windows - Only run a test if the current system is a Windows.
+Test2::Require::Platform::DOSOrDerivative - Only run a test if the current platform is a Unix.
 
 =head1 DESCRIPTION
 
@@ -35,7 +51,7 @@ the operating system name.
 
 =head1 SYNOPSIS
 
-    use Test2::Require::OS::Windows;
+    use Test2::Require::Platform::DOSOrDerivative;
     ...
     done_testing;
 
@@ -56,13 +72,13 @@ F<https://github.com/Test-More/Test2-Suite/>.
 
 =over 4
 
-=item Chad Granum E<lt>exodist@cpan.orgE<gt>
+=item Mikko Koivunalho E<lt>mikkoi@cpan.orgE<gt>
 
 =back
 
 =head1 COPYRIGHT
 
-Copyright 2018 Chad Granum E<lt>exodist@cpan.orgE<gt>.
+Copyright 2024 Mikko Koivunalho E<lt>mikkoi@cpan.orgE<gt>.
 This program is free software; you can redistribute it and/or
 modify it under the same terms as Perl itself.
 
