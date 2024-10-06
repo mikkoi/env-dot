@@ -26,7 +26,7 @@ sub skip {
     if (IS_PLATFORM()) {
         return;
     } else {
-        return 'Skipped because this platform is not DOS or derivative';
+        return (__PACKAGE__ =~ m/^Test2::(.*)$/msx)[0];
     }
 }
  

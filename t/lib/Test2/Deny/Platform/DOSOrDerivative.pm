@@ -16,7 +16,7 @@ sub skip {
     if (! Test2::Require::Platform::DOSOrDerivative::IS_PLATFORM()) {
         return;
     } else {
-        return 'Skipped because this platform is DOS or derivative';
+        return (__PACKAGE__ =~ m/^Test2::(.*)$/msx)[0];
     }
 }
  
