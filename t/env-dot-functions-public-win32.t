@@ -34,7 +34,7 @@ subtest 'Private Subroutine interpret_dotenv_filepath_var()' => sub {
     {
         my $var = q{:};
         my @paths = Env::Dot::Functions::interpret_dotenv_filepath_var( $var );
-        is( \@paths, [ q{;}, ], 'Filepaths right' );
+        is( \@paths, [ q{:}, ], 'Filepaths right' );
     }
 
     {
@@ -106,7 +106,7 @@ subtest 'Private Subroutine interpret_dotenv_filepath_var()' => sub {
     {
         my $var = q{C:\home\;subdir\.env;\\};
         my @paths = Env::Dot::Functions::interpret_dotenv_filepath_var( $var );
-        is( \@paths, [ q{C:\home\}, q{subdir\.env}, q{\\}, ], 'Filepaths right' );
+        is( \@paths, [ q{C:\home\\}, q{subdir\.env}, q{\\}, ], 'Filepaths right' );
     }
 
     done_testing;
