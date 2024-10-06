@@ -125,12 +125,12 @@ Return a list of file paths.
 
 =cut
 
-sub interpret_dotenv_filepath_var {    ## no critic (Subroutines::RequireArgUnpacking)
-    my $var_content = @_;
+sub interpret_dotenv_filepath_var {
+    my ($var_content) = @_;
     if( $OSNAME eq 'MSWin32' ) {
-        return split qr{;}msx, $_[0];
+        return split qr{;}msx, $var_content;
     } else {
-        return split qr{:}msx, $_[0];
+        return split qr{:}msx, $var_content;
     }
 }
 
@@ -172,7 +172,7 @@ sub _read_dotenv_file_recursively {
 sub _get_parent_dotenv_filepath {
     my ($current_filepath) = @_;
 
-    my ($volume, $directories, $file)=File::Spec->splitpath($current_filepath);
+    my ($volume, $directories) = File::Spec->splitpath($current_filepath);
     my $parent_path = File::Spec->catpath($volume, $directories);
     my $parent_filepath;
 
