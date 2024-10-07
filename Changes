@@ -1,6 +1,8 @@
 Revision history for {{$dist->name}}
 
 {{$NEXT}}
+
+0.016     2024-10-07 11:33:09+02:00 Europe/Stockholm
 			* Add Twata <twata_1@yahoo.co.jp> as a contributor. [rt.cpan.org #155711]
 				* Windows compatibility. Big thanks.
 
