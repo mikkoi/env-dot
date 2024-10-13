@@ -2,7 +2,6 @@
 package Env::Dot::Functions;
 use strict;
 use warnings;
-use Data::Dumper;
 
 use Cwd qw( abs_path );
 use English qw( -no_match_vars );
