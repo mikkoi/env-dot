@@ -53,6 +53,12 @@ my %DOTENV_OPTIONS = (
     'file:type'                        => 1,
     'var:allow_interpolate'            => 1,
 );
+my %DOS_PLATFORMS = (
+        'dos'     => 'MS-DOS/PC-DOS',
+        'os2'     => 'OS/2',
+        'MSWin32' => 'Windows',
+        'cygwin'  => 'Cygwin',
+    );
 
 =pod
 
@@ -127,7 +133,7 @@ Return a list of file paths.
 
 sub interpret_dotenv_filepath_var {
     my ($var_content) = @_;
-    if( $OSNAME eq 'MSWin32' ) {
+    if( exists $DOS_PLATFORMS{ $OSNAME } ) {
         return split qr{;}msx, $var_content;
     } else {
         return split qr{:}msx, $var_content;
