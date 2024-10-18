@@ -8,9 +8,10 @@
 
 ## DESCRIPTION
 
-More flexibility in how you manage and use your F<.env> file.
+More flexibility in how you manage and use your `.env` file.
 
 **Attn. Existing environment variables always take precedence to dotenv variables!**
+
 A dotenv variable (variable from a file) does not overwrite
 an existing environment variable. This is by design because
 a dotenv file is to augment the environment, not to replace it.
@@ -28,7 +29,7 @@ its counterpart in the environment. For instance:
 
 ### Features
 
-* If no B<.env> file is present, then do nothing
+* If no `.env` file is present, then do nothing
     By default, Env::Dot will do nothing if there is no `.env` file.
     You can also configure Env::Dot to emit an alarm
     or break execution, if you want.
@@ -37,11 +38,11 @@ its counterpart in the environment. For instance:
     If your `.env` file is located in another path,
     not the current working directory,
     you can use the environment variable
-    **ENVDOT_FILEPATHS> to tell where your dotenv file is located.
+    **ENVDOT_FILEPATHS** to tell where your dotenv file is located.
     You can specify several file paths; just separate
-    them by B<:>. Env::Dot will load all the files in the order
+    them by ":" (";" in Windows). Env::Dot will load all the files in the order
     you specify them, starting from the last, i.e. in reversed order.
-    This is the same ordering as used in B<PATH> variable:
+    This is the same ordering as used in **PATH** variable:
     the first overrules the following ones, that is, when reading from the last path
     to the first path, if same variable is present in more than one file, the later
     one replaces the one already read.
@@ -115,3 +116,25 @@ include **envdot** in a docker container build.
 ### How to Create a FatPacker Executable
 
     PERL5LIB=lib fatpack pack script/envdot >envdot.self-contained
+
+
+# LICENSE
+
+This software is copyright (c) 2023 by Mikko Koivunalho.
+
+This is free software; you can redistribute it and/or modify it under
+the same terms as the Perl 5 programming language system itself.
+
+Terms of the Perl programming language system itself:
+
+a) the GNU General Public License as published by the Free
+   Software Foundation; either version 1, or (at your option) any
+   later version, or
+b) the "Artistic License"
+
+The complete licenses are in the files LICENSE-Artistic-2.0 and LICENSE-GPL-3
+within this repository. If these files are missing, they can be downloaded
+from the following urls:
+
+    * https://www.gnu.org/licenses/
+    * https://www.perlfoundation.org/artistic-license-20.html
