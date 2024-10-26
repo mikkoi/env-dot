@@ -59,6 +59,7 @@ which type of file it is.
 Read .env file and turn its content into
 environment variables for different shells.
 
+
 # envdot
 
 ## DESCRIPTION
@@ -112,10 +113,6 @@ include **envdot** in a docker container build.
 
     curl -LSs -o envdot https://raw.githubusercontent.com/mikkoi/env-dot/main/envdot.self-contained
     chmod +x ./envdot
-
-### How to Create a FatPacker Executable
-
-    PERL5LIB=lib fatpack pack script/envdot >envdot.self-contained
 
 
 # LICENSE
