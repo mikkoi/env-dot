@@ -3,6 +3,7 @@ Revision history for {{$dist->name}}
 {{$NEXT}}
             * Remove fatpacker instruction from README
             * Remove whitespace
+            * Start embedding version numbers in every file
 
 0.017_002 2024-10-15 22:32:22+02:00 Europe/Stockholm (TRIAL RELEASE)
 
