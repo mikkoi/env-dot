@@ -4,6 +4,7 @@ Revision history for {{$dist->name}}
             * Remove fatpacker instruction from README
             * Remove whitespace
             * Start embedding version numbers in every file
+            * Add App::RewriteVersion 1.000 to Prereqs / DevelopSuggests
 
 0.017_002 2024-10-15 22:32:22+02:00 Europe/Stockholm (TRIAL RELEASE)
 
