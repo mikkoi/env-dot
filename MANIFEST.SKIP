@@ -15,6 +15,5 @@ dist.ini
 local/
 .lvimrc
 Session.vim
-dzil-generated-cpanfile
 README.md
 envdot.self-contained
