@@ -138,7 +138,7 @@ It is in the directory I<script>.
 
 The executable I<script/envdot> is not Windows compatible!
 
-A Windows (MS Command and Powershell compatible) version, I<script\envdot.bat>, is possible 
+A Windows (MS Command and Powershell compatible) version, I<script\envdot.bat>, is possible
 in a future release. Please contact the author if you are interested in it.
 
     eval "$(envdot)"
