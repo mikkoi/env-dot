@@ -6,6 +6,7 @@ Revision history for {{$dist->name}}
             * Start embedding version numbers in every file
             * Add App::RewriteVersion 1.000 to Prereqs / DevelopSuggests
             * Remove generating cpanfile
+            * Add changes to Dzil::Plugin::Test::Perl::Critic config.
 
 0.017_002 2024-10-15 22:32:22+02:00 Europe/Stockholm (TRIAL RELEASE)
 
