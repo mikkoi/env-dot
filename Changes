@@ -1,6 +1,7 @@
 Revision history for {{$dist->name}}
 
 {{$NEXT}}
+            * Fix the LICENSE-GPL-3 file.
             * Update Bump version commit message.
 
 0.018     2024-11-17 22:07:21+01:00 Europe/Stockholm
