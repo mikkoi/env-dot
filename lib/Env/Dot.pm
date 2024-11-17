@@ -21,7 +21,7 @@ use Carp;
 
 # ABSTRACT: Read environment variables from .env file
 
-our $VERSION = '0.018';
+our $VERSION = '0.019';
 
 use Env::Dot::Functions qw(
     get_dotenv_vars
