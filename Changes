@@ -1,6 +1,7 @@
 Revision history for {{$dist->name}}
 
 {{$NEXT}}
+            * Use Dzil plugin Git::Commit to commit instead of Run::AfterRelease.
             * Reorder AfterRelease activity in dist.ini.
             * Remove Modules::RequireVersionVar from excluded Perl::Critic tests.
 
