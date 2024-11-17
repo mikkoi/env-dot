@@ -29,7 +29,7 @@ $fatpacked{"Env/Dot.pm"} = '#line '.(1+__LINE__).' "'.__FILE__."\"\n".<<'ENV_DOT
   
   # ABSTRACT: Read environment variables from .env file
   
-  our $VERSION = '0.017';
+  our $VERSION = '0.018';
   
   use Env::Dot::Functions qw(
       get_dotenv_vars
@@ -330,7 +330,7 @@ $fatpacked{"Env/Dot/Functions.pm"} = '#line '.(1+__LINE__).' "'.__FILE__."\"\n".
   
   # ABSTRACT: Read environment variables from .env file
   
-  our $VERSION = '0.017';
+  our $VERSION = '0.018';
   
   use constant {
       OPTION_FILE_TYPE                         => q{file:type},
@@ -674,7 +674,7 @@ $fatpacked{"Env/Dot/ScriptFunctions.pm"} = '#line '.(1+__LINE__).' "'.__FILE__."
   
   # ABSTRACT: Read environment variables from .env file
   
-  our $VERSION = '0.017';
+  our $VERSION = '0.018';
   
   use constant {
       OPTION_FILE_TYPE         => q{file:type},
@@ -1827,7 +1827,7 @@ use open ':std', IO => ':encoding(UTF-8)';
 
 # PODNAME: envdot
 
-our $VERSION = '0.017';
+our $VERSION = '0.018';
 
 use English      qw( -no_match_vars );                   # Avoids regex performance penalty in perl 5.18 and earlier
 use Getopt::Long qw( :config auto_version auto_help );
@@ -1926,7 +1926,7 @@ envdot - Read .env file and turn its content into environment variables for diff
 
 =head1 VERSION
 
-version 0.017
+version 0.018
 
 =head1 SYNOPSIS
 
