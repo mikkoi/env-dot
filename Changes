@@ -1,6 +1,7 @@
 Revision history for {{$dist->name}}
 
 {{$NEXT}}
+            * Clean dist.ini.
             * Correct naming of Dist::Zilla::app::Command::podpreview in dist.ini.
             * Fix the LICENSE-GPL-3 file.
             * Update Bump version commit message.
