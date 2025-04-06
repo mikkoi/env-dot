@@ -1,6 +1,9 @@
 Revision history for {{$dist->name}}
 
 {{$NEXT}}
+            * Harmonize SEE ALSO chapters in Env::Dot and script/envdot.
+                * Thank you, Sven Willenbuecher <sven.willenbuecher@gmx.de>
+                * https://github.com/mikkoi/env-dot/issues/2
             * Clean dist.ini.
             * Correct naming of Dist::Zilla::app::Command::podpreview in dist.ini.
             * Fix the LICENSE-GPL-3 file.

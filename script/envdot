@@ -215,10 +215,14 @@ No external dependencies outside Perl's standard distribution.
 
 L<Env::Assert> will verify that you certainly have those environmental
 variables you need. It also has an executable which can, for example,
-be used to perform the check in the beginning of a B<docker> container run.
+perform the check in the beginning of a B<docker> container run.
 
-L<Dotenv> is another package which implements functionality to use
+L<Dotenv> and L<ENV::Util|https://metacpan.org/pod/ENV::Util>
+are packages which also implement functionality to use
 F<.env> files in Perl.
+
+L<Config::ENV> and L<Config::Layered::Source::ENV> provide other means
+to configure application with the help of environment variables.
 
 L<shdotenv|https://github.com/ko1nksm/shdotenv> is a project to provide dotenv
 for shells with support for POSIX-compliant and multiple .env file syntax.
