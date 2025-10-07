@@ -2,6 +2,7 @@
 package Env::Dot;
 use strict;
 use warnings;
+use 5.010;
 
 # We define our own import routine because
 # this is the point (when `use Env::Dot` is called)

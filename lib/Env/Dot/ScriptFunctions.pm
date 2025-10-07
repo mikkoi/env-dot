@@ -2,6 +2,7 @@
 package Env::Dot::ScriptFunctions;
 use strict;
 use warnings;
+use 5.010;
 
 use Exporter 'import';
 our @EXPORT_OK = qw(
