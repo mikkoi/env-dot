@@ -99,6 +99,12 @@ Options:
     --shell -s
     --dotenv -e
 
+## INSTALLATION
+
+### Packaging
+
+[![Packaging status](https://repology.org/badge/vertical-allrepos/env-dot.svg)](https://repology.org/project/env-dot/versions)
+
 ### CLI interface without dependencies
 
 The **envdot** command is also available
