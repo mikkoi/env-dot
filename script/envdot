@@ -96,6 +96,10 @@ exit main(@ARGV);
 
 __END__
 
+=pod
+
+=for stopwords dotenv env envdot shdotenv subshells
+
 =head1 NAME
 
 envdot - Read .env file and turn its content into environment variables for different shells.

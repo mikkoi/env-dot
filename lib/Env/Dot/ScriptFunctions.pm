@@ -12,7 +12,7 @@ our %EXPORT_TAGS = ( 'all' => [qw( convert_variables_into_commands )], );
 use English qw( -no_match_vars );    # Avoids regex performance penalty in perl 5.18 and earlier
 use Carp;
 
-# ABSTRACT: Read environment variables from .env file
+# ABSTRACT: Read environment variables from a .env file
 
 our $VERSION = '0.019';
 
@@ -49,6 +49,8 @@ though not likely.
     use Env::Dot::ScriptFunctions qw( convert_variables_into_commands );
 
 =head1 DESCRIPTION
+
+=for stopwords envdot
 
 This package just contains functions for use
 in the main package L<Env::Dot> and in

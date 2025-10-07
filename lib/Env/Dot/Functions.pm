@@ -3,6 +3,10 @@ package Env::Dot::Functions;
 use strict;
 use warnings;
 
+=for :stopwords env dotenv filepath filepaths
+
+=cut
+
 use Cwd qw( abs_path );
 use English qw( -no_match_vars );
 use File::Spec;
@@ -31,7 +35,7 @@ our %EXPORT_TAGS = (
 use English qw( -no_match_vars );    # Avoids regex performance penalty in perl 5.18 and earlier
 use Carp;
 
-# ABSTRACT: Read environment variables from .env file
+# ABSTRACT: Read environment variables from a .env file
 
 our $VERSION = '0.019';
 
@@ -59,10 +63,6 @@ my %DOS_PLATFORMS = (
         'cygwin'  => 'Cygwin',
     );
 
-=pod
-
-=for stopwords envdot env filepath filepaths
-
 =head1 STATUS
 
 This module is currently being developed so changes in the API are possible,
@@ -77,6 +77,8 @@ though not likely.
 
 =head1 DESCRIPTION
 
+=for stopwords envdot
+
 This package just contains functions for use
 in the main package L<Env::Dot> and in
 the command line tool B<envdot>.
@@ -86,6 +88,8 @@ the command line tool B<envdot>.
 No functions are automatically exported to the calling namespace.
 
 =head2 get_dotenv_vars(@)
+
+=for stopwords env
 
 Return all variables from the F<.env> file
 as a list of hashes (name/value pairs).
@@ -140,6 +144,8 @@ sub interpret_dotenv_filepath_var {
 }
 
 =head2 get_envdot_filepaths_var_name
+
+=for stopwords env
 
 Return the name of the environment variable
 which user can use to specify the paths of .env files.
