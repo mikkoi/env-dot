@@ -2,6 +2,7 @@
 package Env::Dot;
 use strict;
 use warnings;
+use 5.010;
 
 # We define our own import routine because
 # this is the point (when `use Env::Dot` is called)
@@ -42,12 +43,6 @@ use constant {
 
 =pod
 
-=begin stopwords
-
-dotenv env envdot
-
-=end stopwords
-
 =head1 STATUS
 
 This module is currently being developed so changes in the API are possible,
@@ -63,6 +58,8 @@ though not likely.
 =head1 DESCRIPTION
 
 More flexibility in how you manage and use your F<.env> file.
+
+=for stopwords dotenv
 
 B<Attn. Existing environment variables always take precedence to dotenv variables!>
 A dotenv variable (variable from a file) does not overwrite
@@ -123,20 +120,30 @@ N.B. The ordering has changed in version 0.0.9.
 
 =item Support different types of .env files
 
+=for stopwords dotenv
+
 Unix Shell I<source> command compatible dotenv files use double or single quotation marks
 (B<"> or B<'>) to define a variable which has spaces. But, for instance,
 Docker compatible F<.env> files do not use quotation marks. The variable's
 value begins with B<=> sign and ends with linefeed.
 
+=for stopwords dotenv
+
 You can specify in the dotenv file itself - by using meta commands -
 which type of file it is.
+
+=for stopwords envdot
 
 =item Use executable B<envdot> to bring the variables into your shell
 
 The executable is distributed together with Env::Dot package.
 It is in the directory I<script>.
 
+=for stopwords envdot
+
 The executable I<script/envdot> is not Windows compatible!
+
+=for stopwords Powershell envdot
 
 A Windows (MS Command and Powershell compatible) version, I<script\envdot.bat>, is possible
 in a future release. Please contact the author if you are interested in it.
@@ -150,6 +157,8 @@ B<Env::Dot> does not do any interpolating. It cannot because that would involve
 running the variable in the shell context.
 
 =back
+
+=for stopwords DotEnv Powershell dotenv env envdot shdotenv
 
 =head2 DotEnv File Meta Commands
 
@@ -282,6 +291,8 @@ F<.env> files in Perl.
 
 L<Config::ENV> and L<Config::Layered::Source::ENV> provide other means
 to configure application with the help of environment variables.
+
+=for stopwords dotenv shdotenv
 
 L<shdotenv|https://github.com/ko1nksm/shdotenv> is a project to provide dotenv
 for shells with support for POSIX-compliant and multiple .env file syntax.
