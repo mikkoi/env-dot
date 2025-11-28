@@ -1,6 +1,9 @@
 Revision history for {{$dist->name}}
 
 {{$NEXT}}
+            * Add contributor gregor herrmann <gregoa@debian.org>
+            * Add Repology link to README.md.
+            * Available as a Debian package. (gregor herrmann <gregoa@debian.org>)
             * Harmonize SEE ALSO chapters in Env::Dot and script/envdot.
                 * Thank you, Sven Willenbuecher <sven.willenbuecher@gmx.de>
                 * https://github.com/mikkoi/env-dot/issues/2
