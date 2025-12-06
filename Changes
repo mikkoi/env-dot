@@ -1,6 +1,7 @@
 Revision history for {{$dist->name}}
 
 {{$NEXT}}
+            * Rename dir script/ to bin/ to match with Dist::Zilla::Plugin::ExecDir defaults.
             * Add contributor gregor herrmann <gregoa@debian.org>
             * Add Repology link to README.md.
             * Available as a Debian package. (gregor herrmann <gregoa@debian.org>)
