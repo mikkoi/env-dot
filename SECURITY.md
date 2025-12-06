@@ -4,6 +4,9 @@ Report security issues by email to Mikko Koivunalho <mikkoi@cpan.org>.
 
 This is the Security Policy for Env-Dot.
 
+The latest version of the Security Policy can be found in the
+[git repository for Env-Dot](https://github.com/mikkoi/env-dot/blob/main/SECURITY.md).
+
 This text is based on the CPAN Security Group's Guidelines for Adding
 a Security Policy to Perl Distributions (version 1.3.0)
 https://security.metacpan.org/docs/guides/security-policy-for-authors.html
@@ -39,7 +42,7 @@ on the CPANSec website.
 The maintainer(s) aim to acknowledge your security report as soon as
 possible.  However, this project is maintained by a single person in
 their spare time, and they cannot guarantee a rapid response.  If you
-have not received a response from them within 5 days, then
+have not received a response from them within 14 days, then
 please send a reminder to them and copy the report to CPANSec at
 <cpan-security@security.metacpan.org>.
 
@@ -78,6 +81,11 @@ Env-Dot distribution) are not covered by this policy.
 
 The maintainer(s) will only commit to releasing security fixes for
 the latest version of Env-Dot.
+
+Note that the Env-Dot project only supports major versions of Perl
+released in the past 10 years, even though Env-Dot will run on
+older versions of Perl.  If a security fix requires us to increase
+the minimum version of Perl that is supported, then we may do so.
 
 # Installation and Usage Issues
 
