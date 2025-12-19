@@ -8,11 +8,6 @@ use 5.010;
 
 =cut
 
-use Cwd qw( abs_path );
-use English qw( -no_match_vars );
-use File::Spec;
-use IO::File;
-
 use Exporter 'import';
 our @EXPORT_OK = qw(
     get_dotenv_vars
@@ -33,8 +28,12 @@ our %EXPORT_TAGS = (
     ],
 );
 
+use Cwd qw( abs_path );
 use English qw( -no_match_vars );    # Avoids regex performance penalty in perl 5.18 and earlier
+use File::Spec;
+use IO::File;
 use Carp;
+
 
 # ABSTRACT: Read environment variables from a .env file
 
