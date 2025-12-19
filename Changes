@@ -1,6 +1,7 @@
 Revision history for {{$dist->name}}
 
 {{$NEXT}}
+            * Include dot files in t/ in the build. Needed for testing.
             * Rename dir script/ to bin/ to match with Dist::Zilla::Plugin::ExecDir defaults.
             * Add contributor gregor herrmann <gregoa@debian.org>
             * Add Repology link to README.md.
