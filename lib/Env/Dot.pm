@@ -24,7 +24,7 @@ our $VERSION = '0.019';
         # We also allow only: 'use Env::Dot;'
         croak "Unknown argument '$cmd'" if( $cmd && $cmd ne 'read' );
 
-        if( ! load_vars( %{ $args } ) ) {
+        if( ! load_vars( %{ $args // {} } ) ) {
             croak 'Errors in environment detected.';
         }
         return;
