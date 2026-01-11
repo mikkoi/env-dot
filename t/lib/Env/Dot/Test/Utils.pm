@@ -34,7 +34,7 @@ sub create_test_file {
     make_path( File::Spec->catdir( $dir_path, @{ $dirs } ) );
 
     my $fh = FileHandle->new( File::Spec->catfile( $dir_path, @{ $dirs }, $fn ), 'w' );
-    print { $fh } $content || croak;
+    print { $fh } $content or croak;
     $fh->close;
 
     return $dir, $dir_path;
