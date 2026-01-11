@@ -30,7 +30,7 @@ BEGIN {
     my $cwd = getcwd();
     chdir $deeper_path;
     ## no critic (BuiltinFunctions::ProhibitStringyEval)
-    eval 'use Env::Dot qw(read); 1;' || croak 'Not able to execute eval';
+    eval 'use Env::Dot "read"; 1;' || croak 'Not able to execute eval';
     chdir $cwd;
     is($ENV{OTHER_DEEPER_READ_FROM_THIS_FILE}, 'OtherDeeperEnv', 'Read from correct .env file');
 }
