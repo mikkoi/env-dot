@@ -269,7 +269,7 @@ sub load_vars {
     if ( $args{'dotenv_file'} ) {
         @dotenv_filepaths = ($args{'dotenv_file'});
     } elsif ( exists $ENV{ get_envdot_filepaths_var_name() } ) {
-            @dotenv_filepaths = interpret_dotenv_filepath_var( $ENV{ get_envdot_filepaths_var_name() } );
+        @dotenv_filepaths = interpret_dotenv_filepath_var( $ENV{ get_envdot_filepaths_var_name() } );
     } else {
         if ( -f DEFAULT_ENVDOT_FILEPATHS ) {
             @dotenv_filepaths = (DEFAULT_ENVDOT_FILEPATHS);    # The CLI parameter
