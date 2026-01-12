@@ -1,6 +1,7 @@
 Revision history for {{$dist->name}}
 
 {{$NEXT}}
+            * Deactivate .github/workflows/perltest.yml.
             * Allow using any dotenv filepath.
             * Add test utils.
             * Include dot files in t/ in the build. Needed for testing.
