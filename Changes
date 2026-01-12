@@ -1,6 +1,8 @@
 Revision history for {{$dist->name}}
 
 {{$NEXT}}
+
+0.019     2026-01-12 18:17:15+01:00 Europe/Stockholm
             * Fix version in Windows test.
             * Deactivate .github/workflows/perltest.yml.
             * Allow using any dotenv filepath.
