@@ -8,11 +8,6 @@ use 5.010;
 
 =cut
 
-use Cwd qw( abs_path );
-use English qw( -no_match_vars );
-use File::Spec;
-use IO::File;
-
 use Exporter 'import';
 our @EXPORT_OK = qw(
     get_dotenv_vars
@@ -33,8 +28,12 @@ our %EXPORT_TAGS = (
     ],
 );
 
+use Cwd qw( abs_path );
 use English qw( -no_match_vars );    # Avoids regex performance penalty in perl 5.18 and earlier
+use File::Spec;
+use IO::File;
 use Carp;
+
 
 # ABSTRACT: Read environment variables from a .env file
 
@@ -283,7 +282,7 @@ sub _interpret_dotenv {
                 }
             }
             elsif ( $options{'file:type'} eq OPTION_FILE_TYPE_PLAIN ) {
-                1;
+                1;  # document no-operation
             }
             my %opts = ( allow_interpolate => $options{'var:allow_interpolate'}, );
             push @vars, { name => $name, value => $value, opts => \%opts, };
@@ -316,8 +315,8 @@ sub _interpret_opts {
 sub _read_dotenv_file {
     my ($filepath) = @_;
     my $fh = IO::File->new();
-    $fh->binmode(':encoding(UTF-8)');
     $fh->open(qq{< $filepath}) or croak "Error: Cannot open file '$filepath'";
+    $fh->binmode(':encoding(UTF-8)');
     my @dotenv_rows = <$fh>;
     chomp @dotenv_rows;
     $fh->close or croak "Error: Cannot close file '$filepath'";

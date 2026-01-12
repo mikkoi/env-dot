@@ -1,13 +1,13 @@
 name: windows
 
 on:
-  push:
-    branches:
-      - '*'
-    tags-ignore:
-      - '*'
+  # push:
+  #   branches:
+  #     - '*'
+  #   tags-ignore:
+  #     - '*'
   workflow_dispatch:
-#  pull_request:
+  pull_request:
 
 jobs:
   perl:
@@ -97,11 +97,18 @@ jobs:
         name: Explore Environment
         run: |
           Get-ChildItem env: | Format-Table -Wrap
+      - id: install-special-cases-first
+        name: Install Special Modules Which Require Special Care
+        # Term-ReadLine-Gnu, force version 1.46  (not)
+        run: |
+          cpan -T Term::ReadLine::Gnu
+        # cpanm --verbose --force --notest HAYASHI/Term-ReadLine-Gnu-1.46.tar.gz
       - id: install-dzil
         name: Install Dist::Zilla
         # -T Do not test modules. Simply install them.
         run: |
           cpan -T Dist::Zilla
+        # cpanm --verbose --force --notest Dist::Zilla
       # # - id: 
       #   name: Install Dependencies
       # #   #run: cpm install -g --no-test --show-build-log-on-failure --cpanfile cpanfile

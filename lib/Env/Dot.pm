@@ -4,6 +4,13 @@ use strict;
 use warnings;
 use 5.010;
 
+use English qw( -no_match_vars );    # Avoids regex performance penalty in perl 5.18 and earlier
+use Carp;
+
+# ABSTRACT: Read environment variables from .env file
+
+our $VERSION = '0.019';
+
 # We define our own import routine because
 # this is the point (when `use Env::Dot` is called)
 # when we do our magic.
@@ -12,17 +19,17 @@ use 5.010;
     no warnings 'redefine';    ## no critic [TestingAndDebugging::ProhibitNoWarnings]
 
     sub import {
-        load_vars();
+        my ($class, $cmd, $args) = @_;
+
+        # We also allow only: 'use Env::Dot;'
+        croak "Unknown argument '$cmd'" if( $cmd && $cmd ne 'read' );
+
+        if( ! load_vars( %{ $args // {} } ) ) {
+            croak 'Errors in environment detected.';
+        }
         return;
     }
 }
-
-use English qw( -no_match_vars );    # Avoids regex performance penalty in perl 5.18 and earlier
-use Carp;
-
-# ABSTRACT: Read environment variables from .env file
-
-our $VERSION = '0.019';
 
 use Env::Dot::Functions qw(
     get_dotenv_vars
@@ -51,9 +58,19 @@ though not likely.
 
 =head1 SYNOPSIS
 
+=for test_synopsis BEGIN { die 'SKIP: no .env file here' }
+
+    # If your dotenv file is `.env`:
     use Env::Dot;
+    # or
+    use Env::Dot 'read';
 
     print $ENV{'VAR_DEFINED_IN_DOTENV_FILE'};
+
+    # If you have a dotenv file in a different filepath:
+    use Env::Dot read => {
+        dotenv_file => '/other/path/my_environment.env',
+    };
 
 =head1 DESCRIPTION
 
@@ -243,11 +260,17 @@ B<ENVDOT_FILEPATHS>.
 =cut
 
 sub load_vars {
-    my @dotenv_filepaths;
-    if ( exists $ENV{ get_envdot_filepaths_var_name() } ) {
-        @dotenv_filepaths = interpret_dotenv_filepath_var( $ENV{ get_envdot_filepaths_var_name() } );
+    my (%args) = @_;
+    my %allowed_args = ('dotenv_file' => 1, );
+    foreach my $arg (keys %args) {
+        croak "Illegal argument '$arg'" if (!exists $allowed_args{$arg});
     }
-    else {
+    my @dotenv_filepaths;
+    if ( $args{'dotenv_file'} ) {
+        @dotenv_filepaths = ($args{'dotenv_file'});
+    } elsif ( exists $ENV{ get_envdot_filepaths_var_name() } ) {
+        @dotenv_filepaths = interpret_dotenv_filepath_var( $ENV{ get_envdot_filepaths_var_name() } );
+    } else {
         if ( -f DEFAULT_ENVDOT_FILEPATHS ) {
             @dotenv_filepaths = (DEFAULT_ENVDOT_FILEPATHS);    # The CLI parameter
         }
