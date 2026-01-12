@@ -1,6 +1,7 @@
 Revision history for {{$dist->name}}
 
 {{$NEXT}}
+            * Fix version in Windows test.
             * Deactivate .github/workflows/perltest.yml.
             * Allow using any dotenv filepath.
             * Add test utils.
