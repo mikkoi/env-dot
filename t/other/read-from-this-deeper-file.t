@@ -6,7 +6,7 @@ use 5.010;
 use Test2::V0;
 
 use File::Spec ();
-use FindBin 1.51 qw( $RealBin );
+use FindBin qw( $RealBin );
 
 my $lib_path;
 BEGIN {

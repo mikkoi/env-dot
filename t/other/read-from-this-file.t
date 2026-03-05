@@ -4,7 +4,7 @@ use warnings;
 use 5.010;
 use Test2::V0;
 
-use FindBin 1.51 qw( $RealBin );
+use FindBin qw( $RealBin );
 use File::Spec ();
 use Carp;
 use Cwd qw( getcwd );

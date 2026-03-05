@@ -1,6 +1,7 @@
 Revision history for {{$dist->name}}
 
 {{$NEXT}}
+            * Remove unnecessary FindBin version requirement from test files.
             * Fix temp dir name.
             * Correct typo.
 
