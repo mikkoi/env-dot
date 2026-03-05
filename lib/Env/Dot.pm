@@ -118,7 +118,7 @@ the first overrules the following ones, that is, when reading from the last path
 to the first path, if same variable is present in more than one file, the later
 one replaces the one already read.
 
-Attn. If you are using Windows, separate the paths by <;>!
+Attn. If you are using Windows, separate the paths by B<;>!
 
 For example, if you have the following directory structure:
 
