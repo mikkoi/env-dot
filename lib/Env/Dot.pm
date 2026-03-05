@@ -40,12 +40,13 @@ use Env::Dot::Functions qw(
 );
 
 use constant {
-    OPTION_FILE_TYPE         => q{file:type},
-    OPTION_FILE_TYPE_PLAIN   => q{plain},
-    OPTION_FILE_TYPE_SHELL   => q{shell},
-    DEFAULT_OPTION_FILE_TYPE => q{shell},
-    DEFAULT_ENVDOT_FILEPATHS => q{.env},
-    INDENT                   => q{    },
+    OPTION_FILE_TYPE             => q{file:type},
+    OPTION_FILE_TYPE_PLAIN       => q{plain},
+    OPTION_FILE_TYPE_SHELL       => q{shell},
+    DEFAULT_OPTION_FILE_TYPE     => q{shell},
+    DEFAULT_ENVDOT_FILEPATHS     => q{.env},
+    DEFAULT_ENVDOT_FILE_REQUIRED => q{0},
+    INDENT                       => q{    },
 };
 
 =pod
@@ -70,6 +71,11 @@ though not likely.
     # If you have a dotenv file in a different filepath:
     use Env::Dot read => {
         dotenv_file => '/other/path/my_environment.env',
+    };
+
+    # When you absolutely require `.env` file:
+    use Env::Dot read => {
+        required => 1,
     };
 
 =head1 DESCRIPTION
@@ -102,8 +108,13 @@ its counterpart in the environment. For instance:
 
 By default, Env::Dot will do nothing if there is no
 B<.env> file.
-You can also configure Env::Dot to emit an alarm
-or break execution, if you want.
+You can also configure Env::Dot to
+break execution, if there is no `.env` file
+in the current working directory.
+
+    use Env::Dot read => {
+        required => 1,
+    };
 
 =item Specify other dotenv files with path
 
@@ -261,7 +272,7 @@ B<ENVDOT_FILEPATHS>.
 
 sub load_vars {
     my (%args) = @_;
-    my %allowed_args = ('dotenv_file' => 1, );
+    my %allowed_args = ('dotenv_file' => 1, 'required' => 1, );
     foreach my $arg (keys %args) {
         croak "Illegal argument '$arg'" if (!exists $allowed_args{$arg});
     }
@@ -273,6 +284,8 @@ sub load_vars {
     } else {
         if ( -f DEFAULT_ENVDOT_FILEPATHS ) {
             @dotenv_filepaths = (DEFAULT_ENVDOT_FILEPATHS);    # The CLI parameter
+        } elsif( $args{'required'}//DEFAULT_ENVDOT_FILE_REQUIRED ) {
+            croak 'No .env file found';
         }
     }
 

@@ -1,6 +1,7 @@
 Revision history for {{$dist->name}}
 
 {{$NEXT}}
+            * Add parameter 'read => { required => <boolean> }' to 'use Env::Dot;'.
             * Remove unnecessary Cwd requirement from test file.
             * Remove unnecessary FindBin version requirement from test files.
             * Fix temp dir name.
