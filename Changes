@@ -1,6 +1,7 @@
 Revision history for {{$dist->name}}
 
 {{$NEXT}}
+            * Rework required-dotenv tests to generate .env and scripts in runtime. Issue with including .env files.
             * Update workflow because perldocker image now supports earlier versions.
             * Add "use PerlIO::encoding" to bin/envdot. Issue in fatpacked envdot.self-contained.
             * Fix script/envdot to bin/envdot in dist.ini.
