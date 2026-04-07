@@ -1,6 +1,7 @@
 Revision history for {{$dist->name}}
 
 {{$NEXT}}
+            * Update workflow because perldocker image now supports earlier versions.
             * Add "use PerlIO::encoding" to bin/envdot. Issue in fatpacked envdot.self-contained.
             * Fix script/envdot to bin/envdot in dist.ini.
 
