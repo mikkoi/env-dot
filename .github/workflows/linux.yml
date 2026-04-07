@@ -27,11 +27,14 @@ jobs:
           - 'latest'
           - '5.34'
           - '5.28'
-          # - '5.16' No dzil
+          - '5.22'
+          - '5.14'
+          # - '5.12' No dzil
           # - '5.10' No dzil
 
     container:
       image: perldocker/perl-tester:${{ matrix.perl-version }}
+      # https://hub.docker.com/r/perldocker/perl-tester/tags
 
     steps:
       - name: Checkout
