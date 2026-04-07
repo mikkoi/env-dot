@@ -1,6 +1,8 @@
 Revision history for {{$dist->name}}
 
 {{$NEXT}}
+
+0.021     2026-04-07 15:47:56+02:00 Europe/Stockholm
             * Update workflow because perldocker image now supports earlier versions.
             * Rework required-dotenv tests to generate .env files and scripts at runtime, since .env files are not included in the build by default.
             * Add "use PerlIO::encoding" to bin/envdot.
