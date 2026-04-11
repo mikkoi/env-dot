@@ -29,7 +29,7 @@ require Env::Dot::Test::ChdirGuard;
 # Return the source of a tiny Perl script that does `use Env::Dot <args>;`
 # and then prints the FOO/BAR/BAZ environment variables, one per line, in
 # the form "NAME: value". $import_args is injected verbatim after
-# `Env::Dot` in the use-statement, so pass things T2->like:
+# `Env::Dot` in the use-statement, so pass things like:
 #     ''                              # no args  -> use Env::Dot;
 #     ' read => { required => 1 }'    # required -> use Env::Dot read => { required => 1 };
 sub make_script {
