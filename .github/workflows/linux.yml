@@ -1,11 +1,6 @@
 name: linux
 
 on:
-  # push:
-  #   branches:
-  #     - '*'
-  #   tags-ignore:
-  #     - '*'
   workflow_dispatch:
   pull_request:
 
@@ -28,7 +23,8 @@ jobs:
           - '5.34'
           - '5.28'
           - '5.22'
-          - '5.14'
+          - '5.20'
+          # - '5.14' No dzil
           # - '5.12' No dzil
           # - '5.10' No dzil
 
@@ -37,18 +33,54 @@ jobs:
       # https://hub.docker.com/r/perldocker/perl-tester/tags
 
     steps:
-      - name: Checkout
-        uses: actions/checkout@v1
-      - name: perl -V
-        run: perl -V
-      # - name: Install Dependencies
-      #   #run: cpm install -g --no-test --show-build-log-on-failure --cpanfile cpanfile
-      #   run: cpm install -g --no-test --show-build-log-on-failure --cpanfile cpanfile
-      # - name: Makefile.PL
-      #   run: perl Makefile.PL
-      - name: Install Dist::Zilla Author Dependencies
-        run: dzil authordeps --missing --versions | cpanm --verbose --force --notest || true
-      - name: Install Dependencies
-        run: dzil listdeps --missing --develop --requires --recommends --suggests --version | cpanm --verbose --force --notest || true
-      - name: Run Tests
-        run: prove -lrv t
+      - id: checkout
+        name: Checkout
+        uses: actions/checkout@v4
+
+      - id: explore-tools-perl
+        name: Explore Tools Perl
+        shell: bash
+        run: |
+          perl -V
+
+      - id: explore-tools-cpan
+        name: Explore Tools Cpan
+        shell: bash
+        run: |
+          cpan -V || true
+
+      - id: explore-tools-cpanm
+        name: Explore Tools Cpanm
+        shell: bash
+        run: |
+          cpanm --version || true
+
+      - id: explore-missing-dzil-authordeps
+        name: Explore Missing Dist::Zilla Author Dependencies
+        shell: bash
+        run: |
+          dzil authordeps --missing --cpanm-versions
+
+      - id: install-missing-dzil-authordeps
+        name: Install Missing Dist::Zilla Author Dependencies
+        shell: bash
+        run: |
+          dzil authordeps --missing --cpanm-versions | cpanm --verbose --force --notest || true
+
+      - id: explore-missing-deps
+        name: Explore Missing Dependencies
+        shell: bash
+        run: |
+          dzil listdeps --missing --develop --requires --no-recommends --no-suggests --cpanm-versions
+
+      - id: install-missing-deps
+        name: Install Missing Dependencies
+        shell: bash
+        run: |
+          dzil listdeps --missing --develop --requires --no-recommends --no-suggests --cpanm-versions | cpanm --verbose --force --notest || true
+
+      - id: run-tests
+        name: Run Tests
+        shell: bash
+        run: |
+          dzil test --all
