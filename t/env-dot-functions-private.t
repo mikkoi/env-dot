@@ -119,7 +119,7 @@ subtest_streamed 'Private Subroutine _interpret_opts()' => sub {
         my $opts = Env::Dot::Functions::_interpret_opts( $opts_str );
         my %expected = (
           exact => 1,
-          234 => 1,  # Option without a value T2->is interpreted as boolean with true value.
+          234 => 1,  # Option without a value is interpreted as boolean with true value.
         );
         T2->is( $opts, \%expected, 'Read options successfully, but options not valid' );
     }
