@@ -3,7 +3,7 @@ use strict;
 use warnings;
 use 5.010;
 
-# ABSTRACT: Read environment variables from .env file
+# ABSTRACT: Scope-based chdir guard.
 
 use Carp qw( croak );
 use English '-no_match_vars';

@@ -4,7 +4,6 @@ use warnings;
 use 5.010;
 
 use Test2::V1 qw( -utf8 );
-use Test2::Tools::Subtest qw( subtest_streamed );
 
 use File::Spec ();
 use FindBin qw( $RealBin );

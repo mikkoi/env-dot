@@ -9,7 +9,6 @@ use Carp;
 use Cwd qw( getcwd );
 
 use Test2::V1 qw( -utf8 );
-use Test2::Tools::Subtest qw( subtest_streamed );
 
 my $lib_path;
 BEGIN {
