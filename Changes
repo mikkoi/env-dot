@@ -1,7 +1,7 @@
 Revision history for {{$dist->name}}
 
 {{$NEXT}}
-            * Rewrite t/recursive-read.t using Test2::V1.
+            * Rewrite all tests using Test2::V1.
             * Rewrite t/required-dotenv.t using Test2::Tools::GenTemp.
 
 0.021     2026-04-07 15:47:56+02:00 Europe/Stockholm
