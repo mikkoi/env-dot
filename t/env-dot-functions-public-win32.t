@@ -1,12 +1,16 @@
 #!perl
 # no critic (ValuesAndExpressions::ProhibitMagicNumbers)
+## no critic (ValuesAndExpressions::RequireInterpolationOfMetachars)
 
 use strict;
 use warnings;
-use Test2::V0;
 
-use FindBin qw( $RealBin );
 use File::Spec ();
+use FindBin qw( $RealBin );
+
+use Test2::V1 qw( -utf8 );
+use Test2::Tools::Subtest qw( subtest_streamed );
+
 my $lib_path;
 BEGIN {
     $lib_path = File::Spec->catdir(($RealBin =~ /(.+)/msx)[0], q{.}, 'lib');
@@ -17,7 +21,7 @@ use Test2::Require::Platform::DOSOrDerivative;
 
 use Env::Dot::Functions ();
 
-subtest 'Private Subroutine interpret_dotenv_filepath_var()' => sub {
+subtest_streamed 'Private Subroutine interpret_dotenv_filepath_var()' => sub {
 
     {
         my $var = q{};
@@ -109,7 +113,7 @@ subtest 'Private Subroutine interpret_dotenv_filepath_var()' => sub {
         is( \@paths, [ q{C:\home\\}, q{subdir\.env}, q{\\}, ], 'Filepaths right' );
     }
 
-    done_testing;
+    T2->done_testing;
 };
 
-done_testing;
+T2->done_testing;
