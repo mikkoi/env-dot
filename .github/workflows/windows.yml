@@ -99,10 +99,8 @@ jobs:
           Get-ChildItem env: | Format-Table -Wrap
       - id: install-special-cases-first
         name: Install Special Modules Which Require Special Care
-        # Term-ReadLine-Gnu, force version 1.46  (not)
         run: |
-          cpan -T Term::ReadLine::Gnu
-        # cpanm --verbose --force --notest HAYASHI/Term-ReadLine-Gnu-1.46.tar.gz
+          cpan -T Term::ReadLine::Perl5
       - id: install-dzil
         name: Install Dist::Zilla
         # -T Do not test modules. Simply install them.
