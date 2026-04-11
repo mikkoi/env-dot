@@ -363,9 +363,9 @@ subtest_streamed 'Private subroutine _get_parent_dotenv_filepath()' => sub {
     $parent_filepath = Env::Dot::Functions::_get_parent_dotenv_filepath($parent_filepath);
     T2->is( $parent_filepath, $root_filepath, 'correct parent dir and .env file' );
 
-    # # ThT2->is T2->is bit dangerous because the user could have .env file
+    # # This is a bit dangerous because the user could have .env file
     # # in root or in /tmp.
-    # # Fix thT2->is.
+    # # Fix this.
     # $parent_filepath = Env::Dot::Functions::_get_parent_dotenv_filepath($parent_filepath);
     # T2->is( $parent_filepath, undef, 'correct parent dir and .env file' );
 
