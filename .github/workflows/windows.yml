@@ -97,16 +97,18 @@ jobs:
         name: Explore Environment
         run: |
           Get-ChildItem env: | Format-Table -Wrap
+      - id: install-cpanm
+        name: Install cpanm
+        run: |
+          cpan -T App::cpanminus
       - id: install-special-cases-first
         name: Install Special Modules Which Require Special Care
         run: |
-          cpan -T Term::ReadLine::Perl5
+          cpanm --verbose --notest Term::ReadLine::Perl5
       - id: install-dzil
         name: Install Dist::Zilla
-        # -T Do not test modules. Simply install them.
         run: |
-          cpan -T Dist::Zilla
-        # cpanm --verbose --force --notest Dist::Zilla
+          cpanm --verbose --notest Dist::Zilla
       # # - id: 
       #   name: Install Dependencies
       # #   #run: cpm install -g --no-test --show-build-log-on-failure --cpanfile cpanfile
