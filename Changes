@@ -1,6 +1,7 @@
 Revision history for {{$dist->name}}
 
 {{$NEXT}}
+            * Rename variable var to variable.
             * Downgrade LICENSE files to match the current Software::License distro version files with typos, whitespace and all.
             * Improve GitHub Action workflow for Linux.
             * Fix broken GitHub Action workflow for Windows.

@@ -74,8 +74,8 @@ No functions are automatically exported to the calling namespace.
 sub convert_variables_into_commands {
     my ( $shell, @vars ) = @_;
     my $out = q{};
-    foreach my $var (@vars) {
-        $out .= _convert_variable( $shell, $var );
+    foreach my $variable (@vars) {
+        $out .= _convert_variable( $shell, $variable );
         $out .= "\n";
     }
     return $out;
@@ -84,9 +84,9 @@ sub convert_variables_into_commands {
 # Private subroutines
 
 sub _convert_variable {
-    my ( $shell, $var ) = @_;
+    my ( $shell, $variable ) = @_;
     if ( exists $VAR_OUTPUT{$shell} ) {
-        return &{ $VAR_OUTPUT{$shell} }($var);
+        return &{ $VAR_OUTPUT{$shell} }($variable);
     }
     else {
         croak "Unknown shell: $shell";
@@ -94,9 +94,9 @@ sub _convert_variable {
 }
 
 sub _convert_var_to_sh {
-    my ($var) = @_;
+    my ($variable) = @_;
     my ( $name, $value, $want_export, $allow_interpolate ) =
-      ( $var->{'name'}, $var->{'value'}, $var->{'opts'}->{'export'}, $var->{'opts'}->{'allow_interpolate'}, );
+      ( $variable->{'name'}, $variable->{'value'}, $variable->{'opts'}->{'export'}, $variable->{'opts'}->{'allow_interpolate'}, );
     my $quote = $allow_interpolate ? q{"} : q{'};
     if ($want_export) {
         return sprintf "%s=$quote%s$quote; export %s", $name, $value, $name;
@@ -107,9 +107,9 @@ sub _convert_var_to_sh {
 }
 
 sub _convert_var_to_csh {
-    my ($var) = @_;
+    my ($variable) = @_;
     my ( $name, $value, $want_export, $allow_interpolate ) =
-      ( $var->{'name'}, $var->{'value'}, $var->{'opts'}->{'export'}, $var->{'opts'}->{'allow_interpolate'}, );
+      ( $variable->{'name'}, $variable->{'value'}, $variable->{'opts'}->{'export'}, $variable->{'opts'}->{'allow_interpolate'}, );
     my $quote = $allow_interpolate ? q{"} : q{'};
     if ($want_export) {
         return sprintf "setenv %s $quote%s$quote", $name, $value;
@@ -120,9 +120,9 @@ sub _convert_var_to_csh {
 }
 
 sub _convert_var_to_fish {
-    my ($var) = @_;
+    my ($variable) = @_;
     my ( $name, $value, $want_export, $allow_interpolate ) =
-      ( $var->{'name'}, $var->{'value'}, $var->{'opts'}->{'export'}, $var->{'opts'}->{'allow_interpolate'}, );
+      ( $variable->{'name'}, $variable->{'value'}, $variable->{'opts'}->{'export'}, $variable->{'opts'}->{'allow_interpolate'}, );
     my $quote = $allow_interpolate ? q{"} : q{'};
     return sprintf "set -e %s; set -x -U %s $quote%s$quote", $name, $name, $value;
 }
