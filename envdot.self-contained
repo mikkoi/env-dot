@@ -17,7 +17,7 @@ $fatpacked{"Env/Dot.pm"} = '#line '.(1+__LINE__).' "'.__FILE__."\"\n".<<'ENV_DOT
   
   # ABSTRACT: Read environment variables from .env file
   
-  our $VERSION = '0.022';
+  our $VERSION = '0.023';
   
   # We define our own import routine because
   # this is the point (when `use Env::Dot` is called)
@@ -384,7 +384,7 @@ $fatpacked{"Env/Dot/Functions.pm"} = '#line '.(1+__LINE__).' "'.__FILE__."\"\n".
   
   # ABSTRACT: Read environment variables from a .env file
   
-  our $VERSION = '0.022';
+  our $VERSION = '0.023';
   
   use constant {
       OPTION_FILE_TYPE                         => q{file:type},
@@ -539,7 +539,8 @@ $fatpacked{"Env/Dot/Functions.pm"} = '#line '.(1+__LINE__).' "'.__FILE__."\"\n".
           $parent_filepath = File::Spec->catfile($parent_path, '.env' );
           return $parent_filepath if( defined $parent_path && -f $parent_filepath );
       }
-      return;
+      # Explicitly return undef as sub doc decrees.
+      return undef; ## no critic (Subroutines::ProhibitExplicitReturnUndef)
   }
   
   sub _interpret_dotenv {
@@ -731,7 +732,7 @@ $fatpacked{"Env/Dot/ScriptFunctions.pm"} = '#line '.(1+__LINE__).' "'.__FILE__."
   
   # ABSTRACT: Read environment variables from a .env file
   
-  our $VERSION = '0.022';
+  our $VERSION = '0.023';
   
   use constant {
       OPTION_FILE_TYPE         => q{file:type},
@@ -790,8 +791,8 @@ $fatpacked{"Env/Dot/ScriptFunctions.pm"} = '#line '.(1+__LINE__).' "'.__FILE__."
   sub convert_variables_into_commands {
       my ( $shell, @vars ) = @_;
       my $out = q{};
-      foreach my $var (@vars) {
-          $out .= _convert_variable( $shell, $var );
+      foreach my $variable (@vars) {
+          $out .= _convert_variable( $shell, $variable );
           $out .= "\n";
       }
       return $out;
@@ -800,9 +801,9 @@ $fatpacked{"Env/Dot/ScriptFunctions.pm"} = '#line '.(1+__LINE__).' "'.__FILE__."
   # Private subroutines
   
   sub _convert_variable {
-      my ( $shell, $var ) = @_;
+      my ( $shell, $variable ) = @_;
       if ( exists $VAR_OUTPUT{$shell} ) {
-          return &{ $VAR_OUTPUT{$shell} }($var);
+          return &{ $VAR_OUTPUT{$shell} }($variable);
       }
       else {
           croak "Unknown shell: $shell";
@@ -810,9 +811,9 @@ $fatpacked{"Env/Dot/ScriptFunctions.pm"} = '#line '.(1+__LINE__).' "'.__FILE__."
   }
   
   sub _convert_var_to_sh {
-      my ($var) = @_;
+      my ($variable) = @_;
       my ( $name, $value, $want_export, $allow_interpolate ) =
-        ( $var->{'name'}, $var->{'value'}, $var->{'opts'}->{'export'}, $var->{'opts'}->{'allow_interpolate'}, );
+        ( $variable->{'name'}, $variable->{'value'}, $variable->{'opts'}->{'export'}, $variable->{'opts'}->{'allow_interpolate'}, );
       my $quote = $allow_interpolate ? q{"} : q{'};
       if ($want_export) {
           return sprintf "%s=$quote%s$quote; export %s", $name, $value, $name;
@@ -823,9 +824,9 @@ $fatpacked{"Env/Dot/ScriptFunctions.pm"} = '#line '.(1+__LINE__).' "'.__FILE__."
   }
   
   sub _convert_var_to_csh {
-      my ($var) = @_;
+      my ($variable) = @_;
       my ( $name, $value, $want_export, $allow_interpolate ) =
-        ( $var->{'name'}, $var->{'value'}, $var->{'opts'}->{'export'}, $var->{'opts'}->{'allow_interpolate'}, );
+        ( $variable->{'name'}, $variable->{'value'}, $variable->{'opts'}->{'export'}, $variable->{'opts'}->{'allow_interpolate'}, );
       my $quote = $allow_interpolate ? q{"} : q{'};
       if ($want_export) {
           return sprintf "setenv %s $quote%s$quote", $name, $value;
@@ -836,9 +837,9 @@ $fatpacked{"Env/Dot/ScriptFunctions.pm"} = '#line '.(1+__LINE__).' "'.__FILE__."
   }
   
   sub _convert_var_to_fish {
-      my ($var) = @_;
+      my ($variable) = @_;
       my ( $name, $value, $want_export, $allow_interpolate ) =
-        ( $var->{'name'}, $var->{'value'}, $var->{'opts'}->{'export'}, $var->{'opts'}->{'allow_interpolate'}, );
+        ( $variable->{'name'}, $variable->{'value'}, $variable->{'opts'}->{'export'}, $variable->{'opts'}->{'allow_interpolate'}, );
       my $quote = $allow_interpolate ? q{"} : q{'};
       return sprintf "set -e %s; set -x -U %s $quote%s$quote", $name, $name, $value;
   }
@@ -4824,7 +4825,7 @@ use open ':std', IO => ':encoding(UTF-8)';
 
 # PODNAME: envdot
 
-our $VERSION = '0.021';
+our $VERSION = '0.022';
 
 use English      qw( -no_match_vars );                   # Avoids regex performance penalty in perl 5.18 and earlier
 use Getopt::Long qw( :config auto_version auto_help );
@@ -4923,7 +4924,7 @@ envdot - Read .env file and turn its content into environment variables for diff
 
 =head1 VERSION
 
-version 0.021
+version 0.022
 
 =head1 SYNOPSIS
 
