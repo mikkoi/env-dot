@@ -1,6 +1,7 @@
 Revision history for {{$dist->name}}
 
 {{$NEXT}}
+            * Explicitely return undef from a sub as sub doc decrees. Suppress warning.
             * Rewrite all tests using Test2::V1.
             * Rewrite t/required-dotenv.t using Test2::Tools::GenTemp.
 

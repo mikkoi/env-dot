@@ -192,7 +192,8 @@ sub _get_parent_dotenv_filepath {
         $parent_filepath = File::Spec->catfile($parent_path, '.env' );
         return $parent_filepath if( defined $parent_path && -f $parent_filepath );
     }
-    return;
+    # Explicitly return undef as sub doc decrees.
+    return undef; ## no critic (Subroutines::ProhibitExplicitReturnUndef)
 }
 
 sub _interpret_dotenv {
