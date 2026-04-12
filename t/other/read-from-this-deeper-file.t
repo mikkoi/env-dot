@@ -3,7 +3,7 @@ use strict;
 use warnings;
 use 5.010;
 
-use Test2::V0;
+use Test2::V1 qw( -utf8 );
 
 use File::Spec ();
 use FindBin qw( $RealBin );
@@ -25,13 +25,13 @@ BEGIN {
         . qq{OTHER_DEEPER_READ_FROM_THIS_FILE=OtherDeeperEnv\n}
     );
     $other_path = File::Spec->catfile( $dir_path, qw( deeper .env ) );
-    diag "Other path: $other_path";
+    T2->note("Other path: $other_path");
 }
 
 use Env::Dot read => {
     dotenv_file => $other_path,
 };
 
-is($ENV{OTHER_DEEPER_READ_FROM_THIS_FILE}, 'OtherDeeperEnv', 'Read from correct .env file');
+T2->is($ENV{OTHER_DEEPER_READ_FROM_THIS_FILE}, 'OtherDeeperEnv', 'Read from correct .env file');
 
-done_testing;
+T2->done_testing;

@@ -1,6 +1,12 @@
 Revision history for {{$dist->name}}
 
 {{$NEXT}}
+            * Rename variable var to variable.
+            * Downgrade LICENSE files to match the current Software::License distro version files with typos, whitespace and all.
+            * Improve GitHub Action workflow for Linux.
+            * Fix broken GitHub Action workflow for Windows.
+            * Explicitely return undef from a sub as sub doc decrees. Suppress warning.
+            * Rewrite all tests using Test2::V1.
             * Rewrite t/required-dotenv.t using Test2::Tools::GenTemp.
 
 0.021     2026-04-07 15:47:56+02:00 Europe/Stockholm

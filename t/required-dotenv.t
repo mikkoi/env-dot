@@ -9,37 +9,20 @@ use Cwd qw( getcwd );
 use English '-no_match_vars';
 use FindBin qw( $RealBin );
 use File::Spec ();
+
+use Test2::V1 qw( -utf8 );
+use Test2::Tools::Subtest qw( subtest_streamed );
+use Test2::Tools::GenTemp qw( gen_temp );
+use Test::Script 1.28;
+
 my $lib_path;
 BEGIN {
     $lib_path = File::Spec->catdir(($RealBin =~ /(.+)/msx)[0], 'lib');
 }
 use lib "$lib_path";
 
-use Test2::V0;
-use Test2::Tools::GenTemp qw( gen_temp );
 use Test2::Deny::Platform::DOSOrDerivative;
-use Test::Script 1.28;
-
-# Env::Dot::Test::ChdirGuard
-#
-# Scope-based chdir guard. Construct with the directory to return to
-# (typically the current working directory captured *before* chdir-ing
-# elsewhere); when the guard object goes out of scope its DESTROY chdirs
-# back. This keeps each subtest isolated even if it dies mid-way, so
-# later subtests always start from a known cwd.
-#
-# Usage:
-#     my $guard = Env::Dot::Test::ChdirGuard->new(getcwd);
-#     chdir $some_tempdir or die ...;
-#     # ... work happens here ...
-#     # $guard goes out of scope -> cwd is restored automatically.
-{
-    package Env::Dot::Test::ChdirGuard;
-    use Carp qw( croak );
-    use English '-no_match_vars';
-    sub new { my ($class, $dir) = @_; return bless { dir => $dir }, $class; }
-    sub DESTROY { my ($self) = @_; chdir $self->{'dir'} or croak "Cannot chdir: $OS_ERROR"; return; }
-}
+require Env::Dot::Test::ChdirGuard;
 
 # make_script( $import_args )
 #
@@ -106,9 +89,9 @@ sub clear_test_env {
 sub assert_dotenv_loaded {
     my ($stdout) = @_;
     my @lines = split qr/\n/msx, $stdout;
-    like( $lines[0], qr/^ FOO: \s foo-var-with-no-whitespace $/msx, 'FOO loaded from .env');
-    like( $lines[1], qr/^ BAR: \s 123 [.] 456 $/msx, 'BAR loaded from .env');
-    like( $lines[2], qr/^ BAZ: \s $/msx, 'BAZ loaded from .env (empty value)');
+    T2->like( $lines[0], qr/^ FOO: \s foo-var-with-no-whitespace $/msx, 'FOO loaded from .env');
+    T2->like( $lines[1], qr/^ BAR: \s 123 [.] 456 $/msx, 'BAR loaded from .env');
+    T2->like( $lines[2], qr/^ BAZ: \s $/msx, 'BAZ loaded from .env (empty value)');
     return;
 }
 
@@ -120,75 +103,75 @@ sub assert_dotenv_loaded {
 sub assert_dotenv_not_loaded {
     my ($stdout) = @_;
     my @lines = split qr/\n/msx, $stdout;
-    like( $lines[0], qr/^ FOO: \s $/msx, 'FOO not set (no .env)');
-    like( $lines[1], qr/^ BAR: \s $/msx, 'BAR not set (no .env)');
-    like( $lines[2], qr/^ BAZ: \s $/msx, 'BAZ not set (no .env)');
+    T2->like( $lines[0], qr/^ FOO: \s $/msx, 'FOO not set (no .env)');
+    T2->like( $lines[1], qr/^ BAR: \s $/msx, 'BAR not set (no .env)');
+    T2->like( $lines[2], qr/^ BAZ: \s $/msx, 'BAZ not set (no .env)');
     return;
 }
 
 # ##########################
 # With .env
 
-subtest '.env is not required by default (but is used) when present' => sub {
+subtest_streamed '.env is not required by default (but is used) when present' => sub {
     my $dir = gen_temp( $PRG => make_script(q{}), '.env' => $DOTENV );
     my $guard = enter_test_dir($dir);
     my $stdout;
     clear_test_env();
     script_runs([ $PRG, ], { stdout => \$stdout, }, 'Verify output');
     assert_dotenv_loaded($stdout);
-    done_testing;
+    T2->done_testing;
 };
 
-subtest '.env is specifically not required when present' => sub {
+subtest_streamed '.env is specifically not required when present' => sub {
     my $dir = gen_temp( $PRG => make_script(' read => { required => 0 }'), '.env' => $DOTENV );
     my $guard = enter_test_dir($dir);
     my $stdout;
     clear_test_env();
     script_runs([ $PRG, ], { stdout => \$stdout, }, 'Verify output');
     assert_dotenv_loaded($stdout);
-    done_testing;
+    T2->done_testing;
 };
 
-subtest '.env is specifically required when present' => sub {
+subtest_streamed '.env is specifically required when present' => sub {
     my $dir = gen_temp( $PRG => make_script(' read => { required => 1 }'), '.env' => $DOTENV );
     my $guard = enter_test_dir($dir);
     my $stdout;
     clear_test_env();
     script_runs([ $PRG, ], { stdout => \$stdout, }, 'Verify output');
     assert_dotenv_loaded($stdout);
-    done_testing;
+    T2->done_testing;
 };
 
 # ##########################
 # No .env
 
-subtest '.env is not required by default when not present' => sub {
+subtest_streamed '.env is not required by default when not present' => sub {
     my $dir = gen_temp( $PRG => make_script(q{}) );
     my $guard = enter_test_dir($dir);
     my $stdout;
     clear_test_env();
     script_runs([ $PRG, ], { stdout => \$stdout, }, 'Verify output');
     assert_dotenv_not_loaded($stdout);
-    done_testing;
+    T2->done_testing;
 };
 
-subtest '.env is specifically not required when not present' => sub {
+subtest_streamed '.env is specifically not required when not present' => sub {
     my $dir = gen_temp( $PRG => make_script(' read => { required => 0 }') );
     my $guard = enter_test_dir($dir);
     my $stdout;
     clear_test_env();
     script_runs([ $PRG, ], { stdout => \$stdout, }, 'Verify output');
     assert_dotenv_not_loaded($stdout);
-    done_testing;
+    T2->done_testing;
 };
 
-subtest '.env is specifically required when not present' => sub {
+subtest_streamed '.env is specifically required when not present' => sub {
     my $dir = gen_temp( $PRG => make_script(' read => { required => 1 }') );
     my $guard = enter_test_dir($dir);
     my $stdout;
     clear_test_env();
     script_fails( [ $PRG, ], { stdout => \$stdout, exit => 2, }, 'Verify failure' );
-    done_testing;
+    T2->done_testing;
 };
 
-done_testing;
+T2->done_testing;
