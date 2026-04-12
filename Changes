@@ -1,6 +1,8 @@
 Revision history for {{$dist->name}}
 
 {{$NEXT}}
+            * Improve GitHub Action workflow for Linux.
+            * Fix broken GitHub Action workflow for Windows.
             * Explicitely return undef from a sub as sub doc decrees. Suppress warning.
             * Rewrite all tests using Test2::V1.
             * Rewrite t/required-dotenv.t using Test2::Tools::GenTemp.
