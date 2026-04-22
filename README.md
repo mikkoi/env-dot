@@ -1,6 +1,7 @@
 [![License: Artistic-2.0](https://img.shields.io/badge/License-Perl-0298c3.svg)](https://opensource.org/licenses/Artistic-2.0)
 [![CPAN Version](https://img.shields.io/cpan/v/Env-Dot)](https://metacpan.org/dist/Env-Dot)
 [![kwalitee](https://cpants.cpanauthors.org/dist/Env-Dot.svg)](https://cpants.cpanauthors.org/dist/Env-Dot)
+[![Ask DeepWiki](https://deepwiki.com/badge.svg)](https://deepwiki.com/mikkoi/env-dot)
 
 # Env::Dot
 
