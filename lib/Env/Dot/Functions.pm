@@ -69,6 +69,10 @@ This module is currently being developed so changes in the API are possible,
 though not likely.
 
 
+=pod
+
+=encoding UTF-8
+
 =head1 SYNOPSIS
 
     use Env::Dot::Functions qw( get_dotenv_vars interpret_dotenv_filepath_var );
@@ -364,4 +368,20 @@ sub create_error_msg {
         . (defined $filepath ? " file '${filepath}'" : q{});
 }
 
+=pod
+
+=head1 AUTHOR
+
+Mikko Koivunalho <mikkoi@cpan.org>
+
+=head1 COPYRIGHT AND LICENSE
+
+This software is copyright (c) 2023 by Mikko Koivunalho.
+
+This is free software; you can redistribute it and/or modify it under
+the same terms as the Perl 5 programming language system itself.
+
+=cut
+
 1;
+__END__
