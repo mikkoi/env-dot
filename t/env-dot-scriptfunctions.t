@@ -1,9 +1,10 @@
 #!perl
 ## no critic (Subroutines::ProtectPrivateSubs)
+## no critic (Bangs::ProhibitVagueNames)
 use strict;
 use warnings;
 
-use Test2::V1 qw( -utf8 );
+use Test2::V1 qw( -utf8 -x );
 use Test2::Tools::Subtest qw( subtest_streamed );
 
 use Env::Dot::ScriptFunctions qw( );
@@ -78,6 +79,41 @@ subtest_streamed 'Private Subroutine _convert_var_to_csh()' => sub {
     T2->done_testing;
 };
 
+subtest_streamed 'Private Subroutine _convert_var_to_fish()' => sub {
+
+    {
+        my %var = (
+            name => 'THIS_VAR', value => 'this var value',
+            opts => { 'export' => 1, 'allow_interpolate' => 0, },
+        );
+        my $expect = q{set --erase --export --universal THIS_VAR 'this var value'};
+        my $cmdline = Env::Dot::ScriptFunctions::_convert_var_to_fish( \%var );
+        T2->is( $cmdline, $expect, 'Correct C Shell command' );
+    }
+
+    {
+        my %var = (
+            name => 'THIS_VAR', value => 'this var value',
+            opts => { 'export' => 1, 'allow_interpolate' => 1, },
+        );
+        my $expect = q{set --erase --export --universal THIS_VAR "this var value"};
+        my $cmdline = Env::Dot::ScriptFunctions::_convert_var_to_fish( \%var );
+        T2->is( $cmdline, $expect, 'Correct Bourne Shell command' );
+    }
+
+    {
+        my %var = (
+            name => 'THIS_VAR', value => 'this var value',
+            opts => { 'export' => 0, 'allow_interpolate' => 1, },
+        );
+        my $expect = q{set --erase --unexport --universal THIS_VAR "this var value"};
+        my $cmdline = Env::Dot::ScriptFunctions::_convert_var_to_fish( \%var );
+        T2->is( $cmdline, $expect, 'Correct Bourne Shell command' );
+    }
+
+    T2->done_testing;
+};
+
 subtest_streamed 'Private Subroutine convert_variables_into_commands()' => sub {
 
     {
@@ -116,6 +152,21 @@ THIS_VAR="this var value"; export THIS_VAR
 END_OF_TEXT
         my $out = Env::Dot::ScriptFunctions::convert_variables_into_commands( 'sh', @vars );
         T2->is( $out, $expect, 'Correct Bourne Shell command' );
+    }
+
+    {
+        my @vars = (
+            {
+                name => 'THAT_VAR', value => 'that var value',
+                opts => { 'export' => 0, 'allow_interpolate' => 0, },
+            },
+        );
+        my $expect = 'sudden exception';
+        T2->like(
+            dies { Env::Dot::ScriptFunctions::convert_variables_into_commands( 'noshell', @vars ) },
+            qr{^ Unknown \s shell: \s noshell .* $}msx,
+            'Died because of unknown shell',
+        );
     }
 
     T2->done_testing;

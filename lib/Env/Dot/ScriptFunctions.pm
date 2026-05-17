@@ -126,7 +126,8 @@ sub _convert_var_to_fish {
     my ( $name, $value, $want_export, $allow_interpolate ) =
       ( $variable->{'name'}, $variable->{'value'}, $variable->{'opts'}->{'export'}, $variable->{'opts'}->{'allow_interpolate'}, );
     my $quote = $allow_interpolate ? q{"} : q{'};
-    return sprintf "set -e %s; set -x -U %s $quote%s$quote", $name, $name, $value;
+    my $export_flag = $want_export ? q{--export} : q{--unexport};
+    return sprintf "set --erase $export_flag --universal %s $quote%s$quote", $name, $value;
 }
 
 =pod
