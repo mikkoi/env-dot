@@ -4,6 +4,8 @@
 [![Coverage Status](https://coveralls.io/repos/github/mikkoi/env-dot/badge.svg?branch=main)](https://coveralls.io/github/mikkoi/env-dot?branch=main)
 [![codecov](https://codecov.io/gh/mikkoi/env-dot/graph/badge.svg?token=KH15ROS3GZ)](https://codecov.io/gh/mikkoi/env-dot)
 [![Ask DeepWiki](https://deepwiki.com/badge.svg)](https://deepwiki.com/mikkoi/env-dot)
+[![GH Actions: Linux Build](https://github.com/mikkoi/env-dot/actions/workflows/linux.yml/badge.svg?event=push&branch=main)](https://github.com/mikkoi/env-dot/actions/workflows/linux.yml)
+[![GH Actions: Windows Build](https://github.com/mikkoi/env-dot/actions/workflows/windows.yml/badge.svg?event=push&branch=main)](https://github.com/mikkoi/env-dot/actions/workflows/windows.yml)
 
 # Env-Dot
 
