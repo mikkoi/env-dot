@@ -1,0 +1,76 @@
+---
+snippets:
+    license: |
+        # LICENSE
+        [% USE date -%]
+
+        This software is copyright (c) [% date.format(date.now, '%Y') %] by [% dist.author %].
+
+        This is free software; you can redistribute it and/or modify it under
+        the same terms as the Perl 5 programming language system itself.
+
+        Terms of the Perl programming language system itself:
+
+        a) the GNU General Public License as published by the Free
+           Software Foundation; either version 1, or (at your option) any
+           later version, or
+        b) the "Artistic License"
+
+        The complete licenses are in the files LICENSE-Artistic-2.0 and LICENSE-GPL-3
+        within this repository. If these files are missing, they can be downloaded
+        from the following urls:
+
+            * https://www.gnu.org/licenses/
+            * https://www.perlfoundation.org/artistic-license-20.html
+    badges: |
+        [![License: Artistic-2.0](https://img.shields.io/badge/License-Perl-0298c3.svg)](https://opensource.org/licenses/Artistic-2.0)
+        [![CPAN Version](https://img.shields.io/cpan/v/Env-Dot)](https://metacpan.org/dist/Env-Dot)
+        [![kwalitee](https://cpants.cpanauthors.org/dist/Env-Dot.svg)](https://cpants.cpanauthors.org/dist/Env-Dot)
+        [![codecov](https://codecov.io/gh/mikkoi/env-dot/graph/badge.svg?token=KH15ROS3GZ)](https://codecov.io/gh/mikkoi/env-dot)
+        [![Ask DeepWiki](https://deepwiki.com/badge.svg)](https://deepwiki.com/mikkoi/env-dot)
+    packaging_badge: |
+        ### Packaging
+
+        [![Packaging status](https://repology.org/badge/vertical-allrepos/env-dot.svg)](https://repology.org/project/env-dot/versions)
+files:
+    "README.md": |
+        [% snippets.badges -%]
+
+        # [% dist.name %]
+
+        [% dist.abstract -%]
+
+        [% pod("Env::Dot", "VERSION") %]
+
+        # VERSION
+
+        [% dist.version %]
+
+
+        [% pod("Env::Dot", "SYNOPSIS") %]
+
+
+        [% pod("bin/envdot", "DESCRIPTION") %]
+
+
+        ## INSTALLATION
+
+        [% snippets.packaging_badge -%]
+
+        ### CLI interface without dependencies
+
+        The **envdot** command is also available
+        as self contained executable.
+        You can download it and run it as it is without
+        additional installation of CPAN packages.
+        Of course, you still need Perl, but Perl comes with any
+        normal Linux installation.
+
+        This can be convenient if you want to, for instance,
+        include **envdot** in a docker container build.
+
+            curl -LSs -o envdot https://raw.githubusercontent.com/mikkoi/env-dot/main/envdot.self-contained
+            chmod +x ./envdot
+
+
+        [% snippets.license %]
