@@ -37,6 +37,8 @@ my %VAR_OUTPUT = (
 
 =pod
 
+=encoding UTF-8
+
 =for stopwords envdot env
 
 =head1 STATUS
@@ -127,4 +129,20 @@ sub _convert_var_to_fish {
     return sprintf "set -e %s; set -x -U %s $quote%s$quote", $name, $name, $value;
 }
 
+=pod
+
+=head1 AUTHOR
+
+Mikko Koivunalho <mikkoi@cpan.org>
+
+=head1 COPYRIGHT AND LICENSE
+
+This software is copyright (c) 2023 by Mikko Koivunalho.
+
+This is free software; you can redistribute it and/or modify it under
+the same terms as the Perl 5 programming language system itself.
+
+=cut
+
 1;
+__END__
