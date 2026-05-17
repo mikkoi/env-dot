@@ -1,9 +1,9 @@
 package Test2::Deny::Platform::DOSOrDerivative;
 use strict;
 use warnings;
- 
+
 use base 'Test2::Require';
- 
+
 our $VERSION = '0.000160';
 
 use English qw( -no_match_vars ) ;  # Avoids regex performance
@@ -12,14 +12,14 @@ require Test2::Require::Platform::DOSOrDerivative;
 
 sub skip {
     my $class = shift;
- 
+
     if (! Test2::Require::Platform::DOSOrDerivative::IS_PLATFORM()) {
         return;
     } else {
         return (__PACKAGE__ =~ m/^Test2::(.*)$/msx)[0];
     }
 }
- 
+
 1;
 
 __END__
