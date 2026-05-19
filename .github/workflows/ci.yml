@@ -76,6 +76,11 @@ jobs:
   #     - id: install-deps
   #       name: Install deps
   #       run: cpan-install-dist-deps
+      - id: install-deps-tap-formatter
+        name: Install TAP::Formatter::JUnit
+        run: |
+          cpanm --verbose --force --notest TAP::Formatter::JUnit
+        shell: bash
       - id: test-with-junit-xml-output
         name: Test With JUnit XML Output
         run: |
