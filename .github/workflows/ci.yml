@@ -90,15 +90,15 @@ jobs:
             # cover -report coveralls
             ## 1. Install Codecov CLI
             # 2. Do prove with JUnit formatter
-            prove                                                  \
+            PERL_TEST_HARNESS_DUMP_TAP=test-results.junit prove    \
               --formatter TAP::Formatter::JUnit                    \
               --lib                                                \
               --timer                                              \
               --recurse                                            \
-              t                                                    \
-              >test-results.junit.xml
+              t
               # --shuffle                                            \
               # --verbose                                            \
+              # >test-results.junit.xml
             ## 3. Upload
             # codecov do-upload --report-type test_results \
             #  --file results.junit.xml --handle-no-reports-found
@@ -117,12 +117,15 @@ jobs:
         uses: codecov/codecov-action@v5
         with:
           # directory: ./coverage/reports/
+          directory: ./test-results.junit
           # env_vars: OS,PYTHON
           fail_ci_if_error: true
           # files: ./coverage1.xml,./coverage2.xml,!./cache
-          files: ./test-results.junit.xml
+          # files: ./test-results.junit.xml
           flags: unittests
           name: codecov-umbrella
+          # report_code: true
           report_type: test_results
+          recurse_submodules: true
           token: ${{ secrets.CODECOV_TOKEN }}
           verbose: true
