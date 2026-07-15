@@ -51,7 +51,7 @@ use constant {
 
 =pod
 
-=encoding UTF-8
+=encoding utf8
 
 =head1 STATUS
 
@@ -333,6 +333,44 @@ to configure application with the help of environment variables.
 
 L<shdotenv|https://github.com/ko1nksm/shdotenv> is a project to provide dotenv
 for shells with support for POSIX-compliant and multiple .env file syntax.
+
+=head1 ADOPTION
+
+If you're interested in adopting this module, and the author/maintainer
+appears to be no longer active, please consult the PAUSE module
+adoption process documented at L<https://github.com/Perl-Toolchain-Gang/pause/blob/master/doc/takeover-policy.md>.
+
+The PAUSE admins (modules@perl.org) may grant co-maintainer or
+primary-maintainer permissions to a suitable adopter if:
+
+=over 4
+
+=item *
+
+There has been no release for a year or more, AND
+
+=item *
+
+There are outstanding issues, pull requests, or bug reports that would
+benefit from attention, AND
+
+=item *
+
+Reasonable attempts to contact me have failed (CPAN email address,
+GitHub issues on the project repository, and any other channels listed
+in this distribution) over a period of at least one month, AND
+
+=item *
+
+The prospective adopter intends to make changes that benefit users of
+the module.
+
+=back
+
+In the event of my death or permanent incapacity, my heirs are not
+obligated to maintain these modules, and I explicitly authorize the
+PAUSE admins to transfer maintainership without further consultation
+once the conditions above are met.
 
 =head1 AUTHOR
 

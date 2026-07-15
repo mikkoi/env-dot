@@ -71,7 +71,7 @@ though not likely.
 
 =pod
 
-=encoding UTF-8
+=encoding utf8
 
 =head1 SYNOPSIS
 

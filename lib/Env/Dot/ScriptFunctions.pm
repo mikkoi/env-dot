@@ -37,7 +37,7 @@ my %VAR_OUTPUT = (
 
 =pod
 
-=encoding UTF-8
+=encoding utf8
 
 =for stopwords envdot env
 
