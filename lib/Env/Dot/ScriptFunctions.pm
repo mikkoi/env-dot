@@ -41,6 +41,10 @@ my %VAR_OUTPUT = (
 
 =for stopwords envdot env
 
+=head1 NAME
+
+Env::Dot::ScriptFunctions - Read environment variables from a .env file, functions for the binary script
+
 =head1 STATUS
 
 This module is currently being developed so changes in the API are possible,

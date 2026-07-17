@@ -1,6 +1,7 @@
 Revision history for {{$dist->name}}
 
 {{$NEXT}}
+            * Add NAME section to pods.
             * Add maintainership to stopwords.
             * Correct pod encoding name.
 

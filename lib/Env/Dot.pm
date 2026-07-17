@@ -53,6 +53,10 @@ use constant {
 
 =encoding utf8
 
+=head1 NAME
+
+Env::Dot - Read environment variables from .env file
+
 =head1 STATUS
 
 This module is currently being developed so changes in the API are possible,

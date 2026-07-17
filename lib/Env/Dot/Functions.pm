@@ -63,15 +63,19 @@ my %DOS_PLATFORMS = (
         'cygwin'  => 'Cygwin',
     );
 
+=pod
+
+=encoding utf8
+
+=head1 NAME
+
+Env::Dot::Functions - Read environment variables from a .env file, functions
+
 =head1 STATUS
 
 This module is currently being developed so changes in the API are possible,
 though not likely.
 
-
-=pod
-
-=encoding utf8
 
 =head1 SYNOPSIS
 
