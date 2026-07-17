@@ -367,6 +367,8 @@ the module.
 
 =back
 
+=for stopwords maintainership
+
 In the event of my death or permanent incapacity, my heirs are not
 obligated to maintain these modules, and I explicitly authorize the
 PAUSE admins to transfer maintainership without further consultation

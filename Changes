@@ -1,6 +1,7 @@
 Revision history for {{$dist->name}}
 
 {{$NEXT}}
+            * Add maintainership to stopwords.
             * Correct pod encoding name.
 
 0.022     2026-04-12 21:09:04+02:00 Europe/Stockholm
