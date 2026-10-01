@@ -1,10 +1,15 @@
 [![License: Artistic-2.0](https://img.shields.io/badge/License-Perl-0298c3.svg)](https://opensource.org/licenses/Artistic-2.0)
 [![CPAN Version](https://img.shields.io/cpan/v/Env-Dot)](https://metacpan.org/dist/Env-Dot)
+[![GitHub release (latest by date)][latestReleaseBadge]](https://github.com/mikkoi/env-dot/releases/latest)
+[![GitHub Release Date][releaseDateBadge]](https://github.com/mikkoi/env-dot/releases)
+
 [![kwalitee](https://cpants.cpanauthors.org/dist/Env-Dot.svg)](https://cpants.cpanauthors.org/dist/Env-Dot)
 [![codecov](https://codecov.io/gh/mikkoi/env-dot/graph/badge.svg?token=KH15ROS3GZ)](https://codecov.io/gh/mikkoi/env-dot)
 [![Coverage Status](https://coveralls.io/repos/github/mikkoi/env-dot/badge.svg?branch=main)](https://coveralls.io/github/mikkoi/env-dot?branch=main)
+
 [![Ask DeepWiki](https://deepwiki.com/badge.svg)](https://deepwiki.com/mikkoi/env-dot)
-[![GH Actions: Linux Build](https://github.com/mikkoi/env-dot/actions/workflows/linux.yml/badge.svg?event=push&branch=main)](https://github.com/mikkoi/env-dot/actions/workflows/linux.yml)
+
+[![GH Actions: Linux Build][ciLinux]](https://github.com/mikkoi/env-dot/actions/workflows/linux.yml)
 [![GH Actions: Windows Build](https://github.com/mikkoi/env-dot/actions/workflows/windows.yml/badge.svg?event=push&branch=main)](https://github.com/mikkoi/env-dot/actions/workflows/windows.yml)
 
 # Env-Dot
@@ -105,3 +110,16 @@ from the following urls:
 
     * https://www.gnu.org/licenses/
     * https://www.perlfoundation.org/artistic-license-20.html
+
+
+[githubContributorsBadge]: https://img.shields.io/github/contributors/mikkoi/env-dot
+[ciBadge]: https://github.com/mikkoi/env-dot/actions/workflows/ci.yml/badge.svg
+[ciLink]: https://github.com/mikkoi/env-dot/actions/workflows/ci.yml
+[ciLinux]: https://github.com/mikkoi/env-dot/actions/workflows/linux.yml/badge.svg?event=push&branch=main
+[latestReleaseBadge]: https://img.shields.io/github/v/release/mikkoi/env-dot
+[releaseDateBadge]: https://img.shields.io/github/release-date/mikkoi/env-dot
+[repoSizeBadge]: https://img.shields.io/github/repo-size/mikkoi/env-dot
+[totalDownloadsBadge]: https://img.shields.io/github/downloads/mikkoi/env-dot/total
+[githubLicenseBadge]: https://img.shields.io/github/license/mikkoi/env-dot
+[githubIssuesBadge]: https://img.shields.io/github/issues/mikkoi/env-dot
+[githubPullRequestsBadge]: https://img.shields.io/github/issues-pr/mikkoi/env-dot
