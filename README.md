@@ -1,4 +1,3 @@
-[![License: Artistic-2.0](https://img.shields.io/badge/License-Perl-0298c3.svg)](https://opensource.org/licenses/Artistic-2.0)
 [![CPAN Version](https://img.shields.io/cpan/v/Env-Dot)](https://metacpan.org/dist/Env-Dot)
 [![GitHub release (latest by date)][latestReleaseBadge]](https://github.com/mikkoi/env-dot/releases/latest)
 [![GitHub Release Date][releaseDateBadge]](https://github.com/mikkoi/env-dot/releases)
@@ -10,7 +9,13 @@
 [![Ask DeepWiki](https://deepwiki.com/badge.svg)](https://deepwiki.com/mikkoi/env-dot)
 
 [![GH Actions: Linux Build][ciLinux]](https://github.com/mikkoi/env-dot/actions/workflows/linux.yml)
-[![GH Actions: Windows Build](https://github.com/mikkoi/env-dot/actions/workflows/windows.yml/badge.svg?event=push&branch=main)](https://github.com/mikkoi/env-dot/actions/workflows/windows.yml)
+[![GH Actions: Windows Build][ciWindows]](https://github.com/mikkoi/env-dot/actions/workflows/windows.yml)
+[![GitHub repo size][repoSizeBadge]](https://github.com/mikkoi/env-dot/archive/refs/heads/main.zip)
+[![GitHub All Releases][totalDownloadsBadge]](https://github.com/mikkoi/env-dot/releases)
+[![GitHub][githubLicenseBadge]](https://github.com/mikkoi/env-dot/blob/main/LICENSE)
+[![GitHub pull requests][githubPullRequestsBadge]](https://github.com/mikkoi/env-dot/pulls)
+
+[![License: Artistic-2.0](https://img.shields.io/badge/License-Perl-0298c3.svg)](https://opensource.org/licenses/Artistic-2.0)
 
 # Env-Dot
 
@@ -90,6 +95,11 @@ include **envdot** in a docker container build.
     chmod +x ./envdot
 
 
+## 💻 Code Contributors
+
+![GitHub Contributors Image](https://contrib.rocks/image?repo=mikkoi/env-dot&max=36&columns=12&anon=1
+
+
 # LICENSE
 
 This software is copyright (c) 2026 by Mikko Koivunalho <mikkoi@cpan.org>.
@@ -116,6 +126,7 @@ from the following urls:
 [ciBadge]: https://github.com/mikkoi/env-dot/actions/workflows/ci.yml/badge.svg
 [ciLink]: https://github.com/mikkoi/env-dot/actions/workflows/ci.yml
 [ciLinux]: https://github.com/mikkoi/env-dot/actions/workflows/linux.yml/badge.svg?event=push&branch=main
+[ciWindows]: https://github.com/mikkoi/env-dot/actions/workflows/windows.yml/badge.svg?event=push&branch=main
 [latestReleaseBadge]: https://img.shields.io/github/v/release/mikkoi/env-dot
 [releaseDateBadge]: https://img.shields.io/github/release-date/mikkoi/env-dot
 [repoSizeBadge]: https://img.shields.io/github/repo-size/mikkoi/env-dot

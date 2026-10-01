@@ -33,7 +33,6 @@ snippets:
             * https://www.gnu.org/licenses/
             * https://www.perlfoundation.org/artistic-license-20.html
     badges: |
-        [![License: Artistic-2.0](https://img.shields.io/badge/License-Perl-0298c3.svg)](https://opensource.org/licenses/Artistic-2.0)
         [![CPAN Version](https://img.shields.io/cpan/v/Env-Dot)](https://metacpan.org/dist/Env-Dot)
         [![GitHub release (latest by date)][latestReleaseBadge]](https://github.com/mikkoi/env-dot/releases/latest)
         [![GitHub Release Date][releaseDateBadge]](https://github.com/mikkoi/env-dot/releases)
@@ -45,13 +44,20 @@ snippets:
         [![Ask DeepWiki](https://deepwiki.com/badge.svg)](https://deepwiki.com/mikkoi/env-dot)
 
         [![GH Actions: Linux Build][ciLinux]](https://github.com/mikkoi/env-dot/actions/workflows/linux.yml)
-        [![GH Actions: Windows Build](https://github.com/mikkoi/env-dot/actions/workflows/windows.yml/badge.svg?event=push&branch=main)](https://github.com/mikkoi/env-dot/actions/workflows/windows.yml)
+        [![GH Actions: Windows Build][ciWindows]](https://github.com/mikkoi/env-dot/actions/workflows/windows.yml)
+        [![GitHub repo size][repoSizeBadge]](https://github.com/mikkoi/env-dot/archive/refs/heads/main.zip)
+        [![GitHub All Releases][totalDownloadsBadge]](https://github.com/mikkoi/env-dot/releases)
+        [![GitHub][githubLicenseBadge]](https://github.com/mikkoi/env-dot/blob/main/LICENSE)
+        [![GitHub pull requests][githubPullRequestsBadge]](https://github.com/mikkoi/env-dot/pulls)
+
+        [![License: Artistic-2.0](https://img.shields.io/badge/License-Perl-0298c3.svg)](https://opensource.org/licenses/Artistic-2.0)
 
     badge_images: |
         [githubContributorsBadge]: https://img.shields.io/github/contributors/mikkoi/env-dot
         [ciBadge]: https://github.com/mikkoi/env-dot/actions/workflows/ci.yml/badge.svg
         [ciLink]: https://github.com/mikkoi/env-dot/actions/workflows/ci.yml
         [ciLinux]: https://github.com/mikkoi/env-dot/actions/workflows/linux.yml/badge.svg?event=push&branch=main
+        [ciWindows]: https://github.com/mikkoi/env-dot/actions/workflows/windows.yml/badge.svg?event=push&branch=main
         [latestReleaseBadge]: https://img.shields.io/github/v/release/mikkoi/env-dot
         [releaseDateBadge]: https://img.shields.io/github/release-date/mikkoi/env-dot
         [repoSizeBadge]: https://img.shields.io/github/repo-size/mikkoi/env-dot
@@ -104,6 +110,8 @@ files:
             curl -LSs -o envdot https://raw.githubusercontent.com/mikkoi/env-dot/main/envdot.self-contained
             chmod +x ./envdot
 
+
+        [% snippets.contributors %]
 
         [% snippets.license %]
 
