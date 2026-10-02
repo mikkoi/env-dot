@@ -24,7 +24,7 @@ Read .env file and turn its content into environment variables for different she
 
 # VERSION
 
-0.023_07
+0.023_08
 
 
 # SYNOPSIS
