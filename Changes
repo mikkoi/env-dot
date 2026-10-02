@@ -1,6 +1,8 @@
 Revision history for {{$dist->name}}
 
 {{$NEXT}}
+
+0.023     2026-10-02 21:09:39+02:00 Europe/Stockholm
             * Add more badges to README.md.
             * Add GitHub::CreateRelease to Dist::Zilla build.
             * Disable Test::Pod::LinkCheck from Dist::Zilla build.
