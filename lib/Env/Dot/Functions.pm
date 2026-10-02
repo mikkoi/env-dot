@@ -37,7 +37,7 @@ use Carp;
 
 # ABSTRACT: Read environment variables from a .env file
 
-our $VERSION = '0.023';
+our $VERSION = '0.024';
 
 use constant {
     OPTION_FILE_TYPE                         => q{file:type},
