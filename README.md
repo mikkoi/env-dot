@@ -1,11 +1,17 @@
-[![License: Artistic-2.0](https://img.shields.io/badge/License-Perl-0298c3.svg)](https://opensource.org/licenses/Artistic-2.0)
+[![License: Artistic-2.0][perlLicenseBadge]](https://opensource.org/licenses/Artistic-2.0)
 [![CPAN Version](https://img.shields.io/cpan/v/Env-Dot)](https://metacpan.org/dist/Env-Dot)
-[![kwalitee](https://cpants.cpanauthors.org/dist/Env-Dot.svg)](https://cpants.cpanauthors.org/dist/Env-Dot)
-[![codecov](https://codecov.io/gh/mikkoi/env-dot/graph/badge.svg?token=KH15ROS3GZ)](https://codecov.io/gh/mikkoi/env-dot)
-[![Coverage Status](https://coveralls.io/repos/github/mikkoi/env-dot/badge.svg?branch=main)](https://coveralls.io/github/mikkoi/env-dot?branch=main)
-[![Ask DeepWiki](https://deepwiki.com/badge.svg)](https://deepwiki.com/mikkoi/env-dot)
-[![GH Actions: Linux Build](https://github.com/mikkoi/env-dot/actions/workflows/linux.yml/badge.svg?event=push&branch=main)](https://github.com/mikkoi/env-dot/actions/workflows/linux.yml)
-[![GH Actions: Windows Build](https://github.com/mikkoi/env-dot/actions/workflows/windows.yml/badge.svg?event=push&branch=main)](https://github.com/mikkoi/env-dot/actions/workflows/windows.yml)
+[![GitHub release (latest by date)][latestReleaseBadge]](https://github.com/mikkoi/env-dot/releases/latest)
+[![GitHub Release Date][releaseDateBadge]](https://github.com/mikkoi/env-dot/releases)
+
+[![kwalitee][kwaliteeBadge]](https://cpants.cpanauthors.org/dist/Env-Dot)
+[![codecov][codecovBadge]](https://codecov.io/gh/mikkoi/env-dot)
+[![Coverage Status][coverallsBadge]](https://coveralls.io/github/mikkoi/env-dot?branch=main)
+[![DeepWiki][deepWikiBadge]](https://deepwiki.com/mikkoi/env-dot)
+
+[![GH Actions: Linux Build][ciLinux]](https://github.com/mikkoi/env-dot/actions/workflows/linux.yml)
+[![GH Actions: Windows Build][ciWindows]](https://github.com/mikkoi/env-dot/actions/workflows/windows.yml)
+[![GitHub repo size][repoSizeBadge]](https://github.com/mikkoi/env-dot/archive/refs/heads/main.zip)
+[![GitHub pull requests][githubPullRequestsBadge]](https://github.com/mikkoi/env-dot/pulls)
 
 # Env-Dot
 
@@ -85,6 +91,11 @@ include **envdot** in a docker container build.
     chmod +x ./envdot
 
 
+## 💻 Contributors
+
+[![GitHub Contributors Image][githubContributorsBadge]](https://github.com/mikkoi/env-dot/graphs/contributors)
+
+
 # LICENSE
 
 This software is copyright (c) 2026 by Mikko Koivunalho <mikkoi@cpan.org>.
@@ -105,3 +116,22 @@ from the following urls:
 
     * https://www.gnu.org/licenses/
     * https://www.perlfoundation.org/artistic-license-20.html
+
+
+[perlLicenseBadge]: https://img.shields.io/badge/License-Perl-0298c3.svg
+[kwaliteeBadge]: https://cpants.cpanauthors.org/dist/Env-Dot.svg
+[codecovBadge]: https://codecov.io/gh/mikkoi/env-dot/graph/badge.svg?token=KH15ROS3GZ
+[coverallsBadge]: https://coveralls.io/repos/github/mikkoi/env-dot/badge.svg?branch=main
+[githubContributorsBadge]: https://contrib.rocks/image?repo=mikkoi/env-dot&max=36&columns=12&anon=1
+[ciBadge]: https://github.com/mikkoi/env-dot/actions/workflows/ci.yml/badge.svg
+[ciLink]: https://github.com/mikkoi/env-dot/actions/workflows/ci.yml
+[ciLinux]: https://github.com/mikkoi/env-dot/actions/workflows/linux.yml/badge.svg?event=push&branch=main
+[ciWindows]: https://github.com/mikkoi/env-dot/actions/workflows/windows.yml/badge.svg?event=push&branch=main
+[latestReleaseBadge]: https://img.shields.io/github/v/release/mikkoi/env-dot
+[releaseDateBadge]: https://img.shields.io/github/release-date/mikkoi/env-dot
+[repoSizeBadge]: https://img.shields.io/github/repo-size/mikkoi/env-dot
+[totalDownloadsBadge]: https://img.shields.io/github/downloads/mikkoi/env-dot/total
+[githubLicenseBadge]: https://img.shields.io/github/license/mikkoi/env-dot
+[githubIssuesBadge]: https://img.shields.io/github/issues/mikkoi/env-dot
+[githubPullRequestsBadge]: https://img.shields.io/github/issues-pr/mikkoi/env-dot
+[deepWikiBadge]: https://img.shields.io/badge/DeepWiki-mikkoi%2Fenv--dot-blue.svg?logo=data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACwAAAAyCAYAAAAnWDnqAAAAAXNSR0IArs4c6QAAA05JREFUaEPtmUtyEzEQhtWTQyQLHNak2AB7ZnyXZMEjXMGeK/AIi+QuHrMnbChYY7MIh8g01fJoopFb0uhhEqqcbWTp06/uv1saEDv4O3n3dV60RfP947Mm9/SQc0ICFQgzfc4CYZoTPAswgSJCCUJUnAAoRHOAUOcATwbmVLWdGoH//PB8mnKqScAhsD0kYP3j/Yt5LPQe2KvcXmGvRHcDnpxfL2zOYJ1mFwrryWTz0advv1Ut4CJgf5uhDuDj5eUcAUoahrdY/56ebRWeraTjMt/00Sh3UDtjgHtQNHwcRGOC98BJEAEymycmYcWwOprTgcB6VZ5JK5TAJ+fXGLBm3FDAmn6oPPjR4rKCAoJCal2eAiQp2x0vxTPB3ALO2CRkwmDy5WohzBDwSEFKRwPbknEggCPB/imwrycgxX2NzoMCHhPkDwqYMr9tRcP5qNrMZHkVnOjRMWwLCcr8ohBVb1OMjxLwGCvjTikrsBOiA6fNyCrm8V1rP93iVPpwaE+gO0SsWmPiXB+jikdf6SizrT5qKasx5j8ABbHpFTx+vFXp9EnYQmLx02h1QTTrl6eDqxLnGjporxl3NL3agEvXdT0WmEost648sQOYAeJS9Q7bfUVoMGnjo4AZdUMQku50McDcMWcBPvr0SzbTAFDfvJqwLzgxwATnCgnp4wDl6Aa+Ax283gghmj+vj7feE2KBBRMW3FzOpLOADl0Isb5587h/U4gGvkt5v60Z1VLG8BhYjbzRwyQZemwAd6cCR5/XFWLYZRIMpX39AR0tjaGGiGzLVyhse5C9RKC6ai42ppWPKiBagOvaYk8lO7DajerabOZP46Lby5wKjw1HCRx7p9sVMOWGzb/vA1hwiWc6jm3MvQDTogQkiqIhJV0nBQBTU+3okKCFDy9WwferkHjtxib7t3xIUQtHxnIwtx4mpg26/HfwVNVDb4oI9RHmx5WGelRVlrtiw43zboCLaxv46AZeB3IlTkwouebTr1y2NjSpHz68WNFjHvupy3q8TFn3Hos2IAk4Ju5dCo8B3wP7VPr/FGaKiG+T+v+TQqIrOqMTL1VdWV1DdmcbO8KXBz6esmYWYKPwDL5b5FA1a0hwapHiom0r/cKaoqr+27/XcrS5UwSMbQAAAABJRU5ErkJggg==

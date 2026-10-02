@@ -1,6 +1,7 @@
 Revision history for {{$dist->name}}
 
 {{$NEXT}}
+            * Add more badges to README.md.
             * Add GitHub::CreateRelease to Dist::Zilla build.
             * Disable Test::Pod::LinkCheck from Dist::Zilla build.
             * Add tags file to gitignore.
