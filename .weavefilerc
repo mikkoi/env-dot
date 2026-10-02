@@ -1,15 +1,12 @@
 ---
 snippets:
-    # max={number}
-    # Max contributor count (100 by default)
-    # columns={number}
-    # Max columns (12 by default)
-    # anon={0|1}
-    # Include anonymous users (false by default)
+    # max={number} Max contributor count (100 by default)
+    # columns={number} Max columns (12 by default)
+    # anon={0|1} Include anonymous users (false by default)
     contributors: |
-        ## 💻 Code Contributors
+        ## 💻 Contributors
 
-        ![GitHub Contributors Image](https://contrib.rocks/image?repo=mikkoi/env-dot&max=36&columns=12&anon=1
+        [![GitHub Contributors Image](https://contrib.rocks/image?repo=mikkoi/env-dot&max=36&columns=12&anon=1)](https://github.com/mikkoi/env-dot/graphs/contributors)
     license: |
         # LICENSE
         [% USE date -%]

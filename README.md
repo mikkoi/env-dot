@@ -95,9 +95,9 @@ include **envdot** in a docker container build.
     chmod +x ./envdot
 
 
-## 💻 Code Contributors
+## 💻 Contributors
 
-![GitHub Contributors Image](https://contrib.rocks/image?repo=mikkoi/env-dot&max=36&columns=12&anon=1
+[![GitHub Contributors Image](https://contrib.rocks/image?repo=mikkoi/env-dot&max=36&columns=12&anon=1)](https://github.com/mikkoi/env-dot/graphs/contributors)
 
 
 # LICENSE
