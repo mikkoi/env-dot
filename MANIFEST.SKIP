@@ -16,3 +16,4 @@ local/
 .lvimrc
 Session.vim
 envdot.self-contained
+tags
